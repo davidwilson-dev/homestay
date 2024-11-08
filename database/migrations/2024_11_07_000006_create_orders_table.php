@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->datetime('checkin');
-            $table->datetime('checkout');
+            $table->string('order_code')->unique(); //'dau-' + now_timestamps + room_id
+            $table->datetime('checkin')->nullable();
+            $table->datetime('checkout')->nullable();
             $table->enum('status', ['Booked', 'Checkin', 'Checkout']);
             $table->unsignedBigInteger('room_id');
             $table->foreign('room_id')->references('id')->on('rooms');
