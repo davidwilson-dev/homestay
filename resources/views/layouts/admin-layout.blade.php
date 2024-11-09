@@ -23,6 +23,7 @@
         <link href="{{asset('frontend/admin/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
         <link href="{{asset('frontend/admin/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('frontend/admin/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
+        <link href="{{asset('frontend/admin/css/style.css')}}" rel="stylesheet" type="text/css" />
     </head>
 
     <body>
@@ -159,8 +160,8 @@
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="{{route('user.index')}}">Danh sách</a></li>
-                                    <li><a href="#">Thêm mới</a></li>
+                                    <li><a href="{{route('admin_user.index')}}">Danh sách</a></li>
+                                    <li><a href="{{route('admin_user.create')}}">Thêm mới</a></li>
                                 </ul>
                             </li>
 
@@ -268,6 +269,42 @@
         </div>
         <!-- END wrapper -->
 
+        <!-- Alert -->
+        @if($errors->any())
+            <div class="alert-notification">
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        {{ $error }}
+                    </div>
+                @endforeach  
+            </div>  
+        @endif
+        
+        @if(session('error'))
+            <div class="alert-notification">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    {{ session('error') }}
+                </div>
+            </div>
+        @endif
+
+        @if(session('status'))
+            <div class="alert-notification">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    {{ session('status') }}
+                </div>
+            </div>
+        @endif
+
         <!-- Right Sidebar -->
         <div class="right-bar">
             <div class="rightbar-title">
@@ -357,5 +394,6 @@
 
         <!-- App js -->
         <script src="{{asset('frontend/admin/js/app.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/js/script.js')}}"></script>
     </body>
 </html>
