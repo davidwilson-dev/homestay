@@ -29,7 +29,7 @@
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Số điện thoại</label>
                             <div class="col-md-4">
-                                <input type="email" class="form-control" name="phone_number">
+                                <input type="text" class="form-control" name="phone_number">
                             </div>
 
                             <label class="col-md-1 control-label">Email</label>
@@ -40,7 +40,7 @@
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Địa chỉ</label>
                             <div class="col-md-10">
-                                <input type="email" class="form-control" name="address">
+                                <input type="text" class="form-control" name="address">
                             </div>
                         </div>
                         <div class="form-group row">

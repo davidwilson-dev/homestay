@@ -200,6 +200,18 @@
                                     <li><a href="#">Thêm mới</a></li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="javascript: void(0);" class="waves-effect waves-light">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                    <span> Thống kê </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" class="waves-effect waves-light">
+                                    <i class="fas fa-cog"></i>
+                                    <span> Cài đặt </span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <!-- End Sidebar -->
