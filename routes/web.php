@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +29,6 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function(){
     Route::get('/admin', [HomeController::class, 'index'])->name('home');
     Route::resource('admin/user', UserController::class)->names('admin_user');
+    Route::resource('admin/room', RoomController::class)->names('admin_room');
+    Route::resource('admin/order', OrderController::class)->names('admin_order');
 });

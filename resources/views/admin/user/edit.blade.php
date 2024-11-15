@@ -20,12 +20,10 @@
                             <div class="col-md-4">
                                 <select class="form-control" name="role_id">
                                     @foreach($roles as $role)
-                                        @if($role->name != 'Admin')
-                                            @if($user->role_id == $role->id)
-                                                <option value="{{$role->id}}" selected>{{$role->name}}</option>
-                                            @else
-                                                <option value="{{$role->id}}">{{$role->name}}</option>
-                                            @endif
+                                        @if($user->role_id == $role->id)
+                                            <option value="{{$role->id}}" selected>{{$role->name}}</option>
+                                        @else
+                                            <option value="{{$role->id}}">{{$role->name}}</option>
                                         @endif
                                     @endforeach
                                 </select>

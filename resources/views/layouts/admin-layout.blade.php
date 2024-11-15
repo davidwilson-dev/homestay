@@ -184,8 +184,8 @@
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="#">Danh sách</a></li>
-                                    <li><a href="#">Thêm mới</a></li>
+                                    <li><a href="{{route('admin_room.index')}}">Danh sách</a></li>
+                                    <li><a href="{{route('admin_room.create')}}">Thêm mới</a></li>
                                 </ul>
                             </li>
 
@@ -196,8 +196,8 @@
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="#">Danh sách</a></li>
-                                    <li><a href="#">Thêm mới</a></li>
+                                    <li><a href="{{route('admin_order.index')}}">Danh sách</a></li>
+                                    <li><a href="{{route('admin_order.create')}}">Tạo đơn hàng</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -219,7 +219,7 @@
                     <div class="clearfix"></div>
 
                     <div class="help-box">
-                        <h5 class="text-muted mt-0">For Help ?</h5>
+                        <h5 class="text-muted mt-0">Hỗ trợ</h5>
                         <p class="">
                             <span class="text-info">Name:</span> <br />
                             Nguyen Duong
@@ -252,7 +252,7 @@
                                             <li class="breadcrumb-item"><a href="javascript: void(0);">dashboard</a></li>
                                         </ol>
                                     </div>
-                                    <h4 class="page-title">Bảng điều khiển</h4>
+                                    <h4 class="page-title">Trang quản trị</h4>
                                 </div>
                             </div>
                         </div>

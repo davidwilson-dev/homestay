@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('floor_number');
+            $table->unsignedInteger('floor_number');
             $table->text('description')->nullable();
-            $table->double('price_weekday');
-            $table->double('price_weekend');
+            $table->float('price_weekday');
+            $table->float('price_weekend');
             $table->timestamps();
         });
     }

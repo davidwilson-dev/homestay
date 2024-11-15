@@ -13,12 +13,24 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('order_code')->unique(); //'dau-' + now_timestamps + room_id
+            $table->string('order_code')->unique(); //room_id + '-' + time now
+            $table->string('name_customer');
+            $table->string('id_passport');
+            $table->string('phone_number')->nullable();
+            $table->string('email')->nullable();
+            $table->datetime('checkin-estimate')->nullable();
+            $table->datetime('checkout-estimate')->nullable();
             $table->datetime('checkin')->nullable();
             $table->datetime('checkout')->nullable();
             $table->enum('status', ['Booked', 'Checkin', 'Checkout']);
             $table->unsignedBigInteger('room_id');
             $table->foreign('room_id')->references('id')->on('rooms');
+            $table->float('discount')->default(0);
+            $table->float('penalty_fee')->default(0);
+            $table->float('utility_fee')->default(0);
+            $table->float('description')->nullable();
+            $table->float('deposit')->default(0);
+            $table->float('order_price')->default(0);
             $table->timestamps();
         });
     }

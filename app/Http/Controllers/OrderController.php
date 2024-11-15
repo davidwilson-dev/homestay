@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Room;
 use Illuminate\Http\Request;
+use Str;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -12,7 +15,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::orderBy('created_at', 'DESC')->get();
+        return view('admin.order.index', compact(['orders']));
     }
 
     /**
@@ -20,7 +24,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $rooms = Room::orderBy('id', 'ASC')->get();
+        return view('admin.order.create', compact(['rooms']));
     }
 
     /**
@@ -28,7 +33,15 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order = new Order;
+        $order->fill($request->all());
+
+        $room = Room::findOrFail($request->room_id);
+
+        $order->order_code = Str::slug($room->name, '-') . '-' . Str::slug(Carbon::now(), '-');
+        $order->save();
+
+        return redirect('admin/order')->with('status', 'Tạo đơn hàng thành công');
     }
 
     /**
