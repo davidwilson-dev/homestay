@@ -196,7 +196,10 @@
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="{{route('admin_order.index')}}">Danh sách</a></li>
+                                    <li><a href="{{route('admin_order.index')}}">Tổng hợp</a></li>
+                                    <li><a href="{{url('admin/order-booked')}}">Đã đặt phòng</a></li>
+                                    <li><a href="{{url('admin/order-checkin')}}">Đang thuê phòng</a></li>   
+                                    <li><a href="{{url('admin/order-checkout')}}">Đã trả phòng</a></li>                                
                                     <li><a href="{{route('admin_order.create')}}">Tạo đơn hàng</a></li>
                                 </ul>
                             </li>

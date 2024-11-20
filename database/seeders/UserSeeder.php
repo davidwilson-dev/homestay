@@ -14,12 +14,10 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'name' => 'Nguyễn Huy Anh',
             'email' => 'nguyenhuyanh1012@gmail.com',
             'password' => \Hash::make('nguyenhuyanh1012@gmail.com'),
-            'phone_number' => '0942687068',
-            'address' => 'Tràng Thi - Hoàn Kiếm - Hà Nội',
-            'role_id' => '1',
+            'staff_id' => '1',
+            'role_id' => '1', 
         ]);
     }
 }

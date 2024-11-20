@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->unsignedBigInteger('position_id');
             $table->foreign('position_id')->references('id')->on('positions');
-            $table->boolean('user_status');
+            $table->text('additional_information')->nullable();
             $table->timestamps();
         });
     }

@@ -19,6 +19,11 @@ class RoleSeeder extends Seeder
         ]);
 
         Role::create([
+            'name' => 'Manager',
+            'description' => 'Tất cả quyền hạn trừ quản lý tài khoản'
+        ]);
+
+        Role::create([
             'name' => 'Lễ tân',
             'description' => 'Xem đơn hàng, thêm mới đơn hàng, checkin, checkout'
         ]);

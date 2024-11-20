@@ -24,11 +24,11 @@
                         <th>#</th>
                         <th>Mã đơn hàng</th>
                         <th>Họ tên</th>
-                        <th>CCCD/Hộ chiếu</th>
-                        <th>Email</th>
-                        <th>Số điện thoại</th>                     
+                        <th>Số điện thoại</th>
                         <th>Phòng</th>
-                        <th>Trạng thái</th>
+                        <th>Nhận phòng</th>
+                        <th>Trả phòng</th>
+                        <th>Thành tiền</th>
                     </tr>
                 </thead>
 
@@ -37,24 +37,14 @@
                     <tr>
                         <td>{{$key + 1}}</td>
                         <td>
-                            <a href="{{route('admin_order.edit', $order->id)}}">{{$order->order_code}}</a>
+                            <a href="{{route('admin_order.show', $order->id)}}">{{$order->order_code}}</a>
                         </td>
                         <td>{{$order->name_customer}}</td>
-                        <td>{{$order->id_passport}}</td>
-                        <td>{{$order->email}}</td>
                         <td>{{$order->phone_number}}</td>
                         <td>{{$order->Room->name}}</td>
-                        <td>
-                            @if($order->status == 'Booked')
-                                <span class="text-success">Đã đặt phòng</span>
-                            @endif
-                            @if($order->status == 'Checkin')
-                                <span class="text-orange">Đã nhận phòng</span>
-                            @endif
-                            @if($order->status == 'Checkout')
-                                <span class="text-primary">Đã trả phòng</span>
-                            @endif
-                        </td>
+                        <td>{{$order->checkin}}</td>
+                        <td>{{$order->checkout}}</td>
+                        <td>{{$order->order_price}}</td>
                     </tr>
                     @endforeach
                 </tbody>

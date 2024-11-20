@@ -22,7 +22,7 @@
                     @foreach($users as $key => $user)
                     <tr>
                         <td>{{$key + 1}}</td>
-                        <td>{{$user->name}}</td>
+                        <td>{{$user->Staff->name}}</td>
                         <td>
                             @if($user->avatar != null)
                                 <img src="{{asset('frontend/admin/images/users/' . $user->avatar)}}" alt="avatar" class="avatar-sm">
@@ -31,7 +31,7 @@
                             @endif
                         </td>
                         <td>{{$user->email}}</td>
-                        <td>{{$user->phone_number}}</td>
+                        <td>{{$user->Staff->phone_number}}</td>
                         <td>{{$user->Role->name}}</td>
                         <td>
                             <a class="btn btn-info btn-sm text-white" href="{{route('admin_user.show', $user->id)}}">Chi tiết</a>

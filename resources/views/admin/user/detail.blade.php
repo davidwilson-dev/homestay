@@ -5,7 +5,7 @@
         <div class="card-box table-responsive">
             <h4 class="header-title pb-2 border-bottom"><b>Thông tin tài khoản</b></h4>
 
-            <form action="#" method="POST" class="form-horizontal mt-4">
+            <div action="#" method="POST" class="form-horizontal mt-4">
                 <div class="row">
                     <div class="col-md-9">
                         <div class="form-group row">
@@ -16,15 +16,7 @@
 
                             <label class="col-md-2 control-label">Quyền hạn tài khoản</label>
                             <div class="col-md-4">
-                                <select class="form-control" name="role_id">
-                                    @foreach($roles as $role)
-                                        @if($user->role_id == $role->id)
-                                            <option selected>{{$role->name}}</option>
-                                        @else
-                                            <option>{{$role->name}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
+                                <input type="text" class="form-control" value="{{$user->Role->name}}" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -70,7 +62,7 @@
                 <div class="d-flex justify-content-end">
                     <a class="btn btn-primary waves-effect width-md waves-light" href="{{route('admin_user.index')}}">Quay lại</a>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

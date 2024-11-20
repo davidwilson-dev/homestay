@@ -9,8 +9,13 @@
                 </div>
                 <div class="overflow-hidden">
                     <p class="text-uppercase font-weight-medium text-truncate mb-2">Đơn hàng</p>
-                    <h2 class="mb-0"><span data-plugin="counterup">34578</span> <i class="mdi mdi-arrow-up text-success font-24"></i></h2>
-                    <p class="text-muted mt-2 m-0"><span class="font-weight-medium">Cập nhật:</span> 30.4k</p>
+                    <h2 class="mb-0"><span data-plugin="counterup">{{$count_order}}</span> <i class="mdi mdi-arrow-up text-success font-24"></i></h2>
+                    <p class="text-muted mt-2 m-0">
+                        <span class="font-weight-medium">
+                            Cập nhật:
+                        </span> 
+                        {{$time_now->format('d') . '/' . $time_now->format('m') . '/' . $time_now->format('Y')}}
+                    </p>
                 </div>
             </div>
         </div>
@@ -25,8 +30,13 @@
                 </div>
                 <div class="overflow-hidden">
                     <p class="text-uppercase font-weight-medium text-truncate mb-2">Tài khoản</p>
-                    <h2 class="mb-0"><span data-plugin="counterup">895</span> <i class="mdi mdi-arrow-down text-danger font-24"></i></h2>
-                    <p class="text-muted mt-2 m-0"><span class="font-weight-medium">Cập nhật:</span> 1250</p>
+                    <h2 class="mb-0"><span data-plugin="counterup">{{$count_user}}</span> <i class="mdi mdi-arrow-down text-danger font-24"></i></h2>
+                    <p class="text-muted mt-2 m-0">
+                        <span class="font-weight-medium">
+                            Cập nhật:
+                        </span> 
+                        {{$time_now->format('d') . '/' . $time_now->format('m') . '/' . $time_now->format('Y')}}
+                    </p>
                 </div>
             </div>
         </div>
@@ -40,9 +50,14 @@
                     <i class="mdi mdi-layers display-3 m-0"></i>
                 </div>
                 <div class="overflow-hidden">
-                    <p class="text-uppercase font-weight-medium text-truncate mb-2">Cộng tác viên</p>
-                    <h2 class="mb-0"><span data-plugin="counterup">52410</span><i class="mdi mdi-arrow-up text-success font-24"></i></h2>
-                    <p class="text-muted mt-2 m-0"><span class="font-weight-medium">Cập nhật:</span> 40.33k</p>
+                    <p class="text-uppercase font-weight-medium text-truncate mb-2">Nhân viên</p>
+                    <h2 class="mb-0"><span data-plugin="counterup">{{$count_staff}}</span><i class="mdi mdi-arrow-up text-success font-24"></i></h2>
+                    <p class="text-muted mt-2 m-0">
+                        <span class="font-weight-medium">
+                            Cập nhật:
+                        </span> 
+                        {{$time_now->format('d') . '/' . $time_now->format('m') . '/' . $time_now->format('Y')}}
+                    </p>
                 </div>
             </div>
         </div>
@@ -58,7 +73,12 @@
                 <div class="overflow-hidden">
                     <p class="text-uppercase font-weight-medium text-truncate mb-2">Doanh thu</p>
                     <h2 class="mb-0"><span data-plugin="counterup">652</span> <i class="mdi mdi-arrow-down text-danger font-24"></i></h2>
-                    <p class="text-muted mt-2 m-0"><span class="font-weight-medium">Cập nhật:</span> 956</p>
+                    <p class="text-muted mt-2 m-0">
+                        <span class="font-weight-medium">
+                            Cập nhật:
+                        </span> 
+                        {{$time_now->format('d') . '/' . $time_now->format('m') . '/' . $time_now->format('Y')}}
+                    </p>
                 </div>
             </div>
         </div>
@@ -77,77 +97,29 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Avatar</th>
                             <th>Họ tên</th>
-                            <th>Số điện thoại</th>
                             <th>Email</th>
                             <th>Ngày tạo</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $i = 1 ?>
+                        @foreach($staffs as $staff)
                         <tr>
-                            <th>
-                                <img src="assets\images\users\avatar-1.jpg" alt="user" class="avatar-sm rounded-circle" />
-                            </th>
+                            <th>{{$i}}</th>
                             <td>
-                                <h5 class="m-0 font-15">Louis Hansen</h5>
-                                <p class="m-0 text-muted"><small>Web designer</small></p>
+                                <img src="{{asset('frontend/admin/images/users/avatar.png')}}" alt="user" class="avatar-sm rounded-circle" />
                             </td>
-                            <td>+12 3456 789</td>
-                            <td>USA</td>
-                            <td>07/08/2016</td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                <img src="assets\images\users\avatar-2.jpg" alt="user" class="avatar-sm rounded-circle" />
-                            </th>
                             <td>
-                                <h5 class="m-0 font-15">Craig Hause</h5>
-                                <p class="m-0 text-muted"><small>Programmer</small></p>
+                                <h5 class="m-0 font-15">{{$staff->name}}</h5>
+                                <p class="m-0 text-muted"><small>{{$staff->phone_number}}</small></p>
                             </td>
-                            <td>+89 345 6789</td>
-                            <td>Canada</td>
-                            <td>29/07/2016</td>
+                            <td>{{$staff->email}}</td>
+                            <td>{{$staff->created_at}}</td>
                         </tr>
-
-                        <tr>
-                            <th>
-                                <img src="assets\images\users\avatar-3.jpg" alt="user" class="avatar-sm rounded-circle" />
-                            </th>
-                            <td>
-                                <h5 class="m-0 font-15">Edward Grimes</h5>
-                                <p class="m-0 text-muted"><small>Founder</small></p>
-                            </td>
-                            <td>+12 29856 256</td>
-                            <td>Brazil</td>
-                            <td>22/07/2016</td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                <img src="assets\images\users\avatar-4.jpg" alt="user" class="avatar-sm rounded-circle" />
-                            </th>
-                            <td>
-                                <h5 class="m-0 font-15">Bret Weaver</h5>
-                                <p class="m-0 text-muted"><small>Web designer</small></p>
-                            </td>
-                            <td>+00 567 890</td>
-                            <td>USA</td>
-                            <td>20/07/2016</td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                <img src="assets\images\users\avatar-5.jpg" alt="user" class="avatar-sm rounded-circle" />
-                            </th>
-                            <td>
-                                <h5 class="m-0 font-15">Mark</h5>
-                                <p class="m-0 text-muted"><small>Web design</small></p>
-                            </td>
-                            <td>+91 123 456</td>
-                            <td>India</td>
-                            <td>07/07/2016</td>
-                        </tr>
+                        <?php $i++ ?>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -167,76 +139,26 @@
                         <tr>
                             <th>#</th>
                             <th>Mã đơn hàng</th>
-                            <th>Tên khách hàng</th>
+                            <th>Khách hàng</th>
                             <th>CCCD/Hộ chiếu</th>
                             <th>Checkin</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $i = 1 ?>
+                        @foreach($orders as $order)
                         <tr>
-                            <th>
-                                <span class="avatar-sm-box bg-success">L</span>
-                            </th>
+                            <th>{{$i}}</th>
+                            <td>{{$order->order_code}}</td>
                             <td>
-                                <h5 class="m-0 font-15">Louis Hansen</h5>
-                                <p class="m-0 text-muted"><small>Web designer</small></p>
+                                <h5 class="m-0 font-15">{{$order->name_customer}}</h5>
+                                <p class="m-0 text-muted"><small>{{$order->phone_number}}</small></p>
                             </td>
-                            <td>+12 3456 789</td>
-                            <td>USA</td>
-                            <td>07/08/2016</td>
+                            <td>{{$order->id_passport}}</td>
+                            <td>{{$order->checkin}}</td>
                         </tr>
-
-                        <tr>
-                            <th>
-                                <span class="avatar-sm-box bg-primary">C</span>
-                            </th>
-                            <td>
-                                <h5 class="m-0 font-15">Craig Hause</h5>
-                                <p class="m-0 text-muted"><small>Programmer</small></p>
-                            </td>
-                            <td>+89 345 6789</td>
-                            <td>Canada</td>
-                            <td>29/07/2016</td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                <span class="avatar-sm-box bg-brown">E</span>
-                            </th>
-                            <td>
-                                <h5 class="m-0 font-15">Edward Grimes</h5>
-                                <p class="m-0 text-muted"><small>Founder</small></p>
-                            </td>
-                            <td>+12 29856 256</td>
-                            <td>Brazil</td>
-                            <td>22/07/2016</td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                <span class="avatar-sm-box bg-pink">B</span>
-                            </th>
-                            <td>
-                                <h5 class="m-0 font-15">Bret Weaver</h5>
-                                <p class="m-0 text-muted"><small>Web designer</small></p>
-                            </td>
-                            <td>+00 567 890</td>
-                            <td>USA</td>
-                            <td>20/07/2016</td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                <span class="avatar-sm-box bg-orange">M</span>
-                            </th>
-                            <td>
-                                <h5 class="m-0 font-15">Mark</h5>
-                                <p class="m-0 text-muted"><small>Web design</small></p>
-                            </td>
-                            <td>+91 123 456</td>
-                            <td>India</td>
-                            <td>07/07/2016</td>
-                        </tr>
+                        <?php $i++ ?>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

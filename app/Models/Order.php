@@ -17,12 +17,10 @@ class Order extends Model
         'email',
         'room_id',
         'status',
-        'checkin-estimate',
-        'checkout-estimate',
+        'checkin_estimate',
+        'checkout_estimate',
         'checkin',
-        'checkout',
-        'description',
-        'deposit'
+        'description'
     ];
 
     public function Room(){

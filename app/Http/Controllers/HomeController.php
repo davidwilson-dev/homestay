@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Staff;
+use App\Models\Order;
+use App\Models\User;
+
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -23,6 +28,29 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home');
+        $count_order = Order::count();
+        $count_user = User::count();
+        $count_staff= Staff::count();     
+
+        $staffs = Staff::orderBy('id', 'ASC')->where('position_id', 3)->take(5)->get();
+        $orders = Order::orderBy('id', 'ASC')->take(5)->get();
+
+        $time_now = Carbon::now('Asia/Ho_Chi_Minh');
+
+        return view
+        (
+            'admin.home', 
+            compact
+            (
+                [
+                    'staffs', 
+                    'orders',
+                    'count_order',
+                    'count_user',
+                    'count_staff',
+                    'time_now'
+                ]
+            )
+        );
     }
 }

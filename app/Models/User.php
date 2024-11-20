@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use App\Models\Staff;
 
 class User extends Authenticatable
 {
@@ -50,5 +51,9 @@ class User extends Authenticatable
 
     public function Role(){
         return $this->belongsTo(Role::class);
+    }
+
+    public function Staff(){
+        return $this->belongsTo(Staff::class);
     }
 }
