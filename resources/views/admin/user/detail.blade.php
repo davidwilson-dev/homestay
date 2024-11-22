@@ -11,7 +11,7 @@
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Họ tên</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" value="{{$user->name}}" readonly>
+                                <input type="text" class="form-control" value="{{$user->Staff->name}}" readonly>
                             </div>
 
                             <label class="col-md-2 control-label">Quyền hạn tài khoản</label>
@@ -22,28 +22,39 @@
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Số điện thoại</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control"  value="{{$user->phone_number}}" readonly>
+                                <input type="text" class="form-control"  value="{{$user->Staff->phone_number}}" readonly>
                             </div>
 
                             <label class="col-md-1 control-label">Email</label>
                             <div class="col-md-5">
-                                <input type="email" class="form-control"  value="{{$user->email}}" readonly>
+                                <input type="email" class="form-control"  value="{{$user->Staff->email}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 control-label">Ngày sinh</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control"  value="{{$user->Staff->birthday}}" readonly>
+                            </div>
+
+                            <label class="col-md-1 control-label">CCCD/CMND</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control"  value="{{$user->Staff->id_card}}" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Địa chỉ</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control"  value="{{$user->address}}" readonly>
+                                <input type="text" class="form-control"  value="{{$user->Staff->address}}" readonly>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="d-flex flex-column align-items-center justify-content-center">
-                            @if($user->avatar != null)
-                                <img src="{{asset('frontend/admin/images/users/' . $user->avatar)}}" alt="avatar" width="200px" height="200px">
+                            @if($user->Staff->avatar != null)
+                                <img src="{{asset('frontend/admin/images/staffs/' . $user->Staff->avatar)}}" alt="avatar" width="200px" height="200px">
                             @else
-                                <img src="{{asset('frontend/admin/images/users/avatar.png')}}" alt="avatar" width="200px" height="200px">
+                                <img src="{{asset('frontend/admin/images/staffs/avatar.png')}}" alt="avatar" width="200px" height="200px">
                             @endif
                             <label id="label-avatar" class="btn btn-info waves-effect width-md waves-light mt-2">Ảnh đại diện</label>
                         </div>
@@ -54,7 +65,7 @@
                         <div class="form-group row mb-3">
                             <label class="col-md-12 control-label">Thông tin bổ sung</label>
                             <div class="col-md-12">
-                                <textarea name="additional_information" class="form-control" rows="10" readonly>{{$user->additional_information}}</textarea>
+                                <textarea name="additional_information" class="form-control" rows="10" readonly>{{$user->Staff->additional_information}}</textarea>
                             </div>
                         </div>
                     </div>

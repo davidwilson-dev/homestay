@@ -19,6 +19,13 @@
         <link href="{{asset('frontend/admin/libs/datatables/dataTables.colVis.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('frontend/admin/libs/datatables/fixedColumns.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
 
+        <!-- Date picker -->
+        <link href="{{asset('frontend/admin/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/clockpicker/bootstrap-clockpicker.min.css')}}" rel="stylesheet">
+        <link href="{{asset('frontend/admin/libs/bootstrap-timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('frontend/admin/libs/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+        <link href="{{asset('frontend/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css">
+
         <!-- App css -->
         <link href="{{asset('frontend/admin/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
         <link href="{{asset('frontend/admin/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
@@ -35,11 +42,11 @@
                     <li class="dropdown notification-list">
                         <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">                         
                             @if(Auth::user()->avatar !== null)
-                                <img src="{{asset('frontend/admin/images/users/'.Auth::user()->avatar)}}" alt="user-image" class="rounded-circle" />
+                                <img src="{{asset('frontend/admin/images/staffs/'.Auth::user()->Staff->avatar)}}" alt="user-image" class="rounded-circle" />
                             @else
-                                <img src="{{asset('frontend/admin/images/users/avatar.png')}}" alt="user-image" class="rounded-circle" />
+                                <img src="{{asset('frontend/admin/images/staffs/avatar.png')}}" alt="user-image" class="rounded-circle" />
                             @endif
-                            <span class="d-none d-sm-inline-block ml-1">{{Auth::user()->name}}</span>
+                            <span class="d-none d-sm-inline-block ml-1">{{Auth::user()->Staff->name}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown">
                             <!-- item-->
@@ -112,12 +119,12 @@
 
                     <li class="dropdown d-none d-lg-block">
                         <a class="nav-link dropdown-toggle mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <img src="{{asset('frontend/admin/images/flags/us.jpg')}}" alt="user-image" class="mr-1" height="12" /> <span class="align-middle">English <i class="mdi mdi-chevron-down"></i> </span>
+                            <img src="{{asset('frontend/admin/images/flags/vietnam.jpg')}}" alt="user-image" class="mr-1" height="12" /> <span class="align-middle">Vietnamese <i class="mdi mdi-chevron-down"></i> </span>
                         </a>
                         <div class="dropdown-menu">
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="{{asset('frontend/admin/images/flags/germany.jpg')}}" alt="user-image" class="mr-1" height="12" /> <span class="align-middle">German</span>
+                                <img src="{{asset('frontend/admin/images/flags/us.jpg')}}" alt="user-image" class="mr-1" height="12" /> <span class="align-middle">German</span>
                             </a>
 
                             <!-- item-->
@@ -161,7 +168,7 @@
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
                                     <li><a href="{{route('admin_user.index')}}">Danh sách</a></li>
-                                    <li><a href="{{route('admin_user.create')}}">Thêm mới</a></li>
+                                    <li><a href="{{route('admin_user.create')}}">Tạo tài khoản</a></li>
                                 </ul>
                             </li>
 
@@ -172,8 +179,9 @@
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="#">Danh sách</a></li>
-                                    <li><a href="#">Thêm mới</a></li>
+                                    <li><a href="{{route('admin_staff.index')}}">Danh sách</a></li>
+                                    <li><a href="{{route('admin_staff.create')}}">Tạo nhân viên</a></li>
+                                    <li><a href="#">Chức vụ</a></li>
                                 </ul>
                             </li>
 
@@ -185,7 +193,7 @@
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
                                     <li><a href="{{route('admin_room.index')}}">Danh sách</a></li>
-                                    <li><a href="{{route('admin_room.create')}}">Thêm mới</a></li>
+                                    <li><a href="{{route('admin_room.create')}}">Tạo phòng</a></li>
                                 </ul>
                             </li>
 
@@ -326,13 +334,13 @@
                 <a href="javascript:void(0);" class="right-bar-toggle float-right">
                     <i class="mdi mdi-close"></i>
                 </a>
-                <h4 class="font-16 m-0 text-white">Theme Customizer</h4>
+                <h4 class="font-16 m-0 text-white">Cài đặt bổ sung</h4>
             </div>
             <div class="slimscroll-menu">
                 <div class="p-4">
-                    <div class="alert alert-warning" role="alert"><strong>Customize </strong> the overall color scheme, layout, etc.</div>
+                    <div class="alert alert-warning" role="alert"><strong>Tùy chỉnh: </strong> tính năng này đang cập nhật...</div>
                     <div class="mb-2">
-                        <img src="assets/images\layouts\light.png" class="img-fluid img-thumbnail" alt="" />
+                        <img src="{{asset('frontend/admin/images/layouts/light.png')}}" class="img-fluid img-thumbnail" alt="" />
                     </div>
                     <div class="custom-control custom-switch mb-3">
                         <input type="checkbox" class="custom-control-input theme-choice" id="light-mode-switch" checked="" />
@@ -340,14 +348,18 @@
                     </div>
 
                     <div class="mb-2">
-                        <img src="assets\images\layouts\dark.png" class="img-fluid img-thumbnail" alt="" />
+                        <img src="{{asset('frontend/admin/images/layouts/dark.png')}}" class="img-fluid img-thumbnail" alt="" />
                     </div>
                     <div class="custom-control custom-switch mb-3">
-                        <input type="checkbox" class="custom-control-input theme-choice" id="dark-mode-switch" data-bsstyle="assets/css/bootstrap-dark.min.css" data-appstyle="assets/css/app-dark.min.css" />
+                        <input 
+                            type="checkbox" 
+                            class="custom-control-input theme-choice" 
+                            id="dark-mode-switch" 
+                        />
                         <label class="custom-control-label" for="dark-mode-switch">Dark Mode</label>
                     </div>
 
-                    <div class="mb-2">
+                    <!-- <div class="mb-2">
                         <img src="assets\images\layouts\rtl.png" class="img-fluid img-thumbnail" alt="" />
                     </div>
                     <div class="custom-control custom-switch mb-3">
@@ -361,9 +373,9 @@
                     <div class="custom-control custom-switch mb-5">
                         <input type="checkbox" class="custom-control-input theme-choice" id="dark-rtl-mode-switch" data-bsstyle="assets/css/bootstrap-dark.min.css" data-appstyle="assets/css/app-dark-rtl.min.css" />
                         <label class="custom-control-label" for="dark-rtl-mode-switch">Dark RTL Mode</label>
-                    </div>
+                    </div> -->
 
-                    <a href="https://1.envato.market/eKY0g" class="btn btn-danger btn-block mt-3" target="_blank"><i class="mdi mdi-download mr-1"></i> Download Now</a>
+                    <a href="#" class="btn btn-danger btn-block mt-3"><i class="mdi mdi-download mr-1"></i> IT Support</a>
                 </div>
             </div>
             <!-- end slimscroll-menu-->
@@ -406,6 +418,18 @@
 
         <!-- Datatables init -->
         <script src="{{asset('frontend/admin/js/pages/datatables.init.js')}}"></script>
+
+        <!-- Date picker -->
+        <script src="{{asset('frontend/admin/libs/moment/moment.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/clockpicker/bootstrap-clockpicker.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+        <script src="{{asset('frontend/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+
+        <!-- Init js-->
+        <script src="{{asset('frontend/admin/js/pages/form-pickers.init.js')}}"></script>
 
         <!-- App js -->
         <script src="{{asset('frontend/admin/js/app.min.js')}}"></script>

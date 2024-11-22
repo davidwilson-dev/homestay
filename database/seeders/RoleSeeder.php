@@ -14,22 +14,22 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         Role::create([
-            'name' => 'Admin',
+            'name' => 'admin',
             'description' => 'Quyền hạn tối thượng'
         ]);
 
         Role::create([
-            'name' => 'Manager',
+            'name' => 'quản lý',
             'description' => 'Tất cả quyền hạn trừ quản lý tài khoản'
         ]);
 
         Role::create([
-            'name' => 'Lễ tân',
+            'name' => 'lễ tân',
             'description' => 'Xem đơn hàng, thêm mới đơn hàng, checkin, checkout'
         ]);
 
         Role::create([
-            'name' => 'Cộng tác viên',
+            'name' => 'cộng tác viên',
             'description' => 'Xem đơn hàng'
         ]);
     }

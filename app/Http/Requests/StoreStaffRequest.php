@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserRequest extends FormRequest
+class StoreStaffRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,10 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|confirmed',
-            'role_id' => 'required|integer|min:1',
-            'staff_id' => 'required|integer|min:1'
+            'name' => 'required|min:2|max:50|string',
+            'email' => 'required|email|unique:staff',
+            'phone_number' => 'required|unique:staff|string',
+            'position_id' => 'required|integer',
         ];
     }
 
@@ -33,12 +33,13 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'email.required' => 'Email là thông tin bắt buộc',
-            'email.unique' => 'Nhân viên này đã có tài khoản',
+            'email.unique' => 'Email này đã tồn tại',
             'email.email' => 'Email không đúng định dạng',
-            'password.required' => 'Mật khẩu là thông tin bắt buộc',
-            'password.min' => 'Mật khâu tối thiểu có 8 ký tự',
-            'password.confirmed' => 'Xác nhận mật khẩu không khớp',
-            'staff_id.min' => 'Bạn phải chọn nhân viên'
+            'name.required' => 'Họ tên là thông tin bắt buộc',
+            'name.min' => 'Họ tên tối thiểu là 2 ký tự',
+            'name.max' => 'Họ tên tối đa là 50 ký tự',
+            'phone_number.required' => 'Số điện thoại là thông tin bắt buộc',
+            'phone_number.unique' => 'Số điện thoại đã được sử dụng',
         ];
     }
 }

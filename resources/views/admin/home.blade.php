@@ -72,7 +72,7 @@
                 </div>
                 <div class="overflow-hidden">
                     <p class="text-uppercase font-weight-medium text-truncate mb-2">Doanh thu</p>
-                    <h2 class="mb-0"><span data-plugin="counterup">652</span> <i class="mdi mdi-arrow-down text-danger font-24"></i></h2>
+                    <h2 class="mb-0"><span data-plugin="counterup">0</span> <i class="mdi mdi-arrow-down text-danger font-24"></i></h2>
                     <p class="text-muted mt-2 m-0">
                         <span class="font-weight-medium">
                             Cập nhật:
@@ -109,14 +109,18 @@
                         <tr>
                             <th>{{$i}}</th>
                             <td>
-                                <img src="{{asset('frontend/admin/images/users/avatar.png')}}" alt="user" class="avatar-sm rounded-circle" />
+                                @if($staff->avatar == null)
+                                    <img src="{{asset('frontend/admin/images/staffs/avatar.png')}}" alt="user" class="avatar-sm rounded-circle" />
+                                @else
+                                    <img src="{{asset('frontend/admin/images/staffs/' . $staff->avatar)}}" alt="user" class="avatar-sm rounded-circle" />
+                                @endif
                             </td>
                             <td>
                                 <h5 class="m-0 font-15">{{$staff->name}}</h5>
                                 <p class="m-0 text-muted"><small>{{$staff->phone_number}}</small></p>
                             </td>
                             <td>{{$staff->email}}</td>
-                            <td>{{$staff->created_at}}</td>
+                            <td>{{$staff->created_at->format('d') . '/' . $staff->created_at->format('m') . '/' . $staff->created_at->format('Y')}}</td>
                         </tr>
                         <?php $i++ ?>
                         @endforeach

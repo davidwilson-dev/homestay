@@ -5,7 +5,7 @@
         <div class="card-box table-responsive">
             <h4 class="header-title"><b>Danh sách phòng</b></h4>
 
-            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+            <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                 <thead>
                     <tr>
                         <th>#</th>

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->datetime('checkout-estimate')->nullable();
             $table->datetime('checkin')->nullable();
             $table->datetime('checkout')->nullable();
-            $table->enum('status', ['Booked', 'Checkin', 'Checkout']);
+            $table->enum('status', ['booked', 'checkin', 'checkout']);
             $table->unsignedBigInteger('room_id');
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->float('discount')->default(0);

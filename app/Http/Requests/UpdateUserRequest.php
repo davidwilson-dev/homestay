@@ -23,9 +23,7 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['email', Rule::unique('users', 'email')->ignore($this->user)],
-            'name' => 'max:50',
-            'role_id' => 'integer',
+            'staff_id' => 'required|integer',
         ];
     }
 }

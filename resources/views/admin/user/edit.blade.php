@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="card-box table-responsive">
-            <h4 class="header-title pb-2 border-bottom"><b>Sửa thông tin tài khoản</b></h4>
+            <h4 class="header-title pb-2 border-bottom"><b>Sửa tài khoản</b></h4>
 
             <form action="{{route('admin_user.update', $user->id)}}" method="POST" class="form-horizontal mt-4" enctype="multipart/form-data">
                 @method('PUT')
@@ -11,17 +11,17 @@
                 <div class="row">
                     <div class="col-md-9">
                         <div class="form-group row">
-                            <label class="col-md-2 control-label">Họ tên</label>
+                            <label class="col-md-2 control-label">Nhân viên</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="name" value="{{$user->name}}">
+                                <input type="text" class="form-control" value="{{$user->Staff->name}}" readonly>
                             </div>
 
                             <label class="col-md-2 control-label">Quyền hạn tài khoản</label>
                             <div class="col-md-4">
-                                <select class="form-control" name="role_id">
+                                <select class="form-control" name="role_id" style="text-transform: capitalize">
                                     @foreach($roles as $role)
                                         @if($user->role_id == $role->id)
-                                            <option value="{{$role->id}}" selected>{{$role->name}}</option>
+                                            <option value="{{$role->id}}" select>{{$role->name}}</option>
                                         @else
                                             <option value="{{$role->id}}">{{$role->name}}</option>
                                         @endif
@@ -30,51 +30,43 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-2 control-label">Số điện thoại</label>
+                            <label class="col-md-2 control-label">Mật khẩu</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="phone_number" value="{{$user->phone_number}}">
+                                <input type="password" class="form-control" name="password">
                             </div>
 
-                            <label class="col-md-1 control-label">Email</label>
-                            <div class="col-md-5">
-                                <input type="email" class="form-control" name="email" value="{{$user->email}}">
+                            <label class="col-md-2 control-label">Email</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="email" value="{{$user->Staff->email}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 control-label">Xác nhận mật khẩu</label>
+                            <div class="col-md-4">
+                                <input type="password" class="form-control" name="password_confirmation">
+                            </div>
+
+                            <label class="col-md-2 control-label">Số điện thoại</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="phone_number" value="{{$user->Staff->phone_number}}" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Địa chỉ</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="address" value="{{$user->address}}">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-md-12 control-label">Mật khẩu mới</label>
-                                    <div class="col-md-12">
-                                        <input type="password" class="form-control" name="password">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-md-12 control-label">Xác nhận mật khẩu</label>
-                                    <div class="col-md-12">
-                                        <input type="password" class="form-control" name="password_confirmation">
-                                    </div>
-                                </div>
+                                <input type="text" class="form-control" id="address" value="{{$user->Staff->address}}" readonly>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="d-flex flex-column align-items-center justify-content-center">
-                            @if($user->avatar != null)
-                                <img src="{{asset('frontend/admin/images/users/' . $user->avatar)}}" alt="avatar" width="200px" height="200px" id="image-avatar">
+                            @if($user->Staff->avatar != null)
+                                <img src="{{asset('frontend/admin/images/staffs/' . $user->Staff->avatar)}}" width="200px" height="200px" />
                             @else
-                                <img src="{{asset('frontend/admin/images/users/avatar.png')}}" alt="avatar" width="200px" height="200px" id="image-avatar">
+                                <img src="{{asset('frontend/admin/images/staffs/avatar.png')}}" width="200px" height="200px" />
                             @endif
-                            <input type="file" name="avatar" class="form-control d-none" id="input-avatar" />
-                            <label id="label-avatar" class="btn btn-info waves-effect width-md waves-light mt-2" for="input-avatar">Tải ảnh</label>
+                            <label id="label-avatar" class="btn btn-info waves-effect width-md waves-light mt-2">Ảnh đại diện</label>
                         </div>
                     </div>
                 </div>
@@ -83,27 +75,17 @@
                         <div class="form-group row mb-3">
                             <label class="col-md-12 control-label">Thông tin bổ sung</label>
                             <div class="col-md-12">
-                                <textarea name="additional_information" class="form-control" rows="10">{{$user->additional_information}}</textarea>
+                                <textarea name="additional_information" class="form-control" rows="10" id="additional" readonly>{{$user->Staff->additional_information}}</textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-secondary waves-effect width-md waves-light" href="{{route('admin_user.index')}}" style="margin-right: 5px">Hủy</a>
-                    <button class="btn btn-primary waves-effect width-md waves-light" type="submit">Cập nhật</button>
+                    <a class="btn btn-secondary waves-effect width-md waves-light" href="{{route('admin_user.index')}}">Quay lại</a>
+                    <button class="btn btn-primary waves-effect width-md waves-light" type="submit" style="margin-left: 5px">Cập nhật</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-<!-- Process Image -->
-<script>
-    let inputAvatar = document.getElementById("input-avatar");
-    let imageAvatar = document.getElementById("image-avatar");
-
-    inputAvatar.addEventListener('change', function(){
-        imageAvatar.src = window.URL.createObjectURL(inputAvatar.files[0]);
-    })
-</script>
 @endsection

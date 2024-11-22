@@ -21,19 +21,19 @@ class OrderController extends Controller
 
     public function index_booked()
     {
-        $orders = Order::orderBy('created_at', 'ASC')->where('status', 'Booked')->get();
+        $orders = Order::orderBy('created_at', 'ASC')->where('status', 'booked')->get();
         return view('admin.order.index_booked', compact(['orders']));
     }
 
     public function index_checkin()
     {
-        $orders = Order::orderBy('created_at', 'ASC')->where('status', 'Checkin')->where('checkout', null)->get();
+        $orders = Order::orderBy('created_at', 'ASC')->where('status', 'checkin')->where('checkout', null)->get();
         return view('admin.order.index_checkin', compact(['orders']));
     }
 
     public function index_checkout()
     {
-        $orders = Order::orderBy('created_at', 'ASC')->where('status', 'Checkout')->get();
+        $orders = Order::orderBy('created_at', 'ASC')->where('status', 'checkout')->get();
         return view('admin.order.index_checkout', compact(['orders']));
     }
 
@@ -92,18 +92,18 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
-        if($order->status == 'Booked')
+        if($order->status == 'booked')
         {
-            $order->status = 'Checkin';
+            $order->status = 'checkin';
             $order->checkin = Carbon::now('Asia/Ho_Chi_Minh');
     
             $order->save();
             return redirect('admin/order-checkin');
         }
 
-        if($order->status == 'Checkin')
+        if($order->status == 'checkin')
         {
-            $order->status = 'Checkout';
+            $order->status = 'checkout';
             $order->checkout = Carbon::now('Asia/Ho_Chi_Minh');
     
             $order->save();

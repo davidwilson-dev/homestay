@@ -4,13 +4,13 @@
     <div class="col-sm-12">
         <div class="card-box table-responsive">          
             <div class="d-flex justify-content-between mb-4">
-                <h4 class="header-title"><b>Danh sách tài khoản</b></h4>
+                <h4 class="header-title"><b>Danh sách nhân viên</b></h4>
                 <a 
                     type="button" 
                     class="btn btn-primary waves-effect width-md waves-light"
-                    href="{{route('admin_user.create')}}"
+                    href="{{route('admin_staff.create')}}"
                 >
-                    Tạo tài khoản
+                    Tạo nhân viên
                 </a>
             </div>
 
@@ -22,50 +22,50 @@
                         <th>Ảnh đại diện</th>
                         <th>Email</th>
                         <th>Số điện thoại</th>
-                        <th>Loại tài khoản</th>
+                        <th>Chức vụ</th>
                         <th>Tác vụ</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach($users as $key => $user)
+                    @foreach($staffs as $key => $staff)
                     <tr>
                         <td>{{$key + 1}}</td>
-                        <td>{{$user->Staff->name}}</td>
+                        <td>{{$staff->name}}</td>
                         <td>
-                            @if($user->Staff->avatar != null)
-                                <img src="{{asset('frontend/admin/images/staffs/' . $user->Staff->avatar)}}" alt="avatar" class="avatar-sm">
+                            @if($staff->avatar != null)
+                                <img src="{{asset('frontend/admin/images/staffs/' . $staff->avatar)}}" alt="avatar" class="avatar-sm">
                             @else
                                 <img src="{{asset('frontend/admin/images/staffs/avatar.png')}}" alt="avatar" class="avatar-sm">
                             @endif
                         </td>
-                        <td>{{$user->email}}</td>
-                        <td>{{$user->Staff->phone_number}}</td>
-                        <td>{{ucfirst($user->Role->name)}}</td>
+                        <td>{{$staff->email}}</td>
+                        <td>{{$staff->phone_number}}</td>
+                        <td>{{ucfirst($staff->Position->name)}}</td>
                         <td>
-                            <a class="btn btn-info btn-sm text-white" href="{{route('admin_user.show', $user->id)}}">Chi tiết</a>
-                            <a class="btn btn-success btn-sm text-white" href="{{route('admin_user.edit', $user->id)}}">Sửa</a>
+                            <a class="btn btn-info btn-sm text-white" href="{{route('admin_staff.show', $staff->id)}}">Chi tiết</a>
+                            <a class="btn btn-success btn-sm text-white" href="{{route('admin_staff.edit', $staff->id)}}">Sửa</a>
                             <a 
                                 class="btn btn-danger btn-sm text-white"
                                 data-toggle="modal"
-                                data-target=".{{'bs-modal-'.$user->id}}"
+                                data-target=".{{'bs-modal-'.$staff->id}}"
                                 href="javascript:void()"
                             >
                                 Xóa
                             </a>
-                            <div class="modal fade {{'bs-modal-'.$user->id}}" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+                            <div class="modal fade {{'bs-modal-'.$staff->id}}" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
                                 <div class="modal-dialog modal-sm">
                                     <div class="modal-content pb-3">
                                         <div class="modal-header">
-                                            <h5 class="modal-title mt-0">Xóa tài khoản</h5>
+                                            <h5 class="modal-title mt-0">Xóa nhân viên</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body d-flex flex-column">
-                                            <span>Bạn có muốn xóa người dùng này?</span>
-                                            <span>Họ tên: {{$user->name}}</span>
-                                            <span>Email: {{$user->email}}</span>
+                                            <span>Bạn có muốn xóa nhân viên này?</span>
+                                            <span>Họ tên: {{$staff->name}}</span>
+                                            <span>Email: {{$staff->email}}</span>
                                         </div>
                                         <div class="d-flex justify-content-end px-3">
                                             <button class="btn btn-secondary btn-sm" type="button" class="close" data-dismiss="modal" aria-label="Close">Hủy</button>
@@ -73,7 +73,7 @@
                                                 class="btn btn-danger btn-sm" 
                                                 style="margin-left: 5px"
                                                 type="button"
-                                                onclick="document.getElementById('{{'form-delete-'.$user->id}}').submit()"
+                                                onclick="document.getElementById('{{'form-delete-'.$staff->id}}').submit()"
                                             >
                                                 Xóa
                                             </button>
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
 
-                            <form action="{{route('admin_user.destroy', $user->id)}}" method="POST" id="{{'form-delete-'.$user->id}}" class="d-none">
+                            <form action="{{route('admin_staff.destroy', $staff->id)}}" method="POST" id="{{'form-delete-'.$staff->id}}" class="d-none">
                                 @method('DELETE')
                                 @csrf
                             </form>

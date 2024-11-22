@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->text('avatar')->nullable();
+            $table->date('birthday')->nullable();
+            $table->string('id_card')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('address')->nullable();
             $table->unsignedBigInteger('position_id');

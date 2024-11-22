@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Staff;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 
@@ -14,12 +15,17 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('userMiddleware');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::orderBy('id', 'ASC')->get();
+        $users = User::orderBy('role_id', 'ASC')->get();
         return view('admin.user.index', compact(['users']));
     }
 
@@ -29,7 +35,14 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::orderBy('id', 'ASC')->get();
-        return view('admin.user.create', compact(['roles']));
+        $staffs = Staff::orderBy('id', 'ASC')->get();
+
+        foreach($staffs as $staff)
+        {
+            $staff['avatar_image'] = $staff->avatar != null ? asset('frontend/admin/images/staffs/' . $staff['avatar']) : asset('frontend/admin/images/staffs/avatar.png');
+        }
+
+        return view('admin.user.create', compact(['roles', 'staffs']));
     }
 
     /**
@@ -41,26 +54,17 @@ class UserController extends Controller
 
         try {
             $user = new User;
-            $user->fill($request->except('password'));
+            $user->fill($request->except(['email', 'password']));
+            
+            //Email User
+            $staff = Staff::findOrFail($request->staff_id);
+            $user->email = $staff->email;
         
             //Hash password
             $user->password = Hash::make($request->password);
 
             //Token
-            $user->remember_token = Str::random(20);
-    
-            //Add new Image 
-            $get_image = $request->avatar;
-    
-            if($get_image)
-            {
-                $path = 'frontend/admin/images/users/';
-                $get_name_image = $get_image->getClientOriginalName();
-                $name_image = current(explode('.',$get_name_image));
-                $new_image = Str::slug($name_image, '-') . Str::random(10) . '.' . $get_image->getClientOriginalExtension();
-                $get_image->move($path,$new_image);
-                $user->avatar = $new_image;
-            }
+            // $user->remember_token = Str::random(20);
     
             //1. Save User
             $user->save();
@@ -113,7 +117,7 @@ class UserController extends Controller
         }
 
         //Confirm password
-        if($request->password && $request->password !== $request->password_confirmation)
+        if($request->password && $request->password != $request->password_confirmation)
         {
             return redirect()->back()->with('error', 'Xác nhận mật khẩu không khớp');
         }
@@ -122,28 +126,6 @@ class UserController extends Controller
         if($request->password)
         {
             $user->password = Hash::make($request->password);
-        }
-
-        //Update new Image 
-        $get_image = $request->avatar;
-
-        if($get_image)
-        {
-            //Delete old Image
-            $path_unlink = 'frontend/admin/images/users/'.$user->avatar;
-
-            if(file_exists($path_unlink) && $path_unlink !== 'frontend/admin/images/users/')
-            {
-                unlink($path_unlink);
-            }
-             
-            //Add Image
-            $path = 'frontend/admin/images/users/';
-            $get_name_image = $get_image->getClientOriginalName();
-            $name_image = current(explode('.',$get_name_image));
-            $new_image = Str::slug($name_image, '-') . '-' . Str::random(10).'.'.$get_image->getClientOriginalExtension();
-            $get_image->move($path,$new_image);
-            $user->avatar = $new_image;
         }
 
         $user->save();
@@ -159,7 +141,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         //Do not delete User Admin
-        if($user->Role->name == 'Admin')
+        if($user->Role->name == 'admin')
         {
             return redirect('/admin/user')->with('error', 'Không được phép xóa tài khoản Admin');
         }

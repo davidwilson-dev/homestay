@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\OrderController;
 
@@ -18,17 +20,15 @@ use App\Http\Controllers\OrderController;
 */
 
 //Client
-Route::get('/', function () {
-    return view('client.welcome');
-});
-
 
 //Admin
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function(){
+    Route::get('/', [HomeController::class, 'index']);
     Route::get('/admin', [HomeController::class, 'index'])->name('home');
     Route::resource('admin/user', UserController::class)->names('admin_user');
+    Route::resource('admin/staff', StaffController::class)->names('admin_staff');
     Route::resource('admin/room', RoomController::class)->names('admin_room');
     Route::resource('admin/order', OrderController::class)->names('admin_order');
     Route::get('admin/order-booked', [OrderController::class, 'index_booked']);

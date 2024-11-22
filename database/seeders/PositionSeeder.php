@@ -14,19 +14,19 @@ class PositionSeeder extends Seeder
     public function run(): void
     {
         Position::create([
-            'name' => 'Giám đốc',
+            'name' => 'giám đốc',
         ]);
 
         Position::create([
-            'name' => 'Quản lý',
+            'name' => 'quản lý',
         ]);
 
         Position::create([
-            'name' => 'Lễ tân',
+            'name' => 'lễ tân',
         ]);
 
         Position::create([
-            'name' => 'Cộng tác viên',
+            'name' => 'cộng tác viên',
         ]);
     }
 }

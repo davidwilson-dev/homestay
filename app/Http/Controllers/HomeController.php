@@ -32,8 +32,8 @@ class HomeController extends Controller
         $count_user = User::count();
         $count_staff= Staff::count();     
 
-        $staffs = Staff::orderBy('id', 'ASC')->where('position_id', 3)->take(5)->get();
-        $orders = Order::orderBy('id', 'ASC')->take(5)->get();
+        $staffs = Staff::orderBy('id', 'DESC')->where('position_id', 4)->take(5)->get();
+        $orders = Order::orderBy('id', 'DESC')->take(5)->get();
 
         $time_now = Carbon::now('Asia/Ho_Chi_Minh');
 
