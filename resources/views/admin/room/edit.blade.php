@@ -13,7 +13,7 @@
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Tên phòng</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="name" value="{{$room->name}}">
+                                <input type="text" class="form-control" name="name" value="{{$room->name}}" required>
                             </div>
 
                             <label class="col-md-2 control-label">Tầng</label>
@@ -26,6 +26,7 @@
                                     min="1" 
                                     max="50"  
                                     value="{{$room->floor_number}}"
+                                    required
                                 >
                             </div>
                         </div>
@@ -65,6 +66,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
+                    <a class="btn btn-secondary waves-effect width-md waves-light" href="{{route('admin_room.index')}}" style="margin-right: 5px">Quay lại</a>
                     <button class="btn btn-primary waves-effect width-md waves-light" type="submit">Cập nhật</button>
                 </div>
             </form>

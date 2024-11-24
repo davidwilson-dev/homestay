@@ -13,12 +13,12 @@
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Tên khách hàng</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="name_customer" value="{{$order->name_customer}}">
+                                <input type="text" class="form-control" name="name_customer" value="{{$order->name_customer}}" required>
                             </div>
 
                             <label class="col-md-2 control-label">CCCD/Hộ chiếu</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="id_passport" value="{{$order->id_passport}}">
+                                <input type="text" class="form-control" name="id_passport" value="{{$order->id_passport}}" required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -40,7 +40,7 @@
 
                             <label class="col-md-2 control-label">Giảm giá</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="discount" value="{{$order->discount}}">
+                                <input type="text" class="form-control" name="discount" value="{{$order->discount}}" oninput="formatPrice(this)">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -51,7 +51,7 @@
 
                             <label class="col-md-2 control-label">Đặt cọc</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="deposit" value="0" value="{{$order->deposit}}">
+                                <input type="text" class="form-control" name="deposit" value="0" value="{{$order->deposit}}" oninput="formatPrice(this)">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -62,18 +62,18 @@
 
                             <label class="col-md-2 control-label">Checkout dự kiến</label>
                             <div class="col-md-4">
-                                <input type="datetime-local" class="form-control" name="checkout_estimate" value="{{$order->checkout_estimate}}">
+                                <input type="datetime-local" class="form-control" value="{{$order->checkout_estimate}}" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Phí tiện ích</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="utility_fee" value="{{$order->utility_fee}}">
+                                <input type="text" class="form-control" name="utility_fee" value="{{$order->utility_fee}}" oninput="formatPrice(this)">
                             </div>
 
                             <label class="col-md-2 control-label">Phí phạt</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="penalty_fee" value="{{$order->penalty_fee}}">
+                                <input type="text" class="form-control" name="penalty_fee" value="{{$order->penalty_fee}}" oninput="formatPrice(this)">
                             </div>
                         </div>
                     </div>
@@ -84,30 +84,51 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     @foreach($rooms as $room)
-                                        <div class="radio radio-primary">
-                                            <input type="radio" name="room_id" value="{{$room->id}}" id="{{'room-' . $room->id}}" checked>
-                                            <label for="{{'room-' . $room->id}}">
-                                                {{$room->name}}
-                                            </label>
-                                        </div>
-                                    @endforeach
+                                        @if($order->room_id == $room->id)
+                                            <div class="radio radio-primary">
+                                                <input type="radio" name="room_id" value="{{$room->id}}" id="{{'room-' . $room->id}}" checked disabled>
+                                                <label for="{{'room-' . $room->id}}">
+                                                    {{$room->name}}
+                                                </label>
+                                            </div>
+                                        @else
+                                            <div class="radio radio-primary">
+                                                <input type="radio" name="room_id" value="{{$room->id}}" id="{{'room-' . $room->id}}" disabled>
+                                                <label for="{{'room-' . $room->id}}">
+                                                    {{$room->name}}
+                                                </label>
+                                            </div>
+                                        @endif
+                                    @endforeach                                   
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                @if($order->status == 'checkin')
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-group row">
+                                <h6 class="col-md-2 text-primary">Đơn giá</h6>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="order_price" oninput="formatPrice(this)" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group row mb-3">
                             <label class="col-md-12 control-label">Thông tin thêm</label>
                             <div class="col-md-12">
-                                <textarea name="description" class="form-control" rows="10">{{$order->description}}</textarea>
+                                <textarea name="description" class="form-control" rows="6">{{$order->description}}</textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    @if($order->status == 'Booked')
+                    @if($order->status == 'booked')
                         <a 
                             class="btn btn-danger waves-effect width-md waves-light" 
                             data-toggle="modal"
@@ -124,22 +145,25 @@
                             Nhận phòng
                         </button>
                     @endif
-                    @if($order->status == 'Checkin')
+                    @if($order->status == 'checkin')
+                        <a class="btn btn-secondary waves-effect width-md waves-light" href="javascript:history.back()">Quay lại</a>
                         <button 
                             class="btn btn-success waves-effect width-md waves-light" 
+                            style="margin-left: 5px"
                             type="submit"
                         >
                             Trả phòng
                         </button>
                     @endif
-                    @if($order->status == 'Checkout')
-                        <a class="btn btn-primary waves-effect width-md waves-light" href="{{route('admin_order.index_checkout')}}">Quay lại</a>
+                    @if($order->status == 'checkout')
+                        <a class="btn btn-primary waves-effect width-md waves-light" href="javascript:history.back()">Quay lại</a>
                     @endif
                 </div>
             </form>
         </div>
     </div>
 
+    @if($order->status == 'booked')
     <!-- Modal destroy order -->
     <div class="modal fade {{'bs-modal-'.$order->id}}" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-sm">
@@ -175,5 +199,19 @@
         @method('DELETE')
         @csrf
     </form>
+    @endif
 </div>
+
+<script>
+    function formatPrice(input) {
+        let value = input.value.replace(/\./g, '').replace(/[^0-9.]/g, '');
+
+        if (!isNaN(value) && value.length > 0) {
+            value = parseFloat(value).toLocaleString('de-DE');
+            input.value = value;
+        } else {
+            input.value = ''; 
+        }
+    }
+</script>
 @endsection

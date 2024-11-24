@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Staff;
 use App\Models\Position;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreStaffRequest;
 use App\Http\Requests\UpdateStaffRequest;
@@ -15,7 +16,7 @@ class StaffController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['userMiddleware', 'staffMiddleware']);
+        $this->middleware('staffMiddleware');
     }
 
     /**
@@ -166,7 +167,13 @@ class StaffController extends Controller
             unlink($path_unlink);
         }
 
+        //Delete user account Staff
+        $user_id = $staff->User->id;
+        $user = User::findOrFail($user_id);
+        $user->delete();
+
         $staff->delete();
+
         return redirect('/admin/staff')->with('status', 'Xóa nhân viên thành công');
     }
 }

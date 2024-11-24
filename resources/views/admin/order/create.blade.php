@@ -12,12 +12,12 @@
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Tên khách hàng</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="name_customer">
+                                <input type="text" class="form-control" name="name_customer" required>
                             </div>
 
                             <label class="col-md-2 control-label">CCCD/Hộ chiếu</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="id_passport">
+                                <input type="text" class="form-control" name="id_passport" required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -35,8 +35,8 @@
                             <label class="col-md-2 control-label">Trạng thái</label>
                             <div class="col-md-4">
                                 <select name="status" class="form-control" onchange="statusChange(event.target.value)">
-                                    <option value="Booked" selected>Đặt trước</option>
-                                    <option value="Checkin">Checkin</option>
+                                    <option value="booked" selected>Đặt trước</option>
+                                    <option value="checkin">Checkin</option>
                                 </select>
                             </div>
 

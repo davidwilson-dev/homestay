@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Position;
+use App\Models\User;
 
 class Staff extends Model
 {
@@ -23,5 +24,9 @@ class Staff extends Model
 
     public function Position(){
         return $this->belongsTo(Position::class);
+    }
+
+    public function User(){
+        return $this->hasOne(User::class);
     }
 }

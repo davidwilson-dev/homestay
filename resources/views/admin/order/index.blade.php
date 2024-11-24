@@ -45,13 +45,13 @@
                         <td>{{$order->phone_number}}</td>
                         <td>{{$order->Room->name}}</td>
                         <td>
-                            @if($order->status == 'Booked')
+                            @if($order->status == 'booked')
                                 <span class="text-success">Đã đặt phòng</span>
                             @endif
-                            @if($order->status == 'Checkin')
+                            @if($order->status == 'checkin')
                                 <span class="text-orange">Đã nhận phòng</span>
                             @endif
-                            @if($order->status == 'Checkout')
+                            @if($order->status == 'checkout')
                                 <span class="text-primary">Đã trả phòng</span>
                             @endif
                         </td>

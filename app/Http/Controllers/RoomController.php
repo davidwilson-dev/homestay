@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
@@ -12,7 +13,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $rooms = Room::orderBy('id', 'ASC')->get();
+        $rooms = Room::orderBy('floor_number', 'ASC')->get();
         return view('admin.room.index', compact(['rooms']));
     }
 
@@ -21,6 +22,10 @@ class RoomController extends Controller
      */
     public function create()
     {
+        if(auth()->user()->cannot('create', Room::class)){
+            return redirect('admin/room')->with('error', 'Bạn không đủ thẩm quyền');
+        }
+
         return view('admin.room.create');
     }
 
@@ -33,8 +38,8 @@ class RoomController extends Controller
         $room->name = $request->name;
         $room->description = $request->description;
         $room->floor_number = $request->floor_number;
-        $room->price_weekday = intval(str_replace('.', '', strval($request->price_weekday)));
-        $room->price_weekend = intval(str_replace('.', '', strval($request->price_weekend)));
+        $room->price_weekday = floatval(str_replace('.', '', strval($request->price_weekday)));
+        $room->price_weekend = floatval(str_replace('.', '', strval($request->price_weekend)));
         $room->save();
 
         return redirect('admin/room')->with('status', 'Tạo phòng thành công');
@@ -55,6 +60,11 @@ class RoomController extends Controller
     public function edit(String $id)
     {
         $room = Room::findOrFail($id);
+
+        if(auth()->user()->cannot('update', $room)){
+            return redirect('admin/room')->with('error', 'Bạn không đủ thẩm quyền');
+        }
+
         return view('admin.room.edit', compact(['room']));
     }
 
@@ -67,8 +77,8 @@ class RoomController extends Controller
         $room->name = $request->name;
         $room->description = $request->description;
         $room->floor_number = $request->floor_number;
-        $room->price_weekday = intval(str_replace('.', '', strval($request->price_weekday)));
-        $room->price_weekend = intval(str_replace('.', '', strval($request->price_weekend)));
+        $room->price_weekday = floatval(str_replace('.', '', strval($request->price_weekday)));
+        $room->price_weekend = floatval(str_replace('.', '', strval($request->price_weekend)));
         $room->save();
 
         return redirect('admin/room')->with('status', 'Sửa phòng thành công');
@@ -80,6 +90,27 @@ class RoomController extends Controller
     public function destroy(String $id)
     {
         $room = Room::findOrFail($id);
+
+        if(auth()->user()->cannot('forceDelete', $room)){
+            return redirect('admin/room')->with('error', 'Bạn không đủ thẩm quyền');
+        }
+
+        $orders = Order::orderBy('id', 'ASC')->get();
+        $is_room = false;
+        foreach($orders as $order)
+        {
+            if($order->room_id == $room->id)
+            {
+                $is_room = true;
+                break;
+            }
+        }
+
+        if($is_room)
+        {
+            return redirect('/admin/room')->with('error', 'Không được xóa phòng đã có đơn hàng');
+        }
+
         $room->delete();
 
         return redirect('/admin/room')->with('status', 'Xóa phòng thành công');

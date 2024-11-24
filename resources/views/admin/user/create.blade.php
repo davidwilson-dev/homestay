@@ -43,7 +43,7 @@
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Mật khẩu</label>
                             <div class="col-md-4">
-                                <input type="password" class="form-control" name="password">
+                                <input type="password" class="form-control" name="password" required>
                             </div>
 
                             <label class="col-md-2 control-label">Email</label>
@@ -54,7 +54,7 @@
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Xác nhận mật khẩu</label>
                             <div class="col-md-4">
-                                <input type="password" class="form-control" name="password_confirmation">
+                                <input type="password" class="form-control" name="password_confirmation" required>
                             </div>
 
                             <label class="col-md-2 control-label">Chức vụ</label>

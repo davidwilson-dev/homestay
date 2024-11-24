@@ -15,10 +15,10 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->Role->name != 'admin'){
-            return redirect()->back()->with('error', 'Bạn không đủ thẩm quyền');
+        if(auth()->user()->Role->name == 'admin'){
+            return $next($request);
         }
 
-        return $next($request);
+        return redirect()->back()->with('error', 'Bạn không đủ thẩm quyền');
     }
 }

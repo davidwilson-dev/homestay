@@ -44,7 +44,7 @@
                         <td>{{$order->Room->name}}</td>
                         <td>{{$order->checkin}}</td>
                         <td>{{$order->checkout}}</td>
-                        <td>{{$order->order_price}}</td>
+                        <td>{{number_format($order->order_price, 0, ',', '.')}}</td>
                     </tr>
                     @endforeach
                 </tbody>

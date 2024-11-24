@@ -26,6 +26,9 @@
         <link href="{{asset('frontend/admin/libs/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
         <link href="{{asset('frontend/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css">
 
+        <!-- Modal -->
+        <link href="{{asset('frontend/admin/libs/custombox/custombox.min.css')}}" rel="stylesheet" type="text/css">
+
         <!-- App css -->
         <link href="{{asset('frontend/admin/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
         <link href="{{asset('frontend/admin/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
@@ -55,19 +58,40 @@
                             </div>
 
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <a 
+                                class="dropdown-item notify-item"
+                                href="#custom-modal"                                 
+                                data-animation="fadein" 
+                                data-plugin="custommodal" 
+                                data-overlayspeed="200" 
+                                data-overlaycolor="#36404a"
+                            >
                                 <i class="mdi mdi-account-outline"></i>
                                 <span>Profile</span>
                             </a>
 
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <a 
+                                class="dropdown-item notify-item"
+                                href="#custom-modal"                                 
+                                data-animation="fadein" 
+                                data-plugin="custommodal" 
+                                data-overlayspeed="200" 
+                                data-overlaycolor="#36404a"
+                            >
                                 <i class="mdi mdi-settings-outline"></i>
                                 <span>Settings</span>
                             </a>
 
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <a 
+                                class="dropdown-item notify-item"
+                                href="#custom-modal"                                 
+                                data-animation="fadein" 
+                                data-plugin="custommodal" 
+                                data-overlayspeed="200" 
+                                data-overlaycolor="#36404a"
+                            >
                                 <i class="mdi mdi-lock-outline"></i>
                                 <span>Lock Screen</span>
                             </a>
@@ -181,7 +205,17 @@
                                 <ul class="nav-second-level" aria-expanded="false">
                                     <li><a href="{{route('admin_staff.index')}}">Danh sách</a></li>
                                     <li><a href="{{route('admin_staff.create')}}">Tạo nhân viên</a></li>
-                                    <li><a href="#">Chức vụ</a></li>
+                                    <li>
+                                        <a
+                                            href="#custom-modal"                                 
+                                            data-animation="fadein" 
+                                            data-plugin="custommodal" 
+                                            data-overlayspeed="200" 
+                                            data-overlaycolor="#36404a"
+                                        >
+                                            Chức vụ
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 
@@ -212,13 +246,27 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="javascript: void(0);" class="waves-effect waves-light">
+                                <a 
+                                    class="waves-effect waves-light"
+                                    href="#custom-modal"                                 
+                                    data-animation="fadein" 
+                                    data-plugin="custommodal" 
+                                    data-overlayspeed="200" 
+                                    data-overlaycolor="#36404a"
+                                >
                                     <i class="fas fa-file-invoice-dollar"></i>
                                     <span> Thống kê </span>
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript: void(0);" class="waves-effect waves-light">
+                                <a 
+                                    class="waves-effect waves-light"
+                                    href="#custom-modal"                                 
+                                    data-animation="fadein" 
+                                    data-plugin="custommodal" 
+                                    data-overlayspeed="200" 
+                                    data-overlaycolor="#36404a"
+                                >
                                     <i class="fas fa-cog"></i>
                                     <span> Cài đặt </span>
                                 </a>
@@ -385,6 +433,19 @@
         <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div>
 
+        <!-- Modal -->
+        <div id="custom-modal" class="modal-demo">
+
+            <button type="button" class="close" onclick="Custombox.modal.close();">
+                <span>&times;</span><span class="sr-only">Close</span>
+            </button>
+            <h4 class="custom-modal-title">Thông báo hỏa tốc</h4>
+            <div class="custom-modal-text">
+                Tính năng này đang phát triển. <br />
+                Cần bao đi ăn nhậu, chơi bi-a để nâng cấp.
+            </div>
+        </div>
+
         <!-- <a href="javascript:void(0);" class="right-bar-toggle demos-show-btn"> <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos </a> -->
 
         <!-- Vendor js -->
@@ -430,6 +491,9 @@
 
         <!-- Init js-->
         <script src="{{asset('frontend/admin/js/pages/form-pickers.init.js')}}"></script>
+
+        <!-- Modal -->
+        <script src="{{asset('frontend/admin/libs/custombox/custombox.min.js')}}"></script>
 
         <!-- App js -->
         <script src="{{asset('frontend/admin/js/app.min.js')}}"></script>

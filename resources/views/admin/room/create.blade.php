@@ -12,12 +12,12 @@
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Tên phòng</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="name">
+                                <input type="text" class="form-control" name="name" required>
                             </div>
 
                             <label class="col-md-2 control-label">Tầng</label>
                             <div class="col-md-4">
-                                <input type="number" class="form-control" name="floor_number" step="1" value="1" min="1" max="50">
+                                <input type="number" class="form-control" name="floor_number" step="1" value="1" min="1" max="50" required>
                             </div>
                         </div>
                         <div class="form-group row">

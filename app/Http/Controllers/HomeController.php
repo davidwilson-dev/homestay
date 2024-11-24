@@ -35,6 +35,12 @@ class HomeController extends Controller
         $staffs = Staff::orderBy('id', 'DESC')->where('position_id', 4)->take(5)->get();
         $orders = Order::orderBy('id', 'DESC')->take(5)->get();
 
+        foreach($orders as $order)
+        {
+            $checkin = Carbon::parse($order->checkin);
+            $order->checkin = $checkin->format('d/m/Y');
+        }
+
         $time_now = Carbon::now('Asia/Ho_Chi_Minh');
 
         return view

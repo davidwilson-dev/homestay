@@ -82,12 +82,21 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     @foreach($rooms as $room)
-                                        <div class="radio radio-primary">
-                                            <input type="radio" name="room_id" value="{{$room->id}}" id="{{'room-' . $room->id}}" checked disabled>
-                                            <label for="{{'room-' . $room->id}}">
-                                                {{$room->name}}
-                                            </label>
-                                        </div>
+                                        @if($order->room_id == $room->id)
+                                            <div class="radio radio-primary">
+                                                <input type="radio" name="room_id" value="{{$room->id}}" id="{{'room-' . $room->id}}" checked disabled>
+                                                <label for="{{'room-' . $room->id}}">
+                                                    {{$room->name}}
+                                                </label>
+                                            </div>
+                                        @else
+                                            <div class="radio radio-primary">
+                                                <input type="radio" name="room_id" value="{{$room->id}}" id="{{'room-' . $room->id}}" disabled>
+                                                <label for="{{'room-' . $room->id}}">
+                                                    {{$room->name}}
+                                                </label>
+                                            </div>
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>

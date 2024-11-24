@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('id_passport');
             $table->string('phone_number')->nullable();
             $table->string('email')->nullable();
-            $table->datetime('checkin-estimate')->nullable();
-            $table->datetime('checkout-estimate')->nullable();
+            $table->datetime('checkin_estimate')->nullable();
+            $table->datetime('checkout_estimate')->nullable();
             $table->datetime('checkin')->nullable();
             $table->datetime('checkout')->nullable();
             $table->enum('status', ['booked', 'checkin', 'checkout']);

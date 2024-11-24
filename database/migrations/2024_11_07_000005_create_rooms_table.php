@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedInteger('floor_number');
             $table->text('description')->nullable();
-            $table->float('price_weekday');
-            $table->float('price_weekend');
+            $table->float('price_weekday')->default(0);
+            $table->float('price_weekend')->default(0);
             $table->timestamps();
         });
     }

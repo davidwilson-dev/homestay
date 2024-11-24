@@ -12,7 +12,7 @@
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Họ tên</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="name">
+                                <input type="text" class="form-control" name="name" required>
                             </div>
 
                             <label class="col-md-2 control-label">Chức vụ</label>
@@ -34,7 +34,7 @@
 
                             <label class="col-md-2 control-label">Email</label>
                             <div class="col-md-4">
-                                <input type="email" class="form-control" name="email">
+                                <input type="email" class="form-control" name="email" required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -50,7 +50,7 @@
 
                             <label class="col-md-2 control-label">Số điện thoại</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="phone_number">
+                                <input type="text" class="form-control" name="phone_number" required>
                             </div>
                         </div>
                         <div class="form-group row">

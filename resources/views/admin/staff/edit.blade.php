@@ -13,7 +13,7 @@
                         <div class="form-group row">
                             <label class="col-md-2 control-label">Họ tên</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="name" value="{{$staff->name}}">
+                                <input type="text" class="form-control" name="name" value="{{$staff->name}}" required>
                             </div>
 
                             <label class="col-md-2 control-label">Chức vụ</label>
@@ -37,7 +37,7 @@
 
                             <label class="col-md-2 control-label">Email</label>
                             <div class="col-md-4">
-                                <input type="email" class="form-control" name="email" value="{{$staff->email}}">
+                                <input type="email" class="form-control" name="email" value="{{$staff->email}}" required>
                             </div>
                         </div>
                         <div class="form-group row">
