@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedInteger('floor_number');
+            $table->string('slug')->unique();
+            $table->unsignedInteger('floor');
+            $table->integer('capacity')->default(1 );
+            $table->decimal('price', 12, 2); //price basic per night except weekend and holiday
+            $table->enum('status', ['available', 'unavailable', 'maintenance'])->default('available');
             $table->text('description')->nullable();
-            $table->float('price_weekday')->default(0);
-            $table->float('price_weekend')->default(0);
             $table->timestamps();
         });
     }

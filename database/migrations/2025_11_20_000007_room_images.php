@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('room_images', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique(); // admin, manager, staff, collaborator
-            $table->string('display_name')->nullable(); 
-            $table->string('slug')->unique();          
-            $table->text('description')->nullable();
+            $table->foreignId('room_id')->constrained('rooms')->cascadeOnDelete();
+            $table->string('path');
+            $table->boolean('is_thumbnail')->default(false);
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('room_images');
     }
 };
