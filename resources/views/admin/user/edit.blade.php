@@ -5,7 +5,7 @@
         <div class="card-box table-responsive">
             <h4 class="header-title pb-2 border-bottom"><b>Sửa tài khoản</b></h4>
 
-            <form action="{{route('admin_user.update', $user->id)}}" method="POST" class="form-horizontal mt-4" enctype="multipart/form-data">
+            <form action="{{route('admin.user.update', $user->id)}}" method="POST" class="form-horizontal mt-4" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="row">
@@ -62,11 +62,11 @@
                     <div class="col-md-3">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             @if($user->Staff->avatar != null)
-                                <img src="{{asset('frontend/admin/images/staffs/' . $user->Staff->avatar)}}" width="200px" height="200px" />
+                                <img src="{{asset('storage/' . $user->Staff->avatar)}}" width="200px" height="200px" />
                             @else
-                                <img src="{{asset('frontend/admin/images/staffs/avatar.png')}}" width="200px" height="200px" />
+                                <img src="{{asset('assets/admin/images/staffs/avatar-default.png')}}" width="200px" height="200px" />
                             @endif
-                            <label id="label-avatar" class="btn btn-info waves-effect width-md waves-light mt-2">Ảnh đại diện</label>
+                            <label class="mt-2" style="cursor: default;">Ảnh đại diện</label>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-secondary waves-effect width-md waves-light" href="{{route('admin_user.index')}}">Quay lại</a>
+                    <a class="btn btn-secondary waves-effect width-md waves-light" href="{{route('admin.user.index')}}">Quay lại</a>
                     <button class="btn btn-primary waves-effect width-md waves-light" type="submit" style="margin-left: 5px">Cập nhật</button>
                 </div>
             </form>

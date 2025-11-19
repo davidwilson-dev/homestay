@@ -68,9 +68,9 @@
                     <div class="col-md-3">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             @if($staff->avatar != null)
-                                <img src="{{asset('frontend/admin/images/staffs/' . $staff->avatar)}}" alt="avatar" width="200px" height="200px" id="image-avatar">
+                                <img src="{{asset('storage/' . $staff->avatar)}}" alt="avatar" width="200px" height="200px" id="image-avatar">
                             @else
-                                <img src="{{asset('frontend/admin/images/staffs/avatar.png')}}" alt="avatar" width="200px" height="200px" id="image-avatar">
+                                <img src="{{asset('assets/admin/images/staffs/avatar-default.png')}}" alt="avatar" width="200px" height="200px" id="image-avatar">
                             @endif
                             <input type="file" name="avatar" class="form-control d-none" id="input-avatar" />
                             <label id="label-avatar" class="btn btn-info waves-effect width-md waves-light mt-2" for="input-avatar">Tải ảnh</label>

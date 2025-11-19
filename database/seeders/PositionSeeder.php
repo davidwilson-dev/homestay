@@ -14,7 +14,7 @@ class PositionSeeder extends Seeder
     public function run(): void
     {
         Position::create([
-            'name' => 'giám đốc',
+            'name' => 'chủ cơ sở',
         ]);
 
         Position::create([

@@ -8,7 +8,7 @@
                 <a 
                     type="button" 
                     class="btn btn-primary waves-effect width-md waves-light"
-                    href="{{route('admin_staff.create')}}"
+                    href="{{route('admin.staff.create')}}"
                 >
                     Tạo nhân viên
                 </a>
@@ -34,58 +34,28 @@
                         <td>{{$staff->name}}</td>
                         <td>
                             @if($staff->avatar != null)
-                                <img src="{{asset('frontend/admin/images/staffs/' . $staff->avatar)}}" alt="avatar" class="avatar-sm">
+                                <img src="{{asset('storage/' . $staff->avatar)}}" alt="avatar" class="avatar-sm">
                             @else
-                                <img src="{{asset('frontend/admin/images/staffs/avatar.png')}}" alt="avatar" class="avatar-sm">
+                                <img src="{{asset('assets/admin/images/staffs/avatar.png')}}" alt="avatar" class="avatar-sm">
                             @endif
                         </td>
                         <td>{{$staff->email}}</td>
                         <td>{{$staff->phone_number}}</td>
                         <td>{{ucfirst($staff->Position->name)}}</td>
                         <td>
-                            <a class="btn btn-info btn-sm text-white" href="{{route('admin_staff.show', $staff->id)}}">Chi tiết</a>
-                            <a class="btn btn-success btn-sm text-white" href="{{route('admin_staff.edit', $staff->id)}}">Sửa</a>
+                            <a class="btn btn-info btn-sm text-white" href="{{route('admin.staff.show', $staff->id)}}">Chi tiết</a>
+                            <a class="btn btn-success btn-sm text-white" href="{{route('admin.staff.edit', $staff->id)}}">Sửa</a>
                             <a 
                                 class="btn btn-danger btn-sm text-white"
                                 data-toggle="modal"
-                                data-target=".{{'bs-modal-'.$staff->id}}"
+                                data-target=".bs-modal"
                                 href="javascript:void()"
+                                data-id="{{$staff->id}}"
+                                data-name="{{$staff->name}}"
+                                data-email="{{$staff->email}}"
                             >
                                 Xóa
-                            </a>
-                            <div class="modal fade {{'bs-modal-'.$staff->id}}" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                                <div class="modal-dialog modal-sm">
-                                    <div class="modal-content pb-3">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title mt-0">Xóa nhân viên</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body d-flex flex-column">
-                                            <span>Bạn có muốn xóa nhân viên này?</span>
-                                            <span>Họ tên: {{$staff->name}}</span>
-                                            <span>Email: {{$staff->email}}</span>
-                                        </div>
-                                        <div class="d-flex justify-content-end px-3">
-                                            <button class="btn btn-secondary btn-sm" type="button" class="close" data-dismiss="modal" aria-label="Close">Hủy</button>
-                                            <button 
-                                                class="btn btn-danger btn-sm" 
-                                                style="margin-left: 5px"
-                                                type="button"
-                                                onclick="document.getElementById('{{'form-delete-'.$staff->id}}').submit()"
-                                            >
-                                                Xóa
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <form action="{{route('admin_staff.destroy', $staff->id)}}" method="POST" id="{{'form-delete-'.$staff->id}}" class="d-none">
-                                @method('DELETE')
-                                @csrf
-                            </form>
+                            </a>                         
                         </td>
                     </tr>
                     @endforeach
@@ -95,4 +65,57 @@
     </div>
 </div>
 
+<!-- Modal delete -->
+<div class="modal fade bs-modal" id="confirm-delete-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content pb-3">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0">Xóa nhân viên</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="POST" id="delete-form">
+                @method('DELETE')
+                @csrf
+                <div class="modal-body d-flex flex-column">
+                    <span>Bạn có muốn xóa nhân viên này?</span>
+                    <span id="delete-name-span"></span>
+                    <span id="delete-email-span"></span>
+                    <span>Nếu nhân viên này sở hữu tài khoản thì sẽ bị xóa đồng thời</span>
+                </div>
+                <div class="d-flex justify-content-end px-3">
+                    <button class="btn btn-secondary btn-sm" type="button" class="close" data-dismiss="modal" aria-label="Close">Hủy</button>
+                    <button 
+                        class="btn btn-danger btn-sm" 
+                        style="margin-left: 5px"
+                        type="submit"
+                    >
+                        Xóa
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const deleteModal = document.getElementById('confirm-delete-modal');
+    const deleteForm = document.getElementById('delete-form'); 
+    console.log(deleteModal);
+    // deleteModal.addEventListener('show.bs.modal', (event) => {
+    //     console.log('show modal');
+    //     const button = event.relatedTarget; 
+    //     const staffId = button.getAttribute('data-id'); 
+    //     const staffName = button.getAttribute('data-name'); 
+    //     const staffEmail = button.getAttribute('data-email'); 
+
+    //     // Update modal content
+    //     const deleteNameSpan = deleteModal.querySelector('#delete-name-span');
+    //     const deleteEmailSpan = deleteModal.querySelector('#delete-email-span');
+    //     deleteNameSpan.textContent = `Họ tên: ${staffName}`;
+    //     deleteEmailSpan.textContent = `Email: ${staffEmail}`;
+
+    // });
+</script>
 @endsection

@@ -13,24 +13,53 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create([
-            'name' => 'admin',
-            'description' => 'Quyền hạn tối thượng'
-        ]);
+        $now = Carbon::now();
 
-        Role::create([
-            'name' => 'quản lý',
-            'description' => 'Tất cả quyền hạn trừ quản lý tài khoản'
-        ]);
+        $roles = [
+            [
+                'name' => 'owner',        
+                'display_name' => 'Owner',        
+                'description' => 'Chủ homestay',          
+                'created_at'=>$now,
+                'updated_at'=>$now
+            ],
+            [
+                'name' => 'manager',      
+                'display_name' => 'Manager',      
+                'description' => 'Quản lý',              
+                'created_at'=>$now,
+                'updated_at'=>$now
+            ],
+            [
+                'name' => 'receptionist', 
+                'display_name' => 'Receptionist', 
+                'description' => 'Lễ tân',               
+                'created_at'=>$now,
+                'updated_at'=>$now
+            ],
+            [
+                'name' => 'housekeeper',  
+                'display_name' => 'Housekeeper',  
+                'description' => 'Dọn phòng',            
+                'created_at'=>$now,
+                'updated_at'=>$now
+            ],
+            [
+                'name' => 'accountant',   
+                'display_name' => 'Accountant',   
+                'description' => 'Kế toán',              
+                'created_at'=>$now,
+                'updated_at'=>$now
+            ],
+            [
+                'name' => 'collaborator', 
+                'display_name' => 'Collaborator', 
+                'description' => 'Cộng tác viên (chỉ xem đơn)', 
+                'created_at'=>$now,
+                'updated_at'=>$now
+            ],
+        ];
 
-        Role::create([
-            'name' => 'lễ tân',
-            'description' => 'Xem đơn hàng, thêm mới đơn hàng, checkin, checkout'
-        ]);
-
-        Role::create([
-            'name' => 'cộng tác viên',
-            'description' => 'Xem đơn hàng'
-        ]);
+        DB::table('roles')->insert($roles);
     }
 }

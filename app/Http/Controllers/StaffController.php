@@ -11,12 +11,15 @@ use App\Http\Requests\UpdateStaffRequest;
 use Illuminate\Support\Facades\DB;
 use Str;
 use Carbon\Carbon;
+use App\Services\ImageService;
+use Illuminate\Support\Facades\Storage;
 
 class StaffController extends Controller
 {
-    public function __construct()
+    public function __construct(ImageService $imageService)
     {
         $this->middleware('staffMiddleware');
+        $this->imageService = $imageService;
     }
 
     /**
@@ -47,22 +50,19 @@ class StaffController extends Controller
 
         try {
             $staff = new Staff;
-            $staff->fill($request->except('birthday'));
-            $staff->birthday = Carbon::createFromFormat('m/d/Y', $request->birthday);
+            //Get data from request
+            $staff->fill($request->all());
+
+            // Convert birthday format
+            $staff->birthday = Carbon::createFromFormat('d/m/Y', $request->birthday);
     
-            //Add new Image 
-            $get_image = $request->avatar;
-    
-            if($get_image)
-            {
-                $path = 'frontend/admin/images/staffs/';
-                $get_name_image = $get_image->getClientOriginalName();
-                $name_image = current(explode('.',$get_name_image));
-                $new_image = Str::slug($name_image, '-') . Str::random(10) . '.' . $get_image->getClientOriginalExtension();
-                $get_image->move($path,$new_image);
-                $staff->avatar = $new_image;
+            //Handle image avatar
+            if ($request->hasFile('avatar')) {
+                $avatarPath = $this->imageService->saveImageAvatar($request->file('avatar'), 'staffs', $staff->name);
+                $staff->avatar = $avatarPath;
             }
 
+            //Save staff to database
             $staff->save();
 
             DB::commit();
@@ -102,32 +102,24 @@ class StaffController extends Controller
         DB::beginTransaction();
 
         try {
+            //Find staff by id
             $staff = Staff::findOrFail($id);
+
+            //Get data from request
             $staff->fill($request->except('birthday'));
-            $staff->birthday = Carbon::createFromFormat('m/d/Y', $request->birthday);
-    
-            //Update avatar 
-            $get_image = $request->avatar;
-    
-            if($get_image)
-            {
-                //Delete old avatar
-                $path_unlink = 'frontend/admin/images/staffs/'.$staff->avatar;
 
-                if(file_exists($path_unlink) && $path_unlink !== 'frontend/admin/images/staffs/')
-                {
-                    unlink($path_unlink);
+            // Convert birthday format
+            $staff->birthday = Carbon::createFromFormat('d/m/Y', $request->birthday);
+    
+            //Handle image avatar
+            if ($request->hasFile('avatar')) {
+                if($staff->avatar) {
+                    $this->imageService->deleteImage($staff->avatar);
                 }
-
-                //Add new avatar
-                $path = 'frontend/admin/images/staffs/';
-                $get_name_image = $get_image->getClientOriginalName();
-                $name_image = current(explode('.',$get_name_image));
-                $new_image = Str::slug($name_image, '-') . Str::random(10) . '.' . $get_image->getClientOriginalExtension();
-                $get_image->move($path,$new_image);
-                $staff->avatar = $new_image;
+                $staff->avatar = $this->imageService->saveImageAvatar($request->file('avatar'), 'staffs', $staff->name);
             }
 
+            //Save staff to database
             $staff->save();
 
             DB::commit();
@@ -145,12 +137,13 @@ class StaffController extends Controller
      */
     public function destroy(String $id)
     {
+        //Find staff by id
         $staff = Staff::findOrFail($id);
 
         //Do not delete Admin
-        if($staff->Position->name == 'giám đốc')
+        if($staff->Position->name == 'chủ cơ sở')
         {
-            return redirect('/admin/staff')->with('error', 'Không được phép xóa giám đốc');
+            return redirect('/admin/staff')->with('error', 'Không được phép xóa chủ cơ sở');
         }
 
         //Do not delete your account
@@ -160,18 +153,18 @@ class StaffController extends Controller
         }
 
         //Delete avatar
-        $path_unlink = 'frontend/admin/images/staffs/'.$staff->avatar;
-
-        if(file_exists($path_unlink) && $path_unlink !== 'frontend/admin/images/staffs/')
-        {
-            unlink($path_unlink);
+        if($staff->avatar) {
+            $this->imageService->deleteImage($staff->avatar);
         }
 
-        //Delete user account Staff
+        //Delete user account associated with staff
         $user_id = $staff->User->id;
-        $user = User::findOrFail($user_id);
-        $user->delete();
+        if($user_id) {
+            $user = User::findOrFail($user_id);
+            $user->delete();
+        }
 
+        //Delete staff
         $staff->delete();
 
         return redirect('/admin/staff')->with('status', 'Xóa nhân viên thành công');

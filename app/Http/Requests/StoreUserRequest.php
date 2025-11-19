@@ -25,7 +25,7 @@ class StoreUserRequest extends FormRequest
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|confirmed',
             'role_id' => 'required|integer|min:1',
-            'staff_id' => 'required|integer|min:1'
+            'staff_id' => 'required|integer|min:1',
         ];
     }
 
@@ -38,6 +38,11 @@ class StoreUserRequest extends FormRequest
             'password.required' => 'Mật khẩu là thông tin bắt buộc',
             'password.min' => 'Mật khâu tối thiểu có 8 ký tự',
             'password.confirmed' => 'Xác nhận mật khẩu không khớp',
+            'role_id.required' => 'Bạn phải chọn quyền hạn tài khoản',
+            'role_id.integer' => 'Quyền hạn tài khoản không hợp lệ',
+            'role_id.min' => 'Quyền hạn tài khoản không hợp lệ',
+            'staff_id.required' => 'Bạn phải chọn nhân viên',
+            'staff_id.integer' => 'Nhân viên không hợp lệ',
             'staff_id.min' => 'Bạn phải chọn nhân viên'
         ];
     }

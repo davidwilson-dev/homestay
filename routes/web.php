@@ -24,14 +24,17 @@ use App\Http\Controllers\OrderController;
 //Admin
 Auth::routes();
 
-Route::group(['middleware' => ['auth']], function(){
-    Route::get('/', [HomeController::class, 'index']);
-    Route::get('/admin', [HomeController::class, 'index'])->name('home');
-    Route::resource('admin/user', UserController::class)->names('admin_user');
-    Route::resource('admin/staff', StaffController::class)->names('admin_staff');
-    Route::resource('admin/room', RoomController::class)->names('admin_room');
-    Route::resource('admin/order', OrderController::class)->names('admin_order');
-    Route::get('admin/order-booked', [OrderController::class, 'index_booked']);
-    Route::get('admin/order-checkin', [OrderController::class, 'index_checkin']);
-    Route::get('admin/order-checkout', [OrderController::class, 'index_checkout']);
-});
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware(['auth'])
+    ->group(function(){
+        Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+        Route::resource('user', UserController::class)->names('user');
+        Route::resource('staff', StaffController::class)->names('staff');
+        Route::resource('room', RoomController::class)->names('room');
+        Route::resource('order', OrderController::class)->names('order');
+        Route::get('order-booked', [OrderController::class, 'index_booked']);
+        Route::get('order-checkin', [OrderController::class, 'index_checkin']);
+        Route::get('order-checkout', [OrderController::class, 'index_checkout']);
+    }
+);

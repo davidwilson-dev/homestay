@@ -8,9 +8,11 @@
                 <div class="card">
 
                     <div class="text-center account-logo-box">
-                        <div class="mt-2 mb-2">
-                            <a href="#" class="text-success">
-                                <span><img src="{{asset('frontend/admin/images/logo.png')}}" alt="" height="36"></span>
+                        <div class="">
+                            <a href="#" class="text-white" style="font-size: 42px; font-weight: bold; padding: 0px;">
+                                <span><img src="{{asset('admin/images/logo-sm-rmbg.png')}}" alt="" height="42"></span>
+                                <span style="color: #ffffff;">Home</span>
+                                <span style="color: rgb(37,124,203);">stay</span>
                             </a>
                         </div>
                     </div>

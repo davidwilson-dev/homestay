@@ -41,7 +41,7 @@
                             <label class="col-md-2 control-label">Ngày sinh</label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="tháng/ngày/năm" id="datepicker-autoclose" name="birthday">
+                                    <input type="text" class="form-control" placeholder="ngày/tháng/năm" id="input-birthday" name="birthday">                             
                                     <div class="input-group-append">
                                         <span class="input-group-text bg-primary text-white b-0"><i class="mdi mdi-calendar"></i></span>
                                     </div>
@@ -63,7 +63,7 @@
 
                     <div class="col-md-3">
                         <div class="d-flex flex-column align-items-center justify-content-center">
-                            <img src="{{asset('frontend/admin/images/staffs/avatar.png')}}" id="image-avatar" width="200px" height="200px" />
+                            <img src="{{asset('assets/admin/images/staffs/avatar-default.png')}}" id="image-avatar" width="200px" height="200px" />
                             <input type="file" name="avatar" class="form-control d-none" id="input-avatar" />
                             <label id="label-avatar" class="btn btn-info waves-effect width-md waves-light mt-2" for="input-avatar">Tải ảnh</label>
                         </div>

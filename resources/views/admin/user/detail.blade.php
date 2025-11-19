@@ -52,11 +52,11 @@
                     <div class="col-md-3">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             @if($user->Staff->avatar != null)
-                                <img src="{{asset('frontend/admin/images/staffs/' . $user->Staff->avatar)}}" alt="avatar" width="200px" height="200px">
+                                <img src="{{asset('storage/' . $user->Staff->avatar)}}" alt="avatar" width="200px" height="200px">
                             @else
-                                <img src="{{asset('frontend/admin/images/staffs/avatar.png')}}" alt="avatar" width="200px" height="200px">
+                                <img src="{{asset('assets/admin/images/staffs/avatar-default.png')}}" alt="avatar" width="200px" height="200px">
                             @endif
-                            <label id="label-avatar" class="btn btn-info waves-effect width-md waves-light mt-2">Ảnh đại diện</label>
+                            <label class="mt-2" style="cursor: default;">Ảnh đại diện</label>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-primary waves-effect width-md waves-light" href="{{route('admin_user.index')}}">Quay lại</a>
+                    <a class="btn btn-primary waves-effect width-md waves-light" href="{{route('admin.user.index')}}">Quay lại</a>
                 </div>
             </div>
         </div>

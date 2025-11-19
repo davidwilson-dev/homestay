@@ -61,11 +61,11 @@
                     <div class="col-md-3">
                         <div class="d-flex flex-column align-items-center justify-content-center">
                             @if($staff->avatar != null)
-                                <img src="{{asset('frontend/admin/images/staffs/' . $staff->avatar)}}" alt="avatar" width="200px" height="200px">
+                                <img src="{{asset('storage/' . $staff->avatar)}}" alt="avatar" width="200px" height="200px">
                             @else
-                                <img src="{{asset('frontend/admin/images/staffs/avatar.png')}}" alt="avatar" width="200px" height="200px">
+                                <img src="{{asset('assets/admin/images/staffs/avatar-default.png')}}" alt="avatar" width="200px" height="200px">
                             @endif
-                            <label class="btn btn-info waves-effect width-md waves-light mt-2">Ảnh đại diện</label>
+                            <label class="mt-2">Ảnh đại diện</label>
                         </div>
                     </div>
                 </div>

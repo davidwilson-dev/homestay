@@ -37,11 +37,6 @@ class UserController extends Controller
         $roles = Role::orderBy('id', 'ASC')->get();
         $staffs = Staff::orderBy('id', 'ASC')->get();
 
-        foreach($staffs as $staff)
-        {
-            $staff['avatar_image'] = $staff->avatar != null ? asset('frontend/admin/images/staffs/' . $staff['avatar']) : asset('frontend/admin/images/staffs/avatar.png');
-        }
-
         return view('admin.user.create', compact(['roles', 'staffs']));
     }
 

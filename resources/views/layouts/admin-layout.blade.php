@@ -8,32 +8,45 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{asset('frontend/admin/images/favicon.ico')}}" />
+        <link rel="shortcut icon" href="{{asset('assets/admin/images/favicon.ico')}}" />
 
         <!-- Table datatable css -->
-        <link href="{{asset('frontend/admin/libs/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('frontend/admin/libs/datatables/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('frontend/admin/libs/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('frontend/admin/libs/datatables/fixedHeader.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('frontend/admin/libs/datatables/scroller.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('frontend/admin/libs/datatables/dataTables.colVis.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('frontend/admin/libs/datatables/fixedColumns.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/datatables/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/datatables/fixedHeader.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/datatables/scroller.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/datatables/dataTables.colVis.css')}}" rel="stylesheet" type="text/css">
+        <!-- <link href="{{asset('assets/admin/libs/datatables/fixedColumns.bootstrap4.min.css')}}" rel="stylesheet" type="text/css"> -->
 
         <!-- Date picker -->
-        <link href="{{asset('frontend/admin/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('frontend/admin/libs/clockpicker/bootstrap-clockpicker.min.css')}}" rel="stylesheet">
-        <link href="{{asset('frontend/admin/libs/bootstrap-timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('frontend/admin/libs/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
-        <link href="{{asset('frontend/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/clockpicker/bootstrap-clockpicker.min.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/admin/libs/bootstrap-timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css">
 
         <!-- Modal -->
-        <link href="{{asset('frontend/admin/libs/custombox/custombox.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/custombox/custombox.min.css')}}" rel="stylesheet" type="text/css">
 
-        <!-- App css -->
-        <link href="{{asset('frontend/admin/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
-        <link href="{{asset('frontend/admin/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('frontend/admin/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
-        <link href="{{asset('frontend/admin/css/style.css')}}" rel="stylesheet" type="text/css" />
+        <!-- Toastify -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+        <!-- Flatpickr -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+        <!-- css -->
+        <link href="{{asset('assets/admin/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
+        <link href="{{asset('assets/admin/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/admin/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
+        <link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet" type="text/css" />
+
+        <!-- Font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     </head>
 
     <body>
@@ -44,10 +57,15 @@
                 <ul class="list-unstyled topnav-menu float-right mb-0">
                     <li class="dropdown notification-list">
                         <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">                         
-                            @if(Auth::user()->avatar !== null)
-                                <img src="{{asset('frontend/admin/images/staffs/'.Auth::user()->Staff->avatar)}}" alt="user-image" class="rounded-circle" />
+                            @if(Auth::user()->Staff->avatar !== null)
+                                <img 
+                                    src="{{asset('storage/' . Auth::user()->Staff->avatar)}}" 
+                                    alt="user-image" 
+                                    class="rounded-circle" 
+                                    style="width: 40px; height: 40px;"
+                                />
                             @else
-                                <img src="{{asset('frontend/admin/images/staffs/avatar.png')}}" alt="user-image" class="rounded-circle" />
+                                <img src="{{asset('assets/admin/images/staffs/avatar-default.png')}}" alt="user-image" class="rounded-circle" />
                             @endif
                             <span class="d-none d-sm-inline-block ml-1">{{Auth::user()->Staff->name}}</span>
                         </a>
@@ -124,12 +142,12 @@
                 <div class="logo-box">
                     <a href="index.html" class="logo text-center">
                         <span class="logo-lg">
-                            <img src="{{asset('frontend/admin/images/logo-light.png')}}" alt="" height="18" />
+                            <img src="{{asset('assets/admin/images/logo-light.png')}}" alt="" height="18" />
                             <!-- <span class="logo-lg-text-light">Zircos</span> -->
                         </span>
                         <span class="logo-sm">
                             <!-- <span class="logo-sm-text-dark">Z</span> -->
-                            <img src="{{asset('frontend/admin/images/logo-sm.png')}}" alt="" height="24" />
+                            <img src="{{asset('assets/admin/images/logo-sm-rmbg.png')}}" alt="" height="24" />
                         </span>
                     </a>
                 </div>
@@ -143,27 +161,18 @@
 
                     <li class="dropdown d-none d-lg-block">
                         <a class="nav-link dropdown-toggle mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <img src="{{asset('frontend/admin/images/flags/vietnam.jpg')}}" alt="user-image" class="mr-1" height="12" /> <span class="align-middle">Vietnamese <i class="mdi mdi-chevron-down"></i> </span>
+                            <img src="{{asset('assets/admin/images/flags/vietnam.jpg')}}" alt="user-image" class="mr-1" height="12" /> <span class="align-middle">Vietnamese <i class="mdi mdi-chevron-down"></i> </span>
                         </a>
                         <div class="dropdown-menu">
-                            <!-- item-->
+                            <!-- vietnam flag-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="{{asset('frontend/admin/images/flags/us.jpg')}}" alt="user-image" class="mr-1" height="12" /> <span class="align-middle">German</span>
+                                <img src="{{asset('assets/admin/images/flags/vietnam.jpg')}}" alt="user-image" class="mr-1" height="12" /> 
+                                <span class="align-middle">Vietnamese</span>
                             </a>
-
-                            <!-- item-->
+                            <!-- us flag-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="{{asset('frontend/admin/images/flags/italy.jpg')}}" alt="user-image" class="mr-1" height="12" /> <span class="align-middle">Italian</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="{{asset('frontend/admin/images/flags/spain.jpg')}}" alt="user-image" class="mr-1" height="12" /> <span class="align-middle">Spanish</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <img src="{{asset('frontend/admin/images/flags/russia.jpg')}}" alt="user-image" class="mr-1" height="12" /> <span class="align-middle">Russian</span>
+                                <img src="{{asset('assets/admin/images/flags/us.jpg')}}" alt="user-image" class="mr-1" height="12" /> 
+                                <span class="align-middle">English (US)</span>
                             </a>
                         </div>
                     </li>
@@ -178,7 +187,7 @@
                     <div id="sidebar-menu">
                         <ul class="metismenu" id="side-menu">
                             <li>
-                                <a href="{{route('home')}}" class="waves-effect waves-light">
+                                <a href="{{route('admin.dashboard')}}" class="waves-effect waves-light">
                                     <i class="mdi mdi-view-dashboard"></i>
                                     <span> Bảng điều khiển </span>
                                 </a>
@@ -191,8 +200,8 @@
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="{{route('admin_user.index')}}">Danh sách</a></li>
-                                    <li><a href="{{route('admin_user.create')}}">Tạo tài khoản</a></li>
+                                    <li><a href="{{route('admin.user.index')}}">Danh sách</a></li>
+                                    <li><a href="{{route('admin.user.create')}}">Tạo tài khoản</a></li>
                                 </ul>
                             </li>
 
@@ -203,8 +212,8 @@
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="{{route('admin_staff.index')}}">Danh sách</a></li>
-                                    <li><a href="{{route('admin_staff.create')}}">Tạo nhân viên</a></li>
+                                    <li><a href="{{route('admin.staff.index')}}">Danh sách</a></li>
+                                    <li><a href="{{route('admin.staff.create')}}">Tạo nhân viên</a></li>
                                     <li>
                                         <a
                                             href="#custom-modal"                                 
@@ -226,8 +235,8 @@
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="{{route('admin_room.index')}}">Danh sách</a></li>
-                                    <li><a href="{{route('admin_room.create')}}">Tạo phòng</a></li>
+                                    <li><a href="{{route('admin.room.index')}}">Danh sách</a></li>
+                                    <li><a href="{{route('admin.room.create')}}">Tạo phòng</a></li>
                                 </ul>
                             </li>
 
@@ -238,11 +247,11 @@
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
-                                    <li><a href="{{route('admin_order.index')}}">Tổng hợp</a></li>
+                                    <li><a href="{{route('admin.order.index')}}">Tổng hợp</a></li>
                                     <li><a href="{{url('admin/order-booked')}}">Đã đặt phòng</a></li>
                                     <li><a href="{{url('admin/order-checkin')}}">Đang thuê phòng</a></li>   
                                     <li><a href="{{url('admin/order-checkout')}}">Đã trả phòng</a></li>                                
-                                    <li><a href="{{route('admin_order.create')}}">Tạo đơn hàng</a></li>
+                                    <li><a href="{{route('admin.order.create')}}">Tạo đơn hàng</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -293,6 +302,51 @@
             </div>
             <!-- Left Sidebar End -->
 
+            <!-- Notification -->
+            @if($errors->any())
+                <div class="notification">
+                    @foreach($errors->all() as $error)
+                    <script>
+                        Toastify({
+                            text: "{{ $error }}",
+                            duration: 5000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "rgba(245, 80, 80, 1)",
+                        }).showToast();
+                    </script>
+                    @endforeach  
+                </div>  
+            @endif
+            
+            @if(session('error'))
+                <script>
+                    Toastify({
+                        text: "{{ session('error') }}",
+                        duration: 5000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "rgba(245, 80, 80, 1)",
+                    }).showToast();
+                </script>
+            @endif
+
+            @if(session('status'))
+                <script>
+                    Toastify({
+                        text: "{{ session('status') }}",
+                        duration: 5000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "rgba(80, 245, 80, 1)",
+                    }).showToast();
+                </script>
+            @endif
+            <!-- End Alert -->
+
             <!-- ============================================================== -->
             <!-- Start Page Content here -->
             <!-- ============================================================== -->
@@ -307,7 +361,7 @@
                                 <div class="page-title-box">
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">admin</a></li>
+                                            <li class="breadcrumb-item"><a href="/">admin</a></li>
                                             <li class="breadcrumb-item"><a href="javascript: void(0);">dashboard</a></li>
                                         </ol>
                                     </div>
@@ -340,42 +394,6 @@
         </div>
         <!-- END wrapper -->
 
-        <!-- Alert -->
-        @if($errors->any())
-            <div class="alert-notification">
-                @foreach($errors->all() as $error)
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        {{ $error }}
-                    </div>
-                @endforeach  
-            </div>  
-        @endif
-        
-        @if(session('error'))
-            <div class="alert-notification">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                    {{ session('error') }}
-                </div>
-            </div>
-        @endif
-
-        @if(session('status'))
-            <div class="alert-notification">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                    {{ session('status') }}
-                </div>
-            </div>
-        @endif
-
         <!-- Right Sidebar -->
         <div class="right-bar">
             <div class="rightbar-title">
@@ -388,7 +406,7 @@
                 <div class="p-4">
                     <div class="alert alert-warning" role="alert"><strong>Tùy chỉnh: </strong> tính năng này đang cập nhật...</div>
                     <div class="mb-2">
-                        <img src="{{asset('frontend/admin/images/layouts/light.png')}}" class="img-fluid img-thumbnail" alt="" />
+                        <img src="{{asset('assets/admin/images/happy.png')}}" class="img-fluid img-thumbnail" alt="" />
                     </div>
                     <div class="custom-control custom-switch mb-3">
                         <input type="checkbox" class="custom-control-input theme-choice" id="light-mode-switch" checked="" />
@@ -396,7 +414,7 @@
                     </div>
 
                     <div class="mb-2">
-                        <img src="{{asset('frontend/admin/images/layouts/dark.png')}}" class="img-fluid img-thumbnail" alt="" />
+                        <img src="{{asset('assets/admin/images/happy.png')}}" class="img-fluid img-thumbnail" alt="" />
                     </div>
                     <div class="custom-control custom-switch mb-3">
                         <input 
@@ -449,54 +467,61 @@
         <!-- <a href="javascript:void(0);" class="right-bar-toggle demos-show-btn"> <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos </a> -->
 
         <!-- Vendor js -->
-        <script src="{{asset('frontend/admin/js/vendor.min.js')}}"></script>
+        <script src="{{asset('assets/admin/js/vendor.min.js')}}"></script>
 
-        <script src="{{asset('frontend/admin/libs/morris-js/morris.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/raphael/raphael.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/js/pages/dashboard.init.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/morris-js/morris.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/raphael/raphael.min.js')}}"></script>
+        <script src="{{asset('assets/admin/js/pages/dashboard.init.js')}}"></script>
 
         <!-- Datatable plugin js -->
-        <script src="{{asset('frontend/admin/libs/datatables/jquery.dataTables.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/datatables/dataTables.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/datatables/jquery.dataTables.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
-        <script src="{{asset('frontend/admin/libs/datatables/dataTables.responsive.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/datatables/responsive.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/datatables/dataTables.responsive.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/datatables/responsive.bootstrap4.min.js')}}"></script>
 
-        <script src="{{asset('frontend/admin/libs/datatables/dataTables.buttons.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/datatables/buttons.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/datatables/dataTables.buttons.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/datatables/buttons.bootstrap4.min.js')}}"></script>
 
-        <script src="{{asset('frontend/admin/libs/datatables/buttons.html5.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/datatables/buttons.print.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/datatables/buttons.html5.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/datatables/buttons.print.min.js')}}"></script>
 
-        <script src="{{asset('frontend/admin/libs/datatables/dataTables.keyTable.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/datatables/dataTables.fixedHeader.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/datatables/dataTables.scroller.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/datatables/dataTables.fixedColumns.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/datatables/dataTables.keyTable.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/datatables/dataTables.fixedHeader.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/datatables/dataTables.scroller.min.js')}}"></script>
+        <!-- <script src="{{asset('assets/admin/libs/datatables/dataTables.fixedColumns.min.js')}}"></script> -->
 
-        <script src="{{asset('frontend/admin/libs/jszip/jszip.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/pdfmake/pdfmake.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/pdfmake/vfs_fonts.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/jszip/jszip.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/pdfmake/pdfmake.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/pdfmake/vfs_fonts.js')}}"></script>
 
         <!-- Datatables init -->
-        <script src="{{asset('frontend/admin/js/pages/datatables.init.js')}}"></script>
+        <script src="{{asset('assets/admin/js/pages/datatables.init.js')}}"></script>
 
         <!-- Date picker -->
-        <script src="{{asset('frontend/admin/libs/moment/moment.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/clockpicker/bootstrap-clockpicker.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-        <script src="{{asset('frontend/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/moment/moment.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/clockpicker/bootstrap-clockpicker.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
 
         <!-- Init js-->
-        <script src="{{asset('frontend/admin/js/pages/form-pickers.init.js')}}"></script>
+        <script src="{{asset('assets/admin/js/pages/form-pickers.init.js')}}"></script>
 
         <!-- Modal -->
-        <script src="{{asset('frontend/admin/libs/custombox/custombox.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/custombox/custombox.min.js')}}"></script>     
 
         <!-- App js -->
-        <script src="{{asset('frontend/admin/js/app.min.js')}}"></script>
-        <script src="{{asset('frontend/admin/js/script.js')}}"></script>
+        <script src="{{asset('assets/admin/js/app.min.js')}}"></script>
+        <script src="{{asset('assets/admin/js/script.js')}}"></script>
+
+        <!-- Flatpickr -->
+        <script>
+            flatpickr("#input-birthday", {
+                dateFormat: "d/m/Y",
+            });
+        </script>
     </body>
 </html>

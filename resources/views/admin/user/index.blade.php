@@ -8,7 +8,7 @@
                 <a 
                     type="button" 
                     class="btn btn-primary waves-effect width-md waves-light"
-                    href="{{route('admin_user.create')}}"
+                    href="{{route('admin.user.create')}}"
                 >
                     Tạo tài khoản
                 </a>
@@ -34,17 +34,17 @@
                         <td>{{$user->Staff->name}}</td>
                         <td>
                             @if($user->Staff->avatar != null)
-                                <img src="{{asset('frontend/admin/images/staffs/' . $user->Staff->avatar)}}" alt="avatar" class="avatar-sm">
+                                <img src="{{asset('storage/' . $user->Staff->avatar)}}" alt="avatar" class="avatar-sm">
                             @else
-                                <img src="{{asset('frontend/admin/images/staffs/avatar.png')}}" alt="avatar" class="avatar-sm">
+                                <img src="{{asset('assets/admin/images/staffs/avatar-default.png')}}" alt="avatar" class="avatar-sm">
                             @endif
                         </td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->Staff->phone_number}}</td>
                         <td>{{ucfirst($user->Role->name)}}</td>
                         <td>
-                            <a class="btn btn-info btn-sm text-white" href="{{route('admin_user.show', $user->id)}}">Chi tiết</a>
-                            <a class="btn btn-success btn-sm text-white" href="{{route('admin_user.edit', $user->id)}}">Sửa</a>
+                            <a class="btn btn-info btn-sm text-white" href="{{route('admin.user.show', $user->id)}}">Chi tiết</a>
+                            <a class="btn btn-success btn-sm text-white" href="{{route('admin.user.edit', $user->id)}}">Sửa</a>
                             <a 
                                 class="btn btn-danger btn-sm text-white"
                                 data-toggle="modal"
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
 
-                            <form action="{{route('admin_user.destroy', $user->id)}}" method="POST" id="{{'form-delete-'.$user->id}}" class="d-none">
+                            <form action="{{route('admin.user.destroy', $user->id)}}" method="POST" id="{{'form-delete-'.$user->id}}" class="d-none">
                                 @method('DELETE')
                                 @csrf
                             </form>
