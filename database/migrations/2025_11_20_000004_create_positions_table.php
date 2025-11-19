@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();         // internal name e.g. receptionist
-            $table->string('slug')->unique();         // optional, url-friendly
+            $table->string('name')->unique(); //Housekeeper have not user
             $table->string('display_name')->nullable(); 
+            $table->string('slug')->unique();         
             $table->text('description')->nullable();
             $table->timestamps();
         });

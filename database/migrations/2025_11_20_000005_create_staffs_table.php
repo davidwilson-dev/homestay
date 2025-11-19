@@ -11,16 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('staff', function (Blueprint $table) {
+        Schema::create('staffs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('code')->unique()->nullable(); // NV001
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('position_id')->nullable()->constrained('positions')->nullOnDelete();
+            $table->string('code')->unique()->nullable(); // NV001
+            $table->string('full_name');
+            $table->string('phone')->nullable();
+            $table->string('avatar')->nullable();
             $table->decimal('salary', 12, 2)->nullable();
             $table->date('birthday')->nullable();
             $table->enum('gender', ['male','female','other'])->nullable();
             $table->date('recruit_date')->nullable();
-            $table->text('note')->nullable();
+            $table->enum('type', ['fulltime', 'parttime', 'collaborator']);
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->text('additional_information')->nullable();
             $table->timestamps();
         });
@@ -31,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('staff');
+        Schema::dropIfExists('staffs');
     }
 };
