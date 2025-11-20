@@ -13,53 +13,35 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $now = Carbon::now();
-
-        $roles = [
+        Role::insert([
             [
-                'name' => 'owner',        
-                'display_name' => 'Owner',        
-                'description' => 'Chủ homestay',          
-                'created_at'=>$now,
-                'updated_at'=>$now
+                'name' => 'admin',
+                'display_name' => 'Quản trị viên',
+                'slug' => 'admin',
+                'description' => 'Quyền quản trị toàn hệ thống',
+                'created_at' => now(),
             ],
             [
-                'name' => 'manager',      
-                'display_name' => 'Manager',      
-                'description' => 'Quản lý',              
-                'created_at'=>$now,
-                'updated_at'=>$now
+                'name' => 'manager',
+                'display_name' => 'Quản lý',
+                'slug' => 'manager',
+                'description' => 'Quản lý hoạt động homestay',
+                'created_at' => now(),
             ],
             [
-                'name' => 'receptionist', 
-                'display_name' => 'Receptionist', 
-                'description' => 'Lễ tân',               
-                'created_at'=>$now,
-                'updated_at'=>$now
+                'name' => 'staff',
+                'display_name' => 'Nhân viên',
+                'slug' => 'staff',
+                'description' => 'Nhân viên làm việc tại homestay',
+                'created_at' => now(),
             ],
             [
-                'name' => 'housekeeper',  
-                'display_name' => 'Housekeeper',  
-                'description' => 'Dọn phòng',            
-                'created_at'=>$now,
-                'updated_at'=>$now
+                'name' => 'collaborator',
+                'display_name' => 'Cộng tác viên',
+                'slug' => 'collaborator',
+                'description' => 'Người hỗ trợ từ xa / bán thời gian',
+                'created_at' => now(),
             ],
-            [
-                'name' => 'accountant',   
-                'display_name' => 'Accountant',   
-                'description' => 'Kế toán',              
-                'created_at'=>$now,
-                'updated_at'=>$now
-            ],
-            [
-                'name' => 'collaborator', 
-                'display_name' => 'Collaborator', 
-                'description' => 'Cộng tác viên (chỉ xem đơn)', 
-                'created_at'=>$now,
-                'updated_at'=>$now
-            ],
-        ];
-
-        DB::table('roles')->insert($roles);
+        ]);
     }
 }
