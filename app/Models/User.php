@@ -12,7 +12,7 @@ use App\Models\Staff;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -20,10 +20,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'name',
         'email',
         'password',
-        'role_id',
-        'staff_id'
+        'status',
+        'email_verified_at',
     ];
 
     /**
@@ -46,11 +47,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function Role(){
-        return $this->belongsTo(Role::class);
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
-    public function Staff(){
-        return $this->belongsTo(Staff::class);
+    public function staff()
+    {
+        return $this->hasOne(Staff::class);
     }
 }

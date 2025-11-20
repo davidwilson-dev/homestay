@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Position extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'display_name',
+        'slug',
+        'description',
+    ];
+
+    public function staffs()
+    {
+        return $this->hasMany(Staff::class);
+    }
 }
