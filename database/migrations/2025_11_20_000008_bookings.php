@@ -6,30 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('facility_id')->constrained('facilities')->cascadeOnDelete();
+            $table->string('code')->unique();
             $table->string('customer_name');
+            $table->string('customer_email')->nullable();
             $table->string('customer_phone');
-            $table->string('email')->nullable();
-            $table->date('check_in');
-            $table->date('check_out');
-            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed'])->default('pending');
             $table->decimal('total_amount', 12, 2)->default(0);
+            $table->enum('status', ['pending','confirmed','checked_in','checked_out','cancelled'])->default('pending');
+            $table->enum('payment_status', ['unpaid','deposit','partial','paid','refunded','overdue'])->default('unpaid');
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->text('note')->nullable();
-            $table->foreignId('staff_id')->nullable()->constrained('staffs')->nullOnDelete(); // staff create booking
             $table->timestamps();
+
+            $table->index(['facility_id','status','payment_status']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('bookings');
     }

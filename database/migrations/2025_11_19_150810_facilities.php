@@ -8,18 +8,22 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('positions', function (Blueprint $table) {
+        Schema::create('facilities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('display_name')->nullable();
             $table->string('slug')->unique();
-            $table->text('description')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('phone')->nullable();
+            $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();
+
+            $table->index('city');
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('positions');
+        Schema::dropIfExists('facilities');
     }
 };
