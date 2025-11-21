@@ -6,34 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('staffs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('facility_id')->constrained('facilities')->cascadeOnDelete();
             $table->foreignId('position_id')->nullable()->constrained('positions')->nullOnDelete();
-            $table->string('code')->unique()->nullable(); // NV001
             $table->string('full_name');
             $table->string('phone')->nullable();
-            $table->string('avatar')->nullable();
-            $table->decimal('salary', 12, 2)->nullable();
-            $table->date('birthday')->nullable();
-            $table->enum('gender', ['male','female','other'])->nullable();
-            $table->date('recruit_date')->nullable();
-            $table->enum('type', ['fulltime', 'parttime', 'collaborator']);
-            $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->text('additional_information')->nullable();
+            $table->string('email')->nullable();
+            $table->date('hired_at')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
+
+            $table->index(['facility_id','position_id']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('staffs');
     }
