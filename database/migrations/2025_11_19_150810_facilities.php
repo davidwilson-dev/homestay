@@ -12,13 +12,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('address')->nullable();
-            $table->string('city')->nullable();
+            $table->string('address');
+            $table->string('province');
             $table->string('phone')->nullable();
             $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();
 
-            $table->index('city');
+            $table->index('province');
         });
     }
 

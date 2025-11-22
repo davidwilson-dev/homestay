@@ -14,7 +14,7 @@ return new class extends Migration
             $table->foreignId('facility_id')->constrained('facilities')->cascadeOnDelete(); 
             $table->decimal('amount', 12, 2);
             $table->enum('payment_type', ['deposit','partial','full','refund'])->default('deposit'); 
-            $table->enum('method', ['cash','bank','wallet','other']);
+            $table->enum('method', ['cash','bank','e-wallet','other']);
             $table->enum('status', ['pending','succeeded','failed','refunded'])->default('pending');
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('transaction_code')->nullable();
