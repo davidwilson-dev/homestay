@@ -7,13 +7,37 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name',
-        'floor_number',
+        'facility_id',
+        'room_number',    
+        'title',
         'description',
-        'price_weekday',
-        'price_weekend'
+        'capacity',
+        'base_price',
+        'status', 
+        'floor',   
     ];
+
+    protected $casts = [
+        'base_price' => 'decimal:2',
+    ];
+
+    // Relations
+    public function facility()
+    {
+        return $this->belongsTo(Facility::class);
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    // Scopes
+    public function scopeAvailable($query)
+    {
+        return $query->where('status', 'available');
+    }
 }

@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Facility;
+use App\Models\Booking;
+use App\Models\Position;
 use App\Models\Role;
 use App\Models\Staff;
 
@@ -20,11 +24,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
-        'password',
+        'password', 
+        'facility_id', 
         'status',
-        'email_verified_at',
     ];
 
     /**
@@ -47,6 +51,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    // Relationships
+    public function facility()
+    {
+        return $this->belongsTo(Facility::class);
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
@@ -56,4 +66,19 @@ class User extends Authenticatable
     {
         return $this->hasOne(Staff::class);
     }
+    
+    public function staffOf()
+    {
+        return $this->belongsTo(Facility::class, 'facility_id');
+    }
+    
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'guest_id');
+    }
+
+    // public function isManager(): bool
+    // {
+    //     return $this->role && $this->role->key === 'manager';
+    // }
 }
