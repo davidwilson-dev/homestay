@@ -14,9 +14,9 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         Role::create([
-            'name' => 'admin',
-            'display_name' => 'Administrator',
-            'description' => 'Quyền quản trị toàn hệ thống',
+            'name' => 'manager facilities',
+            'display_name' => 'Quản lý cơ sở homestay',
+            'description' => 'Quản lý cơ sở homestay',
         ]);
 
         Role::create([

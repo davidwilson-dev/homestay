@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\StaffController;
-use App\Http\Controllers\RoomController;
-use App\Http\Controllers\OrderController;
+// use App\Http\Controllers\StaffController;
+// use App\Http\Controllers\RoomController;
+// use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------

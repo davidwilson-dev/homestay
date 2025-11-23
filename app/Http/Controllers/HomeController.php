@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Staff;
-use App\Models\Order;
+use App\Models\Booking;
 use App\Models\User;
 
 use Carbon\Carbon;
@@ -28,12 +28,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $count_order = Order::count();
-        $count_user = User::count();
-        $count_staff= Staff::count();     
+        $count_order = Booking::count() ?: 0;
+        $count_user = User::count() ?: 0;
+        $count_staff= Staff::count() ?: 0;     
 
         $staffs = Staff::orderBy('id', 'DESC')->where('position_id', 4)->take(5)->get();
-        $orders = Order::orderBy('id', 'DESC')->take(5)->get();
+        $orders = Booking::orderBy('id', 'DESC')->take(5)->get();
 
         foreach($orders as $order)
         {

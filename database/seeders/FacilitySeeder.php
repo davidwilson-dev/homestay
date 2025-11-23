@@ -37,7 +37,7 @@ class FacilitySeeder extends Seeder
                 'address' => 'Hồ Đồng Đò, Xã Minh Trí, Huyện Sóc Sơn, Hà Nội',
                 'province' => 'Hà Nội',
                 'phone' => '0123456789',
-                'status' => 'active',
+                'status' => 'inactive',
         ]);
     }
 }

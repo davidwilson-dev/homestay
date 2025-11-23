@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
             FacilitySeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            RoleUserSeeder::class,
+            PositionSeeder::class,
+            StaffSeeder::class
         ]);
     }
 }

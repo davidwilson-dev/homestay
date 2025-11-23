@@ -11,19 +11,18 @@ class Staff extends Model
 {
     use HasFactory;
 
+    protected $table = 'staffs';
+
     protected $fillable = [
         'user_id',
+        'facility_id',
         'position_id',
-        'code',
+        'id_staff',
         'full_name',
         'phone',
-        'salary',
-        'birthday',
-        'gender',
-        'recruit_date',
-        'type',
-        'status',
-        'additional_information'
+        'email',
+        'hired_at',
+        'note'
     ];
 
     public function user()
