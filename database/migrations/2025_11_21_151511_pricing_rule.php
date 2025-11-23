@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('room_rates', function (Blueprint $table) {
+        Schema::create('pricing_rules', function (Blueprint $table) {
             $table->id();
             $table->foreignId('room_id')->constrained('rooms')->cascadeOnDelete();
             $table->enum('rate_type', ['event','holiday','weekend']);
@@ -23,6 +23,6 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('room_rates');
+        Schema::dropIfExists('pricing_rules');
     }
 };

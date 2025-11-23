@@ -57,9 +57,14 @@
                 <ul class="list-unstyled topnav-menu float-right mb-0">
                     <li class="dropdown notification-list">
                         <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">                         
-                            @if(Auth::user()->Staff->avatar !== null)
+                            @if(
+                                Auth::user()->username !== 'admin' && 
+                                Auth::user()->username !== 'owner' && 
+                                Auth::user()->staff !== null &&
+                                Auth::user()->staff->avatar !== null
+                            )
                                 <img 
-                                    src="{{asset('storage/' . Auth::user()->Staff->avatar)}}" 
+                                    src="{{asset('storage/' . Auth::user()->staff->avatar)}}" 
                                     alt="user-image" 
                                     class="rounded-circle" 
                                     style="width: 40px; height: 40px;"
@@ -67,7 +72,7 @@
                             @else
                                 <img src="{{asset('assets/admin/images/staffs/avatar-default.png')}}" alt="user-image" class="rounded-circle" />
                             @endif
-                            <span class="d-none d-sm-inline-block ml-1">{{Auth::user()->Staff->name}}</span>
+                            <span class="d-none d-sm-inline-block ml-1">{{Auth::user()->username}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-dropdown">
                             <!-- item-->

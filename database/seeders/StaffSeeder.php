@@ -13,35 +13,30 @@ class StaffSeeder extends Seeder
      */
     public function run(): void
     {
-        Staff::insert([
-            [
-                'user_id' => 2, // Manager User
-                'position' => 1, // manager
-                'full_name' => 'Nguyen Huy Anh',
-                'type' => 'fulltime',
-                'created_at' => now(),
-            ],
-            [
-                'user_id' => 3, // Staff User
-                'position' => 2, // receptionist
-                'full_name' => 'Vu Thu Thao',
-                'type' => 'fulltime',
-                'created_at' => now(),
-            ],
-            [
-                'user_id' => 4, // Staff User
-                'position' => 2, // receptionist
-                'full_name' => 'Pham Nhu Quynh',
-                'type' => 'parttime',
-                'created_at' => now(),
-            ],
-            [
-                'user_id' => 5, 
-                'position' => 4,
-                'full_name' => 'Vu Thi Thuy',
-                'type' => 'parttime',
-                'created_at' => now(),
-            ],
+        Staff::create([
+            'user_id' => 3, 
+            'facility_id' => 1,
+            'position_id' => 1, 
+            'id_staff' => 'HK-001',
+            'full_name' => 'Tran Manh',
+            'avatar' => null,
+            'phone' => '0123456789',
+            'email' => 'tranmanh0912@gmail.com',
+            'hired_at' => null,
+            'note' => ''
+        ]);
+
+        Staff::create([
+            'user_id' => 5, 
+            'facility_id' => 1,
+            'position_id' => 2, 
+            'id_staff' => 'HK-002',
+            'full_name' => 'Vu Thu Thao',
+            'avatar' => null,
+            'phone' => '0123456789',
+            'email' => 'vuthao1995@gmail.com',
+            'hired_at' => null,
+            'note' => ''
         ]);
     }
 }
