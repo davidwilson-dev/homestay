@@ -76,10 +76,18 @@ class LoginController extends Controller
         $account = $request->input('account');
         $field = filter_var($account, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        // Throttle
+        // Limit the number of logins
         if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
-            return $this->sendLockoutResponse($request);
+
+            // Get second wait (trait có limiter() & throttleKey() protected)
+            $lock_time = intdiv($this->limiter()->availableIn($this->throttleKey($request)), 60);
+
+            return back()
+                ->withErrors(
+                    ['litmited_login' => "Đăng nhập quá nhiều. Vui lòng thử lại sau {$lock_time} phút.",]
+                )
+                ->withInput($request->only('account'));
         }
 
         // Get user by email/username
@@ -94,7 +102,8 @@ class LoginController extends Controller
         }
 
         // Password incorrect
-        if (! Hash::check($request->password, $user->password)) {
+        if (! Hash::check($request->password, $user->password)) 
+        {
             if (method_exists($this, 'incrementLoginAttempts')) {
                 $this->incrementLoginAttempts($request);
             }
@@ -102,7 +111,8 @@ class LoginController extends Controller
         }
 
         // if user inactive
-        if ($user->status !== 'active') {
+        if ($user->status !== 'active') 
+        {
             return back()->withErrors(['user_inactive' => 'Tài khoản đang bị khóa'])->withInput();
         }
 
@@ -119,6 +129,23 @@ class LoginController extends Controller
 
     }
 
+    // Number of logins
+    protected function maxAttempts()
+    {
+        return 5;
+    }
+
+    // Login lock time
+    protected function decayMinutes()
+    {
+        return 15;
+    }
+    
+    // Custom path after login
+    protected function redirectPath()
+    {
+        return $this->redirectTo ?? '/admin';
+    }
 
     protected function loggedOut(Request $request)
     {

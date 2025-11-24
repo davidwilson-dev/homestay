@@ -29,6 +29,8 @@ Route::prefix('admin')
     ->middleware(['auth'])
     ->group(function(){
         Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+        Route::get('user/locked', [UserController::class, 'locked'])->middleware('adminMiddleware');
+        Route::get('user/trash', [UserController::class, 'trash'])->middleware('adminMiddleware');
         Route::resource('user', UserController::class)->names('user');
         Route::resource('staff', StaffController::class)->names('staff');
         Route::resource('room', RoomController::class)->names('room');

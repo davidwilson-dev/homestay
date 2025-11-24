@@ -17,7 +17,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('userMiddleware');
+
     }
 
     /**
@@ -25,8 +25,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('role_id', 'ASC')->get();
-        return view('admin.user.index', compact(['users']));
+        $users = User::where('type', 'staff')->where('status', 'active')->orderBy('id', 'ASC')->get();
+        return view('admin.user.index', compact('users'));
     }
 
     /**
@@ -151,5 +151,20 @@ class UserController extends Controller
 
         $user->delete();
         return redirect('/admin/user')->with('status', 'Xóa tài khoản thành công');
+    }
+
+    /* Custom function */
+    public function trash()
+    {
+        $users = User::onlyTrashed()->orderBy('id', 'ASC')->get();
+        $list_name = 'đã xóa';
+        return view('admin.user.index', compact(['users', 'list_name']));
+    }
+
+    public function locked()
+    {
+        $users = User::where('status', 'inactive')->orderBy('id', 'ASC')->get();
+        $list_name = 'tạm khóa';
+        return view('admin.user.index', compact(['users', 'list_name']));
     }
 }

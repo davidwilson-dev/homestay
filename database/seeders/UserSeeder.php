@@ -16,19 +16,21 @@ class UserSeeder extends Seeder
     {
         //IT Support
         User::create([
-            'username' => 'admin',
+            'username' => 'duonghp1991',
             'email' => 'duonghp1991@gmail.com',
             'password' => bcrypt('123456789'),
             'status' => 'active',
+            'type' => 'admin',
             'email_verified_at' => now(),
         ]);
 
         //Owner
         User::create([
-            'username' => 'owner',
+            'username' => 'nguyenhuyanh1012',
             'email' => 'nguyenhuyanh1012@gmail.com',
             'password' => bcrypt('123456789'),
             'status' => 'active',
+            'type' => 'owner',
             'email_verified_at' => now(),
         ]);
 
@@ -39,6 +41,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'facility_id' => 1,
             'status' => 'active',
+            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
 
@@ -49,6 +52,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'facility_id' => 2,
             'status' => 'active',
+            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
 
@@ -59,6 +63,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'facility_id' => 1,
             'status' => 'active',
+            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
 
@@ -69,6 +74,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'facility_id' => 1,
             'status' => 'active',
+            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
 
@@ -79,6 +85,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'facility_id' => 2,
             'status' => 'active',
+            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
 
@@ -89,6 +96,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'facility_id' => 2,
             'status' => 'active',
+            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
 
@@ -98,6 +106,7 @@ class UserSeeder extends Seeder
             'email' => 'trinhvandoan2000@gmail.com',
             'password' => bcrypt('123456789'),
             'status' => 'inactive',
+            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
     }

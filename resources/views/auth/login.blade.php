@@ -23,6 +23,9 @@
                                 <strong>{{$errors->first('user_inactive')}}</strong>
                             </div>
                         @endif
+                        @error('litmited_login')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="form-group">
