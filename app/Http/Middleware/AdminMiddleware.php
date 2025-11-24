@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,11 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->Role->name == 'admin'){
-            return $next($request);
+        if(auth()->user()->type !== 'admin')
+        {
+            return redirect()->back()->with('error', 'Bạn không đủ thẩm quyền');
         }
 
-        return redirect()->back()->with('error', 'Bạn không đủ thẩm quyền');
+        return $next($request);
     }
 }

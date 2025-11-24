@@ -76,9 +76,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Booking::class, 'guest_id');
     }
-
-    // public function isManager(): bool
-    // {
-    //     return $this->role && $this->role->key === 'manager';
-    // }
 }

@@ -18,7 +18,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Room::class => RoomPolicy::class,
-        Order::class => OrderPolicy::class,
     ];
 
     /**
