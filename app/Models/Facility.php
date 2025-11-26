@@ -24,7 +24,7 @@ class Facility extends Model
     ];
 
     // Relationships
-    public function user()
+    public function users()
     {
         return $this->hasMany(User::class)->whereNotNull('facility_id');
     }

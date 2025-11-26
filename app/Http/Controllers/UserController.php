@@ -17,7 +17,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-
+        
     }
 
     /**
@@ -25,7 +25,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('type', 'staff')->where('status', 'active')->orderBy('id', 'ASC')->get();
+        $users = User::where('status', 'active')
+            ->whereDoesntHave('roles', function ($q) {
+                $q->whereIn('name', ['admin', 'owner']);
+            })
+            ->orderBy('id', 'ASC')
+            ->get();
         return view('admin.user.index', compact('users'));
     }
 

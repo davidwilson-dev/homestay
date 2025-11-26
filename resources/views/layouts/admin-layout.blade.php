@@ -207,7 +207,7 @@
                                 <ul class="nav-second-level" aria-expanded="false">
                                     <li><a href="{{route('admin.user.index')}}">Danh sách</a></li>
                                     <li><a href="{{route('admin.user.create')}}">Tạo tài khoản</a></li>
-                                    @if(Auth::user()->type === 'admin')
+                                    @if(in_array('admin', Auth::user()->roles->pluck('name')->toArray()))
                                     <li><a href="{{url('admin/user/locked')}}">Danh sách tạm khóa</a></li>
                                     <li><a href="{{url('admin/user/trash')}}">Danh sách đã xóa</a></li>
                                     @endif

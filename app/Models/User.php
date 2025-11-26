@@ -59,7 +59,8 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class)->withTimestamps();
+        //withTimestamps auto update created_at, updated_at when run attach, detach, sync
+        return $this->belongsToMany(Role::class)->withTimestamps(); 
     }
 
     public function staff()

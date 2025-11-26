@@ -9,12 +9,12 @@
                 </div>
                 <div class="overflow-hidden">
                     <p class="text-uppercase font-weight-medium text-truncate mb-2">Bookings</p>
-                    <h2 class="mb-0"><span data-plugin="counterup">{{$count_order ?? 0}}</span> <i class="mdi mdi-arrow-up text-success font-24"></i></h2>
+                    <h2 class="mb-0"><span data-plugin="counterup">{{$totalBookings}}</span> <i class="mdi mdi-arrow-up text-success font-24"></i></h2>
                     <p class="text-muted mt-2 m-0">
                         <span class="font-weight-medium">
                             Cập nhật:
                         </span> 
-                        {{$time_now->format('d') . '/' . $time_now->format('m') . '/' . $time_now->format('Y')}}
+                        {{$timenow->format('d') . '/' . $timenow->format('m') . '/' . $timenow->format('Y')}}
                     </p>
                 </div>
             </div>
@@ -30,12 +30,12 @@
                 </div>
                 <div class="overflow-hidden">
                     <p class="text-uppercase font-weight-medium text-truncate mb-2">Tài khoản</p>
-                    <h2 class="mb-0"><span data-plugin="counterup">{{$count_user}}</span> <i class="mdi mdi-arrow-down text-danger font-24"></i></h2>
+                    <h2 class="mb-0"><span data-plugin="counterup">{{$totalUsers}}</span> <i class="mdi mdi-arrow-down text-danger font-24"></i></h2>
                     <p class="text-muted mt-2 m-0">
                         <span class="font-weight-medium">
                             Cập nhật:
                         </span> 
-                        {{$time_now->format('d') . '/' . $time_now->format('m') . '/' . $time_now->format('Y')}}
+                        {{$timenow->format('d') . '/' . $timenow->format('m') . '/' . $timenow->format('Y')}}
                     </p>
                 </div>
             </div>
@@ -51,12 +51,12 @@
                 </div>
                 <div class="overflow-hidden">
                     <p class="text-uppercase font-weight-medium text-truncate mb-2">Nhân viên</p>
-                    <h2 class="mb-0"><span data-plugin="counterup">{{$count_staff}}</span><i class="mdi mdi-arrow-up text-success font-24"></i></h2>
+                    <h2 class="mb-0"><span data-plugin="counterup">{{$totalStaffs}}</span><i class="mdi mdi-arrow-up text-success font-24"></i></h2>
                     <p class="text-muted mt-2 m-0">
                         <span class="font-weight-medium">
                             Cập nhật:
                         </span> 
-                        {{$time_now->format('d') . '/' . $time_now->format('m') . '/' . $time_now->format('Y')}}
+                        {{$timenow->format('d') . '/' . $timenow->format('m') . '/' . $timenow->format('Y')}}
                     </p>
                 </div>
             </div>
@@ -72,12 +72,12 @@
                 </div>
                 <div class="overflow-hidden">
                     <p class="text-uppercase font-weight-medium text-truncate mb-2">Doanh thu</p>
-                    <h2 class="mb-0"><span data-plugin="counterup">0</span> <i class="mdi mdi-arrow-down text-danger font-24"></i></h2>
+                    <h2 class="mb-0"><span data-plugin="counterup">{{$totalRevenue}}</span> <i class="mdi mdi-arrow-down text-danger font-24"></i></h2>
                     <p class="text-muted mt-2 m-0">
                         <span class="font-weight-medium">
                             Cập nhật:
                         </span> 
-                        {{$time_now->format('d') . '/' . $time_now->format('m') . '/' . $time_now->format('Y')}}
+                        {{$timenow->format('d') . '/' . $timenow->format('m') . '/' . $timenow->format('Y')}}
                     </p>
                 </div>
             </div>
@@ -105,7 +105,7 @@
                     </thead>
                     <tbody>
                         <?php $i = 1 ?>
-                        @foreach($staffs as $staff)
+                        @foreach($recentCollaborators as $staff)
                         <tr>
                             <th>{{$i}}</th>
                             <td>
@@ -150,16 +150,16 @@
                     </thead>
                     <tbody>
                         <?php $i = 1 ?>
-                        @foreach($orders as $order)
+                        @foreach($recentbookings as $booking)
                         <tr>
                             <th>{{$i}}</th>
-                            <td>{{$order->order_code}}</td>
+                            <td>{{$booking->code}}</td>
                             <td>
-                                <h5 class="m-0 font-15">{{$order->name_customer}}</h5>
-                                <p class="m-0 text-muted"><small>{{$order->phone_number}}</small></p>
+                                <h5 class="m-0 font-15">{{$booking->name_customer}}</h5>
+                                <p class="m-0 text-muted"><small>{{$booking->phone_number}}</small></p>
                             </td>
-                            <td>{{$order->id_passport}}</td>
-                            <td>{{$order->checkin}}</td>
+                            <td>{{$booking->id_passport}}</td>
+                            <td>{{$booking->checkin}}</td>
                         </tr>
                         <?php $i++ ?>
                         @endforeach

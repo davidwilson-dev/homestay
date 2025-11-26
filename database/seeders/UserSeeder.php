@@ -20,7 +20,6 @@ class UserSeeder extends Seeder
             'email' => 'duonghp1991@gmail.com',
             'password' => bcrypt('123456789'),
             'status' => 'active',
-            'type' => 'admin',
             'email_verified_at' => now(),
         ]);
 
@@ -30,7 +29,6 @@ class UserSeeder extends Seeder
             'email' => 'nguyenhuyanh1012@gmail.com',
             'password' => bcrypt('123456789'),
             'status' => 'active',
-            'type' => 'owner',
             'email_verified_at' => now(),
         ]);
 
@@ -41,7 +39,6 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'facility_id' => 1,
             'status' => 'active',
-            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
 
@@ -52,7 +49,6 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'facility_id' => 2,
             'status' => 'active',
-            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
 
@@ -63,7 +59,6 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'facility_id' => 1,
             'status' => 'active',
-            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
 
@@ -74,7 +69,6 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'facility_id' => 1,
             'status' => 'active',
-            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
 
@@ -85,28 +79,25 @@ class UserSeeder extends Seeder
             'password' => bcrypt('123456789'),
             'facility_id' => 2,
             'status' => 'active',
-            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
 
-        //Receptionist
+        //Accountant
         User::create([
             'username' => 'dothuylinh_2002',
             'email' => 'dothuylinh2002@gmail.com',
             'password' => bcrypt('123456789'),
             'facility_id' => 2,
             'status' => 'active',
-            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
 
-        //Staff test inactive
+        //Security inactive
         User::create([
             'username' => 'trinhvandoan_2000',
             'email' => 'trinhvandoan2000@gmail.com',
             'password' => bcrypt('123456789'),
             'status' => 'inactive',
-            'type' => 'staff',
             'email_verified_at' => now(),
         ]);
     }

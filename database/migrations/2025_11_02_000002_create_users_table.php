@@ -15,7 +15,6 @@ return new class extends Migration
             $table->string('password');
             $table->foreignId('facility_id')->nullable()->constrained('facilities')->nullOnDelete();
             $table->enum('status', ['active','inactive'])->default('active');
-            $table->enum('type', ['admin','owner', 'staff'])->default('staff');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
