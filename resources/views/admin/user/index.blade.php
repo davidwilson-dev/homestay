@@ -43,7 +43,7 @@
                         <td>{{$user->username}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->staff ? $user->staff->phone : ''}}</td>
-                        <td>{{$user->facility->name}}</td>
+                        <td>{{$user->facility ? $user->facility->name : ''}}</td>
                         <td>
                             <a class="mx-1 text-primary" href="{{route('admin.user.show', $user->id)}}">
                                 <i class="mdi mdi-eye" style="font-size: 22px"></i>

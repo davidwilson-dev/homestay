@@ -18,6 +18,7 @@ class Role extends Model
     //Relationships
     public function users()
     {
+        //withTimestamps auto update created_at, updated_at when run attach, detach, sync
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 }
