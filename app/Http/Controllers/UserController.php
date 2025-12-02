@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Role;
-use App\Models\Staff;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
-
 use Illuminate\Http\Request;
 use Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+
+use App\Models\User;
+use App\Models\Role;
+use App\Models\Staff;
+use App\Models\Position;
+use App\Models\Facility;
+
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -39,10 +42,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::orderBy('id', 'ASC')->get();
-        $staffs = Staff::orderBy('id', 'ASC')->get();
+        $roles = Role::whereNotIn('name', ['admin', 'owner'])->get();
+        $positions = Position::get();
+        $facilities = Facility::get();
 
-        return view('admin.user.create', compact(['roles', 'staffs']));
+        return view('admin.user.create', compact(['roles', 'positions', 'facilities']));
     }
 
     /**

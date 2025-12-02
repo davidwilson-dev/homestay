@@ -10,6 +10,8 @@
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{asset('assets/admin/images/favicon.ico')}}" />
 
+        <!-- ============ ZIRCOS =========== -->
+
         <!-- Table datatable css -->
         <link href="{{asset('assets/admin/libs/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/admin/libs/datatables/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css">
@@ -20,33 +22,49 @@
         <!-- <link href="{{asset('assets/admin/libs/datatables/fixedColumns.bootstrap4.min.css')}}" rel="stylesheet" type="text/css"> -->
 
         <!-- Date picker -->
-        <link href="{{asset('assets/admin/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.css')}}" rel="stylesheet" type="text/css">
+        <!-- <link href="{{asset('assets/admin/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/admin/libs/clockpicker/bootstrap-clockpicker.min.css')}}" rel="stylesheet">
         <link href="{{asset('assets/admin/libs/bootstrap-timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('assets/admin/libs/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.css')}}" rel="stylesheet" type="text/css"> -->
 
         <!-- Modal -->
         <link href="{{asset('assets/admin/libs/custombox/custombox.min.css')}}" rel="stylesheet" type="text/css">
+
+        <!-- Select Input-->
+        <link href="{{asset('assets/admin/libs/bootstrap-tagsinput/bootstrap-tagsinput.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/admin/libs/switchery/switchery.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/multiselect/multi-select.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/select2/select2.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/bootstrap-select/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('assets/admin/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.css')}}" rel="stylesheet" type="text/css">
+
+        <!-- Css -->
+        <link href="{{asset('assets/admin/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
+        <link href="{{asset('assets/admin/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/admin/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
+
+
+        <!-- ============ CDN =========== -->
 
         <!-- Toastify -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
         <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-        <!-- Flatpickr -->
+        <!-- Datetime pciker - Flatpickr -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-        <!-- css -->
-        <link href="{{asset('assets/admin/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
-        <link href="{{asset('assets/admin/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/admin/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
-        <link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet" type="text/css" />
-
-        <!-- Font -->
+        <!-- Font Google -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+
+
+        <!-- ============ CUSTOM =========== -->
+
+        <!-- Css -->
+        <link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet" type="text/css" />
     </head>
 
     <body>
@@ -194,14 +212,14 @@
                             <li>
                                 <a href="{{route('admin.dashboard')}}" class="waves-effect waves-light">
                                     <i class="mdi mdi-view-dashboard"></i>
-                                    <span> Bảng điều khiển </span>
+                                    <span class="sidebar-menu_metismenu_li_a_span"> Bảng điều khiển </span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="javascript: void(0);" class="waves-effect waves-light">
                                     <i class="fas fa-address-book"></i>
-                                    <span> Tài khoản </span>
+                                    <span class="sidebar-menu_metismenu_li_a_span"> Tài khoản </span>
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
@@ -217,7 +235,7 @@
                             <li>
                                 <a href="javascript: void(0);" class="waves-effect waves-light">
                                     <i class="fas fa-users"></i>
-                                    <span> Nhân viên </span>
+                                    <span class="sidebar-menu_metismenu_li_a_span"> Nhân viên </span>
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
@@ -238,9 +256,16 @@
                             </li>
 
                             <li>
+                                <a href="#" class="waves-effect waves-light">
+                                    <i class="fas fa-hotel"></i>
+                                    <span class="sidebar-menu_metismenu_li_a_span"> Homestay </span>
+                                </a>
+                            </li>
+
+                            <li>
                                 <a href="javascript: void(0);" class="waves-effect waves-light">
-                                    <i class="fas fa-home"></i>
-                                    <span> Phòng </span>
+                                    <i class="mdi mdi-hotel"></i>
+                                    <span class="sidebar-menu_metismenu_li_a_span"> Phòng </span>
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
@@ -252,7 +277,7 @@
                             <li>
                                 <a href="javascript: void(0);" class="waves-effect waves-light">
                                     <i class="fas fa-shopping-cart"></i>
-                                    <span> Đơn hàng </span>
+                                    <span class="sidebar-menu_metismenu_li_a_span"> Booking </span>
                                     <span class="menu-arrow"></span>
                                 </a>
                                 <ul class="nav-second-level" aria-expanded="false">
@@ -273,7 +298,7 @@
                                     data-overlaycolor="#36404a"
                                 >
                                     <i class="fas fa-file-invoice-dollar"></i>
-                                    <span> Thống kê </span>
+                                    <span class="sidebar-menu_metismenu_li_a_span"> Thống kê </span>
                                 </a>
                             </li>
                             <li>
@@ -296,7 +321,7 @@
                     <div class="clearfix"></div>
 
                     <div class="help-box">
-                        <h5 class="text-muted mt-0">Hỗ trợ</h5>
+                        <h5 class="text-muted mt-0">IT Support</h5>
                         <p class="">
                             <span class="text-info">Name:</span> <br />
                             Nguyen Duong
@@ -475,12 +500,14 @@
 
         <!-- <a href="javascript:void(0);" class="right-bar-toggle demos-show-btn"> <i class="mdi mdi-settings-outline mdi-spin"></i> &nbsp;Choose Demos </a> -->
 
+        <!-- ============ ZIRCOS =========== -->
+
         <!-- Vendor js -->
         <script src="{{asset('assets/admin/js/vendor.min.js')}}"></script>
 
-        <script src="{{asset('assets/admin/libs/morris-js/morris.min.js')}}"></script>
+        <!-- <script src="{{asset('assets/admin/libs/morris-js/morris.min.js')}}"></script> -->
         <script src="{{asset('assets/admin/libs/raphael/raphael.min.js')}}"></script>
-        <script src="{{asset('assets/admin/js/pages/dashboard.init.js')}}"></script>
+        <!-- <script src="{{asset('assets/admin/js/pages/dashboard.init.js')}}"></script> -->
 
         <!-- Datatable plugin js -->
         <script src="{{asset('assets/admin/libs/datatables/jquery.dataTables.min.js')}}"></script>
@@ -507,30 +534,53 @@
         <!-- Datatables init -->
         <script src="{{asset('assets/admin/js/pages/datatables.init.js')}}"></script>
 
-        <!-- Date picker -->
-        <script src="{{asset('assets/admin/libs/moment/moment.min.js')}}"></script>
-        <script src="{{asset('assets/admin/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.js')}}"></script>
-        <script src="{{asset('assets/admin/libs/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
-        <script src="{{asset('assets/admin/libs/clockpicker/bootstrap-clockpicker.min.js')}}"></script>
-        <script src="{{asset('assets/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
-        <script src="{{asset('assets/admin/libs/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-        <script src="{{asset('assets/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+        <!--Form Wizard-->
+        <script src="{{asset('assets/admin/libs/jquery-steps/jquery.steps.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/jquery-validation/jquery.validate.min.js')}}"></script>
+
+        <!-- Validation init js-->
+        <script src="{{asset('assets/admin/js/pages/form-wizard.init.js')}}"></script>
 
         <!-- Init js-->
-        <script src="{{asset('assets/admin/js/pages/form-pickers.init.js')}}"></script>
+        <!-- <script src="{{asset('assets/admin/js/pages/form-pickers.init.js')}}"></script> -->
 
         <!-- Modal -->
         <script src="{{asset('assets/admin/libs/custombox/custombox.min.js')}}"></script>     
+
+        <!-- Select Input -->
+        <script src="{{asset('assets/admin/libs/switchery/switchery.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/bootstrap-tagsinput/bootstrap-tagsinput.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/multiselect/jquery.multi-select.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/select2/select2.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/jquery-quicksearch/jquery.quicksearch.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/jquery-mockjax/jquery.mockjax.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/autocomplete/jquery.autocomplete.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/bootstrap-select/bootstrap-select.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/bootstrap-maxlength/bootstrap-maxlength.min.js')}}"></script>
+        <script src="{{asset('assets/admin/libs/bootstrap-filestyle2/bootstrap-filestyle.min.js')}}"></script>
+        <script src="{{asset('assets/admin/js/pages/form-advanced.init.js')}}"></script>
 
         <!-- App js -->
         <script src="{{asset('assets/admin/js/app.min.js')}}"></script>
         <script src="{{asset('assets/admin/js/script.js')}}"></script>
 
-        <!-- Flatpickr -->
+
+        <!-- ============ CDN =========== -->
+
+        <!-- Datetime pciker - Flatpickr -->
         <script>
-            flatpickr("#input-birthday", {
+            flatpickr(".input-date", {
                 dateFormat: "d/m/Y",
             });
         </script>
+
+
+        <!-- ============ CUSTOM =========== -->
+        <script src="{{asset('assets/admin/js/script.js')}}"></script>
+
+        <!-- user/create.blade.php -->
+        @stack('scripts-change-avatar') 
+        @stack('scripts-selected-facility')
     </body>
 </html>

@@ -1,8 +1,12 @@
-// function Alert(){
-//   setTimeout(() => {
-//     const alert = document.querySelector(".notification");
-//     alert.style.display = "none";
-//   }, 5000);
-// }
+// Format Currency
 
-// Alert();
+function formatCurrency(input) {
+    let value = input.value.replace(/\./g, '').replace(/[^0-9.]/g, '');
+
+    if (!isNaN(value) && value.length > 0) {
+        value = parseFloat(value).toLocaleString('de-DE');
+        input.value = value;
+    } else {
+        input.value = ''; 
+    }
+}

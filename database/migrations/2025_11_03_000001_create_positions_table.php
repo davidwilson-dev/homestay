@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); //manager, receptionist, accountant, housekeeper, security, collaborator
+            $table->string('name')->unique(); //manager, receptionist, accountant, housekeeper, security, collaborator
             $table->string('display_name')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
