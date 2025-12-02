@@ -1,11 +1,11 @@
-body{
-  font-family: "Roboto", sans-serif;
+body, html{
+  font-family: "Google Sans Flex", sans-serif !important;
 }
 
-/* .notification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
-  min-width: 300px;
-} */
+.left-side-menu #sidebar-menu .sidebar-menu_metismenu_li_a_span{
+  font-family: "Google Sans Flex", sans-serif !important;
+}
+
+h4{
+  font-family: "Google Sans Flex", sans-serif !important;
+}

@@ -12,17 +12,19 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('facility_id')->constrained('facilities')->cascadeOnDelete();
-            $table->foreignId('position_id')->nullable()->constrained('positions')->nullOnDelete();
-            $table->string('id_staff');
+            $table->string('id_staff')->unique();
             $table->string('full_name');
+            $table->date('birthday');
+            $table->string('citizen')->nullable();
             $table->string('avatar')->nullable();
             $table->string('phone')->nullable();
-            $table->string('email')->nullable();
-            $table->date('hired_at')->nullable();
+            $table->string('email')->unique();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
 
-            $table->index(['facility_id','position_id']);
+            $table->index('facility_id');
         });
     }
 
