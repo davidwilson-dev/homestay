@@ -52,23 +52,26 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserRequest $request)
+    public function store(Request $request)
     {
         DB::beginTransaction();
 
         try {
-            $user = new User;
-            $user->fill($request->except(['email', 'password']));
-            
-            //Email User
-            $staff = Staff::findOrFail($request->staff_id);
-            $user->email = $staff->email;
+            //Get Request
+            $user = new User;   
+            $user->email = $request->email;
         
-            //Hash password
-            $user->password = Hash::make($request->password);
+            //Create password
 
-            //Token
-            // $user->remember_token = Str::random(20);
+
+            //Handle role and position
+
+          
+            //Data type format for Date of Birth
+
+
+            //Data type format for Citizen
+
     
             //1. Save User
             $user->save();
@@ -77,13 +80,12 @@ class UserController extends Controller
             // SendMailCreateUserJob::dispatch($user->id);
 
             DB::commit();
+            return redirect('/admin/user')->with('status', 'Tạo tài khoản thành công');
         }
         catch (Exception $e) {
             DB::rollBack();
             throw new Exception('Transaction failed: ' . $e->getMessage());
         }
-
-        return redirect('/admin/user')->with('status', 'Tạo tài khoản thành công');
     }
 
     /**
