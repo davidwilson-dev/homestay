@@ -52,16 +52,16 @@
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-md-9">
-                                                        <select name="role" class="form-control" style="width: 100%">
+                                                        <select name="role_id" class="form-control" style="width: 100%">
                                                             @foreach($roles as $role)
-                                                                <option value="{{$role->name}}">{{$role->display_name}}</option>
+                                                                <option value="{{$role->id}}">{{$role->display_name}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="row d-flex justify-content-between">
+                                            <!-- <div class="row d-flex justify-content-between">
                                                 <div class="form-group col-md-6 row">
                                                     <label class="col-md-3 control-label " for="password"> 
                                                         Mật khẩu
@@ -81,7 +81,7 @@
                                                         <input name="password_confirmation" type="text" class="required form-control">
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                         </section>
 
@@ -115,7 +115,7 @@
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-md-9 input-group">
-                                                        <input type="text" class="form-control input-date" placeholder="ngày/tháng/năm" name="birthday">                             
+                                                        <input type="text" class="form-control input-date" placeholder="ngày/tháng/năm" name="dateOfBirth">                             
                                                         <div class="input-group-append">
                                                             <span class="input-group-text bg-primary text-white b-0"><i class="mdi mdi-calendar"></i></span>
                                                         </div>

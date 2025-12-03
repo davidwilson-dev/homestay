@@ -34,10 +34,11 @@ class DashboardController extends Controller
         $totalStaffs = Staff::count();
         $totalRevenue = BookingPayment::whereNot('type', 'refund')->where('status', 'succeeded')->sum('amount');
 
-        $recentCollaborators = Staff::whereHas('position', fn($q) => $q->where('name','collaborator'))
-            ->orderBy('id', 'DESC')
-            ->take(5)
-            ->get();
+        // $recentCollaborators = Staff::whereHas('position', fn($q) => $q->where('name','collaborator'))
+        //     ->orderBy('id', 'DESC')
+        //     ->take(5)
+        //     ->get();
+        $recentCollaborators = collect();
         $recentbookings = Booking::orderBy('id', 'DESC')->take(5)->get();
 
         $timenow = Carbon::now('Asia/Ho_Chi_Minh');
