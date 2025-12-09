@@ -16,21 +16,36 @@ class PositionSeeder extends Seeder
         Position::create([
             'name' => 'manager',
             'display_name' => 'Quản lý',
-            'slug' => 'manager',
             'description' => ''
         ]);
 
         Position::create([
             'name' => 'receptionist',
             'display_name' => 'Lễ tân',
-            'slug' => 'receptionist',
             'description' => ''
+        ]);
+
+        Position::create([
+            'name' => 'accountant',
+            'display_name' => 'Kế toán',
+            'description' => '',
         ]);
 
         Position::create([
             'name' => 'housekeeper',
             'display_name' => 'Tạp vụ',
-            'slug' => 'housekeeper',
+            'description' => ''
+        ]);
+
+        Position::create([
+            'name' => 'security',
+            'display_name' => 'Bảo vệ',
+            'description' => ''
+        ]);
+
+        Position::create([
+            'name' => 'chef',
+            'display_name' => 'Đầu bếp',
             'description' => ''
         ]);
     }

@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
-        //
-        User::factory()->count(50)->create();
+        // Test data User staff
+        //User::factory()->count(50)->create();
     }
 }

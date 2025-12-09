@@ -18,7 +18,20 @@ class StoreUserRequest extends FormRequest
     /* Prepare For Validation */
     protected function prepareForValidation()
     {
-        if ($this->filled('dateOfBirth')) {
+        // Check citizen identification card
+        if ($this->has('citizen')) 
+        {
+            $citizen = normalizeCitizen($this->citizen);
+
+            if(! $citizen)
+            {
+                return back()->with('error', 'CCCD invalid');
+            }
+        }
+
+        // Format date of birth from d/m/Y to Y-m-d
+        if ($this->filled('dateOfBirth')) 
+        {
             $this->merge([
                 'dateOfBirth' => Carbon::createFromFormat('d/m/Y', $this->dateOfBirth)
                     ->format('Y-m-d'),
@@ -34,11 +47,11 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|unique:users',
-            // 'password' => 'required|min:8|confirmed',
+            'email' => 'required|email|unique:users',         
             'role_id' => 'required|integer|min:1',
             'full_name' => 'required|string|min:5|max:50',
-            'dateOfBirth' => 'required|date|after_or_equal:dateOfBirth',
+            'citizen' => 'required|string|size:12',
+            'dateOfBirth' => ['required','date','before_or_equal:' . now()->subYears(18)->format('Y-m-d'),],
             'phone' => 'required',
             'facility_id' => 'required|integer',
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
@@ -51,9 +64,6 @@ class StoreUserRequest extends FormRequest
             'email.required' => 'Email là thông tin bắt buộc',
             'email.unique' => 'Nhân viên này đã có tài khoản',
             'email.email' => 'Email không đúng định dạng',
-            // 'password.required' => 'Mật khẩu là thông tin bắt buộc',
-            // 'password.min' => 'Mật khâu tối thiểu có 8 ký tự',
-            // 'password.confirmed' => 'Xác nhận mật khẩu không khớp',
             'role_id.required' => 'Bạn phải chọn quyền hạn tài khoản',
             'role_id.integer' => 'Quyền hạn tài khoản không hợp lệ',
             'role_id.min' => 'Quyền hạn tài khoản không hợp lệ',

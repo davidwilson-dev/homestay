@@ -16,22 +16,31 @@ class Staff extends Model
     protected $fillable = [
         'user_id',
         'facility_id',
-        'position_id',
-        'id_staff',
         'full_name',
+        'dateOfBirth',
+        'citizen',
         'phone',
-        'email',
-        'hired_at',
+        'start_date',
+        'end_date',
         'note'
     ];
+
+    // Data type format for Date of Birth
+    // protected function dateOfBirth(): Attribute
+    // {
+    //     return Attribute::make(
+    //         set: fn($value) =>
+    //             Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d'),
+    //     );
+    // }
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function position()
+    public function positions()
     {
-        return $this->belongsTo(Position::class);
+        return $this->belongsToMany(Position::class);
     }
 }

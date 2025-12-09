@@ -46,3 +46,4 @@ Route::prefix('admin')
         Route::get('order-checkout', [OrderController::class, 'index_checkout']);
     }
 );
+

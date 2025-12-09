@@ -4,8 +4,9 @@
     <div class="col-sm-12">
         <div class="card-box">
             <h4 class="mb-4">Tạo User</h4>
-            <div class="row">
-                <!-- Avatar -->
+            <form class="row" id="submit-form" action="{{route('admin.user.store')}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <!-- Avatar Input -->
                 <div class="col-xl-3 col-md-4">
                     <div class="text-center card-box shadow-none border border-secoundary">
                         <div class="member-card">
@@ -26,16 +27,29 @@
                     </div>
                 </div>
 
-                <!-- Form Input -->
+                <!-- Text Input -->
                 <div class="col-xl-9 col-md-8">
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="card-box">
-                                <form id="basic-form" action="{{route('admin.user.store')}}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div>
-                                        <h3>Tài khoản</h3>
-                                        <section>
+                            <div class="card">
+                                <div class="card-body">
+                                    <ul class="nav nav-pills mb-2" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">Tài khoản</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="profile-tab" data-toggle="pill" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="salary-tab" data-toggle="pill" href="#salary" role="tab" aria-controls="salary" aria-selected="false">Lương</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="homestay-tab" data-toggle="pill" href="#homestay" role="tab" aria-controls="homestay" aria-selected="false">Homestay</a>
+                                        </li>
+                                    </ul>
+                                    <hr />
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="account" role="tabpanel" aria-labelledby="account-tab">
                                             <div class="row d-flex justify-content-between">
                                                 <div class="form-group col-md-6 row">
                                                     <label class="col-md-3 control-label " for="userName">
@@ -82,11 +96,9 @@
                                                     </div>
                                                 </div>
                                             </div> -->
+                                        </div>
 
-                                        </section>
-
-                                        <h3>Profile</h3>
-                                        <section>
+                                        <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                             <div class="row d-flex justify-content-between">
                                                 <div class="form-group col-md-6 row">
                                                     <label class="col-md-3 control-label" for="name"> 
@@ -149,10 +161,9 @@
                                                     <input name="note" type="text" class="form-control">
                                                 </div>
                                             </div>                                              
-                                        </section>
+                                        </div>
 
-                                        <h3>Lương</h3>
-                                        <section>
+                                        <div class="tab-pane" id="salary" role="tabpanel" aria-labelledby="salary-tab">
                                             <div class="row d-flex justify-content-between">
                                                 <div class="form-group col-md-6 row">
                                                     <label class="col-md-3 control-label" for=""> 
@@ -193,10 +204,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </section>
+                                        </div>
 
-                                        <h3>Homestay</h3>
-                                        <section>
+                                        <div class="tab-pane" id="homestay" role="tabpanel" aria-labelledby="homestay-tab">
                                             <div class="row d-flex justify-content-between">
                                                 <div class="form-group col-md-8">
                                                     <div>
@@ -227,20 +237,30 @@
                                                         alt="homestay" 
                                                         class="img-thumbnail"
                                                         id="facility-avatar"
+                                                        style="width: 100%; height: 250px;"
                                                     >
                                                 </div>
                                             </div>
-                                        </section>
+                                        </div>
                                     </div>
-                                </form>
-                                <!-- End #wizard-vertical -->
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <a 
+                                    class="btn btn-secondary width-sm waves-effect waves-light text-white" 
+                                    style="margin-right: 4px;"
+                                    href="javascript:history.back()"
+                                >
+                                    Hủy
+                                </a>
+                                <button type="submit" id="submit-btn" class="btn btn-primary width-sm waves-effect waves-light">
+                                    Tạo mới
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- end col -->
-
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -280,5 +300,13 @@
     });
 </script>
 @endpush
+
+<script>
+    document.getElementById('submit-form').addEventListener('submit', function() {
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.innerText = 'Processing...';
+    });
+</script>
 
 @endsection
