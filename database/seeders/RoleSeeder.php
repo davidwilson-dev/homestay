@@ -32,9 +32,27 @@ class RoleSeeder extends Seeder
         ]);
 
         Role::create([
-            'name' => 'staff',
-            'display_name' => 'Nhân viên ',
+            'name' => 'receptionist',
+            'display_name' => 'Lễ tân',
             'description' => '',
+        ]);
+
+        Role::create([
+            'name' => 'accountant',
+            'display_name' => 'Kế toán',
+            'description' => '',
+        ]);
+
+        Role::create([
+            'name' => 'security',
+            'display_name' => 'Bảo vệ',
+            'description' => ''
+        ]);
+
+        Role::create([
+            'name' => 'chef',
+            'display_name' => 'Đầu bếp',
+            'description' => ''
         ]);
     }
 }

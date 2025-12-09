@@ -12,13 +12,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('facility_id')->constrained('facilities')->cascadeOnDelete();
-            $table->string('id_staff')->unique();
+            $table->string('code', 8)->nullable()->unique();
             $table->string('full_name');
-            $table->date('birthday');
+            $table->date('dateOfBirth');
             $table->string('citizen')->nullable();
             $table->string('avatar')->nullable();
             $table->string('phone')->nullable();
-            $table->string('email')->unique();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->text('note')->nullable();
