@@ -33,6 +33,7 @@ Route::prefix('admin')
         // Users page
         Route::get('user/locked', [UserController::class, 'locked'])->middleware('role:admin');
         Route::get('user/trash', [UserController::class, 'trash'])->middleware('role:admin');
+        Route::delete('user/delete', [UserController::class, 'delete'])->middleware('role:admin,owner');
         Route::resource('user', UserController::class)->names('user')->middleware('role:admin,owner'); 
 
         // Staffs page
