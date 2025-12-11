@@ -54,8 +54,11 @@
                             <a 
                                 class="mx-1 text-danger" 
                                 data-toggle="modal"
-                                data-target=".bs-modal"
+                                data-target="#confirm-delete-modal"
                                 href="javascript:void()"
+                                data-id="{{$user->id}}"
+                                data-name="{{$user->staff ? $user->staff->full_name : ''}}"
+                                data-email="{{$user->email}}"
                             >
                                 <i class="mdi mdi-delete" style="font-size: 22px"></i>
                             </a>
@@ -68,4 +71,64 @@
     </div>
 </div>
 
+<!-- Modal delete -->
+<div class="modal fade" id="confirm-delete-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content pb-3">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0">Xóa người dùng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div>
+                <div class="modal-body d-flex flex-column">
+                    <span>Bạn có muốn xóa nhân viên này?</span>
+                    <span id="modal_delete-name"></span>
+                    <span id="modal_delete-email"></span>                  
+                </div>
+                <div class="d-flex justify-content-end px-3">
+                    <button class="btn btn-secondary btn-sm" class="close" data-dismiss="modal" aria-label="Close">Hủy</button>
+                    <button 
+                        class="btn btn-danger btn-sm" 
+                        id="btn-submit-delete"
+                        style="margin-left: 5px"
+                    >
+                        Xóa
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Form delete -->
+<form action="{{url('admin/user/delete')}}" method="POST" id="delete-form" class="d-none">
+    @method('DELETE')
+    @csrf
+    <input type="hidden" id="input-delete-form" name="id">
+</form>
+
+<!-- Script delete -->
+<script>
+    $('#confirm-delete-modal').on('show.bs.modal', function (event) {
+        // Button open modal
+        const button = $(event.relatedTarget);
+
+        const userId = button.data('id');
+        const userName = button.data('name');
+        const userEmail = button.data('email');
+
+        // Update content in modal
+        $(this).find('#modal_delete-name').text(`Họ tên: ${userName}`);
+        $(this).find('#modal_delete-email').text(`Email: ${userEmail}`);
+
+        // Update input hidden
+        $('#input-delete-form').val(userId);
+    });
+
+    $('#confirm-delete-modal #btn-submit-delete').on('click', function() {
+        $('#delete-form').submit();
+    });
+</script>
 @endsection

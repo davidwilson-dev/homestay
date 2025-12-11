@@ -200,6 +200,17 @@ class UserController extends Controller
     }
 
     /**
+     * Soft delete the specified resource from  storage
+     */
+
+    public function delete(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+        $user->delete();
+        return redirect('admin/user')->with('status', 'Xóa người dùng thành công');
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)

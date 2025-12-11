@@ -102,20 +102,20 @@
 <script>
     const deleteModal = document.getElementById('confirm-delete-modal');
     const deleteForm = document.getElementById('delete-form'); 
-    console.log(deleteModal);
-    // deleteModal.addEventListener('show.bs.modal', (event) => {
-    //     console.log('show modal');
-    //     const button = event.relatedTarget; 
-    //     const staffId = button.getAttribute('data-id'); 
-    //     const staffName = button.getAttribute('data-name'); 
-    //     const staffEmail = button.getAttribute('data-email'); 
 
-    //     // Update modal content
-    //     const deleteNameSpan = deleteModal.querySelector('#delete-name-span');
-    //     const deleteEmailSpan = deleteModal.querySelector('#delete-email-span');
-    //     deleteNameSpan.textContent = `Họ tên: ${staffName}`;
-    //     deleteEmailSpan.textContent = `Email: ${staffEmail}`;
+    deleteModal.addEventListener('show.bs.modal', (event) => {
+        console.log('show modal');
+        const button = event.relatedTarget; 
+        const staffId = button.getAttribute('data-id'); 
+        const staffName = button.getAttribute('data-name'); 
+        const staffEmail = button.getAttribute('data-email'); 
 
-    // });
+        // Update modal content
+        const deleteNameSpan = deleteModal.querySelector('#delete-name-span');
+        const deleteEmailSpan = deleteModal.querySelector('#delete-email-span');
+        deleteNameSpan.textContent = `Họ tên: ${staffName}`;
+        deleteEmailSpan.textContent = `Email: ${staffEmail}`;
+
+    });
 </script>
 @endsection
