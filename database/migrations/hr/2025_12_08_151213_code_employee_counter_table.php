@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('position_staff', function (Blueprint $table) {
+        Schema::create('code_employee_counter', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('position_id')->constrained('positions')->cascadeOnDelete();
-            $table->foreignId('staff_id')->constrained('staffs')->cascadeOnDelete(); 
+            $table->unsignedInteger('last_number')->default(0);
             $table->timestamps();
-
-            $table->index(['position_id','staff_id']);
         });
     }
 
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('position_staff');
+        Schema::dropIfExists('code_employee_counter');
     }
 };

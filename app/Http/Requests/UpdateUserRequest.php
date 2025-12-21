@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -15,6 +16,30 @@ class UpdateUserRequest extends FormRequest
         return true;
     }
 
+    /* Prepare For Validation */
+    protected function prepareForValidation()
+    {
+        // Check citizen identification card
+        if ($this->has('citizen')) 
+        {
+            $citizen = normalizeCitizen($this->citizen);
+
+            if(! $citizen)
+            {
+                return back()->with('error', 'CCCD invalid');
+            }
+        }
+
+        // Format date of birth from d/m/Y to Y-m-d
+        if ($this->filled('dateOfBirth')) 
+        {
+            $this->merge([
+                'dateOfBirth' => Carbon::createFromFormat('d/m/Y', $this->dateOfBirth)
+                    ->format('Y-m-d'),
+            ]);
+        }
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,7 +48,30 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->user)],         
+            'position' => 'required|string|min:3|max:20',
+            'name' => 'required|string|min:5|max:50',
+            'citizen' => 'required|string|size:12',
+            'dateOfBirth' => ['required','date','before_or_equal:' . now()->subYears(18)->format('Y-m-d'),],
+            'phone' => 'required',
+            'facility_id' => 'required|integer',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'Email là thông tin bắt buộc',
+            'email.unique' => 'Nhân viên này đã có tài khoản',
+            'email.email' => 'Email không đúng định dạng',
+            'position.required' => 'Bạn phải chọn chức vụ',
+            'name.required' => 'Họ tên là thông tin bắt buộc',
+            'name.min' => 'Họ tên tối thiểu 5 ký tự',
+            'name.max' => 'Họ tên tối đa 50 ký tự',
+            'dateOfBirth.required' => 'Ngày sinh là thông tin bắt buộc',
+            'phone.required' => 'Số điện thoại là thông tin bắt buộc',
+            'facility_id.required' => 'Phải chọn cơ sở Homestay cho nhân viên',
         ];
     }
 }

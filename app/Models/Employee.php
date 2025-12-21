@@ -4,22 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Position;
+use App\Models\Role;
 use App\Models\User;
+use App\Models\Facility;
 
-class Staff extends Model
+class Employee extends Model
 {
     use HasFactory;
 
-    protected $table = 'staffs';
-
+    protected $table = 'employees';
     protected $fillable = [
         'user_id',
         'facility_id',
-        'full_name',
+        'name',
         'dateOfBirth',
         'citizen',
+        'position',
         'phone',
+        'address',
         'start_date',
         'end_date',
         'note'
@@ -34,13 +36,15 @@ class Staff extends Model
     //     );
     // }
 
+    // Relationships
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function positions()
+    public function facility()
     {
-        return $this->belongsToMany(Position::class);
+        return $this->belongsTo(Facility::class);
     }
 }

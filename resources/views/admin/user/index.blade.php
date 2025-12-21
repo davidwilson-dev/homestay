@@ -32,18 +32,18 @@
                     @foreach($users as $key => $user)
                     <tr>
                         <td>{{$key + 1}}</td>
-                        <td>{{$user->staff ? $user->staff->full_name : ''}}</td>
+                        <td>{{$user->employee ? $user->employee->name : ''}}</td>
                         <td>
-                            @if($user->staff && $user->staff->avatar !== null)
-                                <img src="{{asset('storage/' . $user->staff->avatar)}}" alt="avatar" class="avatar-sm">
+                            @if($user->employee && $user->employee->avatar !== null)
+                                <img src="{{asset('storage/' . $user->employee->avatar)}}" alt="avatar" class="avatar-sm">
                             @else
-                                <img src="{{asset('assets/admin/images/staffs/avatar-default.png')}}" alt="avatar" class="avatar-sm">
+                                <img src="{{asset('assets/admin/images/employees/avatar-default.png')}}" alt="avatar" class="avatar-sm">
                             @endif
                         </td>
                         <td>{{$user->username}}</td>
                         <td>{{$user->email}}</td>
-                        <td>{{$user->staff ? $user->staff->phone : ''}}</td>
-                        <td>{{$user->facility ? $user->facility->name : ''}}</td>
+                        <td>{{$user->employee ? $user->employee->phone : ''}}</td>
+                        <td>{{$user->employee->facility ? $user->employee->facility->name : ''}}</td>
                         <td>
                             <a class="mx-1 text-primary" href="{{route('admin.user.show', $user->id)}}">
                                 <i class="mdi mdi-eye" style="font-size: 22px"></i>
@@ -110,6 +110,7 @@
 </form>
 
 <!-- Script delete -->
+@push('script-delete-user')
 <script>
     $('#confirm-delete-modal').on('show.bs.modal', function (event) {
         // Button open modal
@@ -131,4 +132,6 @@
         $('#delete-form').submit();
     });
 </script>
+@endpush
+
 @endsection

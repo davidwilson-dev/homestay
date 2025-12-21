@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Staff;
+use App\Models\Employee;
 use App\Models\Booking;
 use App\Models\User;
 use App\Models\BookingPayment;
@@ -31,7 +31,7 @@ class DashboardController extends Controller
     {
         $totalBookings = Booking::count();
         $totalUsers = User::count();
-        $totalStaffs = Staff::count();
+        $totalEmployees = Employee::count();
         $totalRevenue = BookingPayment::whereNot('type', 'refund')->where('status', 'succeeded')->sum('amount');
 
         // $recentCollaborators = Staff::whereHas('position', fn($q) => $q->where('name','collaborator'))
@@ -51,7 +51,7 @@ class DashboardController extends Controller
                 [
                     'totalBookings',
                     'totalUsers',
-                    'totalStaffs',
+                    'totalEmployees',
                     'totalRevenue',
                     'recentCollaborators', 
                     'recentbookings',

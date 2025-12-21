@@ -10,13 +10,12 @@ return new class extends Migration
     {
         Schema::create('facilities', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('name', 100)->unique();
+            $table->string('code', 20)->unique();
             $table->string('address');
             $table->string('province');
             $table->string('phone')->nullable();
             $table->string('avatar')->nullable();
-            $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamps();
 
             $table->index('province');

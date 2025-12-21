@@ -15,14 +15,14 @@ class RoleUserSeeder extends Seeder
     {
         DB::table('role_user')->insert([
             [
-                // Admin IT: duonghp1991
-                'role_id' => 1,
+                // duonghp1991 - Admin IT
                 'user_id' => 1,
+                'role_id' => 1,
             ],
             [
-                // Owner: nguyenhuyanh1012
-                'role_id' => 2,
+                // nguyenhuyanh1012 - Owner
                 'user_id' => 2,
+                'role_id' => 2,
             ],
         ]);
     }

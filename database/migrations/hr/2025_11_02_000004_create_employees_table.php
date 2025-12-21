@@ -8,18 +8,21 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('staffs', function (Blueprint $table) {
+        Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('facility_id')->constrained('facilities')->cascadeOnDelete();
+            $table->foreignId('facility_id')->nullable()->constrained('facilities')->nullOnDelete();
             $table->string('code', 8)->nullable()->unique();
-            $table->string('full_name');
-            $table->date('dateOfBirth');
+            $table->string('name', 100);
+            $table->string('position', 100)->nullable();
+            $table->date('dateOfBirth')->nullable();
             $table->string('citizen')->nullable();
             $table->string('avatar')->nullable();
             $table->string('phone')->nullable();
+            $table->string('address')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
+            $table->decimal('salary_base', 14, 2)->default(0);
             $table->text('note')->nullable();
             $table->timestamps();
 
@@ -29,6 +32,6 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('staffs');
+        Schema::dropIfExists('employees');
     }
 };

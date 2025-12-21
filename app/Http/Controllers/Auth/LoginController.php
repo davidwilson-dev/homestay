@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 
+use App\Http\Requests\LoginRequest;
+
 class LoginController extends Controller
 {
     /*
@@ -65,13 +67,8 @@ class LoginController extends Controller
         ];
     }*/
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $request->validate([
-            'account'    => 'required|string|min:3|max:50',
-            'password' => 'required|string|min:8|max:50',
-        ]);
-
         // Check user input email or username
         $account = $request->input('account');
         $field = filter_var($account, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';

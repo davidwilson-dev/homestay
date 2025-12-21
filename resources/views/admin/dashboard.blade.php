@@ -51,7 +51,7 @@
                 </div>
                 <div class="overflow-hidden">
                     <p class="text-uppercase font-weight-medium text-truncate mb-2">Nhân viên</p>
-                    <h2 class="mb-0"><span data-plugin="counterup">{{$totalStaffs}}</span><i class="mdi mdi-arrow-up text-success font-24"></i></h2>
+                    <h2 class="mb-0"><span data-plugin="counterup">{{$totalEmployees}}</span><i class="mdi mdi-arrow-up text-success font-24"></i></h2>
                     <p class="text-muted mt-2 m-0">
                         <span class="font-weight-medium">
                             Cập nhật:
