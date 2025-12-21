@@ -4,48 +4,48 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Position;
+use App\Models\Employee;
 
-class PositionSeeder extends Seeder
+class EmployeeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Position::create([
-            'name' => 'manager',
+        Employee::create([
             'display_name' => 'Quản lý',
-            'description' => ''
-        ]);
-
-        Position::create([
-            'name' => 'receptionist',
-            'display_name' => 'Lễ tân',
-            'description' => ''
-        ]);
-
-        Position::create([
-            'name' => 'accountant',
-            'display_name' => 'Kế toán',
+            'name' => 'manager',
             'description' => '',
         ]);
 
-        Position::create([
-            'name' => 'housekeeper',
-            'display_name' => 'Tạp vụ',
-            'description' => ''
+        Employee::create([
+            'display_name' => 'Lễ tân',
+            'name' => 'receptionist',
+            'description' => '',
         ]);
 
-        Position::create([
-            'name' => 'security',
+        Employee::create([
+            'display_name' => 'Kế toán',
+            'name' => 'accountant',
+            'description' => '',
+        ]);
+
+        Employee::create([
             'display_name' => 'Bảo vệ',
+            'name' => 'security',
             'description' => ''
         ]);
 
-        Position::create([
-            'name' => 'chef',
+        Employee::create([
+            'display_name' => 'Phục vụ phòng',
+            'name' => 'housekeeper',
+            'description' => ''
+        ]);
+
+        Employee::create([
             'display_name' => 'Đầu bếp',
+            'name' => 'chef',
             'description' => ''
         ]);
     }

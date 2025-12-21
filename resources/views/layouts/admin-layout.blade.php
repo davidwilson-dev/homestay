@@ -60,10 +60,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
 
-    <!-- Jquery -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-
 
     <!-- ============ CUSTOM =========== -->
 
@@ -229,7 +225,7 @@
                             <ul class="nav-second-level" aria-expanded="false">
                                 <li><a href="{{route('admin.user.index')}}">Danh sách</a></li>
                                 <li><a href="{{route('admin.user.create')}}">Tạo tài khoản</a></li>
-                                @if(in_array('admin', Auth::user()->roles->pluck('name')->toArray()))
+                                @if(in_array('admin', Auth::user()->roles->pluck('name')->toArray())) 
                                 <li><a href="{{url('admin/user/locked')}}">Danh sách tạm khóa</a></li>
                                 <li><a href="{{url('admin/user/trash')}}">Danh sách đã xóa</a></li>
                                 @endif
@@ -489,6 +485,7 @@
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
 
+
     <!-- ============ ZIRCOS =========== -->
 
     <!-- Vendor js -->
@@ -552,7 +549,6 @@
 
     <!-- App js -->
     <script src="{{asset('assets/admin/js/app.min.js')}}"></script>
-    <script src="{{asset('assets/admin/js/script.js')}}"></script>
 
 
     <!-- ============ CDN =========== -->
@@ -564,12 +560,9 @@
         });
     </script>
 
-
     <!-- ============ CUSTOM =========== -->
-    <script src="{{asset('assets/admin/js/script.js')}}"></script>
-
-    <!-- user/create.blade.php -->
-    @stack('scripts-change-avatar') 
-    @stack('scripts-selected-facility')
+    <script src="{{asset('assets/admin/js/helper.js')}}"></script>
+    <script src="{{asset('assets/admin/js/user-staff.js')}}"></script>
+    @stack('script-delete-user')
 </body>
 </html>

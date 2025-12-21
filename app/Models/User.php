@@ -9,10 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Facility;
-use App\Models\Booking;
-use App\Models\Position;
 use App\Models\Role;
-use App\Models\Staff;
+use App\Models\Employee;
 
 class User extends Authenticatable
 {
@@ -26,8 +24,6 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'email',
-        'password', 
-        'facility_id', 
         'status',
     ];
 
@@ -52,29 +48,20 @@ class User extends Authenticatable
     ];
 
     // Relationships
+
+    public function roles()
+    {
+        //withTimestamps auto update created_at, updated_at when run attach, detach, sync
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
     public function facility()
     {
         return $this->belongsTo(Facility::class);
     }
 
-    public function roles()
+    public function employee()
     {
-        //withTimestamps auto update created_at, updated_at when run attach, detach, sync
-        return $this->belongsToMany(Role::class)->withTimestamps(); 
-    }
-
-    public function staff()
-    {
-        return $this->hasOne(Staff::class);
-    }
-    
-    public function staffOf()
-    {
-        return $this->belongsTo(Facility::class, 'facility_id');
-    }
-    
-    public function bookings()
-    {
-        return $this->hasMany(Booking::class, 'guest_id');
-    }
+        return $this->hasOne(Employee::class);
+    }  
 }

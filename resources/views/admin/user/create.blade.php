@@ -13,6 +13,7 @@
                             <div class="mb-3 mx-auto d-block">
                                 <img 
                                     src="{{asset('assets/admin/images/staffs/avatar-default.png')}}" 
+                                    data-default-avatar="{{ asset('assets/admin/images/staffs/avatar-default.png') }}"
                                     id="image-avatar" 
                                     class="rounded-circle" 
                                     alt="profile-image"
@@ -62,40 +63,21 @@
                                                 </div>
                                                 <div class="form-group col-md-6 row">
                                                     <label class="col-md-3 control-label " for="userName">
-                                                        Thẩm quyền 
+                                                        Chức vụ
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-md-9">
-                                                        <select name="role_id" class="form-control" style="width: 100%">
-                                                            @foreach($roles as $role)
-                                                                <option value="{{$role->id}}">{{$role->display_name}}</option>
-                                                            @endforeach
+                                                        <select name="position" class="form-control" style="width: 100%">
+                                                                <option>Chọn chức vụ</option>
+                                                                <option value="manager">Quản lý</option>
+                                                                <option value="accountant">Kế toán</option>
+                                                                <option value="receptionist">Lễ tân</option>
+                                                                <option value="cleaner">Tạp vụ</option>
+                                                                <option value="security">Bảo vệ</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <!-- <div class="row d-flex justify-content-between">
-                                                <div class="form-group col-md-6 row">
-                                                    <label class="col-md-3 control-label " for="password"> 
-                                                        Mật khẩu
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="col-md-9">
-                                                        <input name="password" type="text" class="required form-control">
-                                                    </div>
-                                                </div>
-    
-                                                <div class="form-group col-md-6 row">
-                                                    <label class="col-md-3 control-label " for="confirm">
-                                                        Xác nhận MK
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="col-md-9">
-                                                        <input name="password_confirmation" type="text" class="required form-control">
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                         </div>
 
                                         <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -106,7 +88,7 @@
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-md-9">
-                                                        <input name="full_name" type="text" class="required form-control">
+                                                        <input name="name" type="text" class="required form-control">
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-6 row">
@@ -217,7 +199,14 @@
                                                         <select name="facility_id" class="form-control" id="selected-facility">
                                                                 <option value="0">Chọn cơ sở</option>
                                                             @foreach($facilities as $facility)
-                                                                <option value="{{$facility->id}}" data-address="{{$facility->address}}">{{$facility->name}}</option>
+                                                                <option 
+                                                                    value="{{$facility->id}}" 
+                                                                    data-address="{{$facility->address}}"
+                                                                    data-avatar="{{$facility->avatar ? asset('storage/' . $facility->avatar) : null}}"
+                                                                    data-avatar-default="{{asset('assets/admin/images/facilities/avatar-default-homestay.png')}}"
+                                                                >
+                                                                    {{$facility->name}}
+                                                                </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -234,6 +223,7 @@
                                                 <div class="form-group col-md-4">
                                                     <img 
                                                         src="{{asset('assets/admin/images/facilities/avatar-default-homestay.png')}}" 
+                                                        default-avatar="{{asset('assets/admin/images/facilities/avatar-default-homestay.png')}}"
                                                         alt="homestay" 
                                                         class="img-thumbnail"
                                                         id="facility-avatar"
@@ -264,49 +254,5 @@
         </div>
     </div>
 </div>
-
-<!-- Handle Avatar -->
-@push('scripts-change-avatar')
-<script>
-    const inputAvatar = document.getElementById("input-avatar");
-    const imageAvatar = document.getElementById("image-avatar");
-    const btnClearAvatar = document.getElementById("btn-clear-avatar");
-
-    inputAvatar.addEventListener('change', function(){
-        imageAvatar.src = window.URL.createObjectURL(inputAvatar.files[0]);
-    })
-
-    btnClearAvatar.addEventListener('click', function(){
-        inputAvatar.value = null;
-        imageAvatar.src = "{{asset('assets/admin/images/staffs/avatar-default.png')}}";
-    })
-</script>
-@endpush
-
-<!-- Get data Homestay -->
-@push('scripts-selected-facility')
-<script>
-    document.getElementById('selected-facility').addEventListener('change', function () {
-        // Get selected option
-        const selectedOption = this.options[this.selectedIndex];
-        
-        // Get data from data attributes
-        const address = selectedOption.getAttribute('data-address');
-        const avatar = selectedOption.getAttribute('data-avatar');
-
-        // Assign data to input fields
-        document.getElementById('facility-address').value = address || '';
-        document.getElementById("facility-avatar").src = avatar ? `{{asset('storage/${avatar}')}}` : "{{asset('assets/admin/images/facilities/avatar-default-homestay.png')}}";
-    });
-</script>
-@endpush
-
-<script>
-    document.getElementById('submit-form').addEventListener('submit', function() {
-        const btn = document.getElementById('submit-btn');
-        btn.disabled = true;
-        btn.innerText = 'Processing...';
-    });
-</script>
 
 @endsection

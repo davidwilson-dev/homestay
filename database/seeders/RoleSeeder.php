@@ -14,45 +14,27 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         Role::create([
-            'name' => 'admin',
             'display_name' => 'Admin IT',
+            'name' => 'admin',
             'description' => '',
         ]);
 
         Role::create([
-            'name' => 'owner',
             'display_name' => 'Chủ sở hữu',
+            'name' => 'owner',
             'description' => '',
         ]);
 
         Role::create([
-            'name' => 'manager',
             'display_name' => 'Quản lý',
+            'name' => 'manager',
             'description' => '',
         ]);
 
         Role::create([
-            'name' => 'receptionist',
-            'display_name' => 'Lễ tân',
+            'display_name' => 'Nhân viên',
+            'name' => 'staff',
             'description' => '',
-        ]);
-
-        Role::create([
-            'name' => 'accountant',
-            'display_name' => 'Kế toán',
-            'description' => '',
-        ]);
-
-        Role::create([
-            'name' => 'security',
-            'display_name' => 'Bảo vệ',
-            'description' => ''
-        ]);
-
-        Role::create([
-            'name' => 'chef',
-            'display_name' => 'Đầu bếp',
-            'description' => ''
         ]);
     }
 }

@@ -1,5 +1,4 @@
 // Format Currency
-
 function formatCurrency(input) {
     let value = input.value.replace(/\./g, '').replace(/[^0-9.]/g, '');
 
@@ -10,3 +9,4 @@ function formatCurrency(input) {
         input.value = ''; 
     }
 }
+

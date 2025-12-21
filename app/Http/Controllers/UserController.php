@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\User;
 use App\Models\Role;
-use App\Models\Staff;
+use App\Models\Employee;
 use App\Models\Position;
 use App\Models\Facility;
 
@@ -18,6 +18,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 
 use App\Services\ImageService;
+use App\Services\EmployeeRoleService;
 
 use App\Jobs\CreateUserJob;
 
@@ -48,22 +49,22 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::whereNotIn('name', ['admin', 'owner'])->get();
-        $positions = Position::get();
         $facilities = Facility::get();
 
-        return view('admin.user.create', compact(['roles', 'positions', 'facilities']));
+        return view('admin.user.create', compact(['facilities']));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request, EmployeeRoleService $employeeRoleService)
     {
         DB::beginTransaction();
 
         try {
-            // Create User
+            // ========== Handle User ========== //
+
+            // Create new User
             $user = new User;   
 
             // Create password
@@ -72,7 +73,6 @@ class UserController extends Controller
 
             // Get data User from request
             $user->email = $request->email;
-            $user->facility_id = $request->facility_id;
 
             // Handle username
             $user->username = Str::slug(Str::before($user->email, '@'));
@@ -80,27 +80,24 @@ class UserController extends Controller
             // Save User
             $user->save();
 
-            // Handle role
-            if (! $user->roles->contains($request->role_id)) {
-                $user->roles()->attach($request->role_id);
-            }
+            // ========== Handle Employee ========== //
 
-            // Create Staff
-            $staff = new Staff;
+            // Create new Employee
+            $employee = new Employee;
 
-            // Get data Staff from request
-            $staff->fill($request->all());
+            // Get data Employee from request
+            $employee->fill($request->all());
 
             // Handle user_id
-            $staff->user_id = $user->id;
+            $employee->user_id = $user->id;
             
-            // Handle code staff
-            $counter = DB::table('staff_code_counter')->lockForUpdate()->first();
+            // Handle code employee
+            $counter = DB::table('code_employee_counter')->lockForUpdate()->first();
             $number;
             if(! $counter)
             {
                 $number = 1;
-                DB::table('staff_code_counter')->insert([
+                DB::table('code_employee_counter')->insert([
                     'last_number' => $number,
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -109,34 +106,30 @@ class UserController extends Controller
             else
             {
                 $number = $counter->last_number + 1;
-                DB::table('staff_code_counter')
+                DB::table('code_employee_counter')
                     ->where('id', $counter->id)
                     ->update([
                         'last_number' => $number,
                         'updated_at' => now(),
                 ]);
-            }
-            $staff->code = $number;
+            }           
+            $employee->code = str_pad($number, 4, '0', STR_PAD_LEFT);
 
             // Handle avatar
             if ($request->hasFile('avatar')) {
-                $avatarPath = $this->imageService->saveImageAvatar($request->file('avatar'), 'staffs', $staff->full_name);
-                $staff->avatar = $avatarPath;
+                $avatarPath = $this->imageService->saveImageAvatar($request->file('avatar'), 'employees', $employee->name);
+                $employee->avatar = $avatarPath;
             }
 
-            // Save Staff
-            $staff->save();
+            // Save Employee
+            $employee->save();
 
-            // Hanlde position
-            $role = Role::findOrFail($request->role_id);
-            $roleName = $role->name;
-            $position = Position::where('name', $role->name)->first();
-            if (! $staff->positions->contains($position->id)) {
-                $staff->positions()->attach($position->id);
-            }
+            // ========== Handle Role ========== //
+            $position = $request->input('position');
+            $employeeRoleService->syncUserRolesByPosition($user, $position);
 
 
-            // Send mail verify         
+            // ========== Send mail verify ========== // 
             CreateUserJob::dispatch($user->id, $password);
 
             DB::commit();
@@ -164,39 +157,71 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = User::findOrFail($id);
-        $roles = Role::orderBy('id', 'ASC')->get();
-        return view('/admin/user/edit', ['user' => $user, 'roles' => $roles]);
+        $roles = Role::whereNotIn('name', ['admin', 'owner'])->get();
+        $rolesUser = $user->roles->pluck('id')->toArray();
+        $facilities = Facility::get();
+        return view('/admin/user/edit', [
+            'user' => $user, 
+            'roles' => $roles,
+            'facilities' => $facilities,
+            'rolesUser' => $rolesUser
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, string $id)
+    public function update(UpdateUserRequest $request, string $id, EmployeeRoleService $employeeRoleService)
     {
-        $user = User::findOrFail($id);
-        $user->fill($request->except('password'));
+        DB::beginTransaction();
 
-        //Min password
-        if($request->password && Str::length($request->password) < 8)
-        {
-            return redirect()->back()->with('error', 'Mật khẩu tối thiểu phải có 8 ký tự');
+        try{
+            // ========== Handle User ========== //
+
+            // Find User by id
+            $user = User::findOrFail($id);
+    
+            // Get data User from request
+            $user->email = $request->email;
+    
+            // Handle username
+            $user->username = Str::slug(Str::before($user->email, '@'));
+    
+            // Save User
+            $user->save();
+
+    
+            // ========== Handle Employee ========== //
+
+            // Find Employee by user_id
+            $employee = $user->employee; // $employee = Employee::where('user_id', $user->id)->first();
+
+            // Get data from request
+            $employee->fill($request->all());
+
+            // Handle avatar
+            if ($request->hasFile('avatar')) {
+                if ($employee->avatar) {
+                    $this->imageService->deleteImage($employee->avatar);
+                }
+                $avatarPath = $this->imageService->saveImageAvatar($request->file('avatar'), 'employees', $employee->name);
+                $employee->avatar = $avatarPath;
+            }
+
+            // Save Employee
+            $employee->save();
+
+            // ========== Handle Role ========== //
+            $position = $request->input('position');
+            $employeeRoleService->syncUserRolesByPosition($user, $position);
+
+            DB::commit();
+            return redirect('/admin/user')->with('status', 'Cập nhật tài khoản thành công');
         }
-
-        //Confirm password
-        if($request->password && $request->password != $request->password_confirmation)
-        {
-            return redirect()->back()->with('error', 'Xác nhận mật khẩu không khớp');
+        catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception('Transaction failed: ' . $e->getMessage());
         }
-
-        //Hash password
-        if($request->password)
-        {
-            $user->password = Hash::make($request->password);
-        }
-
-        $user->save();
-
-        return redirect('/admin/user')->with('status', 'Cập nhật tài khoản thành công');
     }
 
     /**

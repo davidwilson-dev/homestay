@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 
 class StoreUserRequest extends FormRequest
@@ -48,8 +49,8 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'email' => 'required|email|unique:users',         
-            'role_id' => 'required|integer|min:1',
-            'full_name' => 'required|string|min:5|max:50',
+            'position' => 'required|string|min:3|max:20',
+            'name' => 'required|string|min:5|max:50',
             'citizen' => 'required|string|size:12',
             'dateOfBirth' => ['required','date','before_or_equal:' . now()->subYears(18)->format('Y-m-d'),],
             'phone' => 'required',
@@ -64,12 +65,10 @@ class StoreUserRequest extends FormRequest
             'email.required' => 'Email là thông tin bắt buộc',
             'email.unique' => 'Nhân viên này đã có tài khoản',
             'email.email' => 'Email không đúng định dạng',
-            'role_id.required' => 'Bạn phải chọn quyền hạn tài khoản',
-            'role_id.integer' => 'Quyền hạn tài khoản không hợp lệ',
-            'role_id.min' => 'Quyền hạn tài khoản không hợp lệ',
-            'full_name.required' => 'Họ tên là thông tin bắt buộc',
-            'full_name.min' => 'Họ tên tối thiểu 5 ký tự',
-            'full_name.max' => 'Họ tên tối đa 50 ký tự',
+            'position.required' => 'Bạn phải chọn chức vụ cho nhân viên',
+            'name.required' => 'Họ tên là thông tin bắt buộc',
+            'name.min' => 'Họ tên tối thiểu 5 ký tự',
+            'name.max' => 'Họ tên tối đa 50 ký tự',
             'dateOfBirth.required' => 'Ngày sinh là thông tin bắt buộc',
             'phone.required' => 'Số điện thoại là thông tin bắt buộc',
             'facility_id.required' => 'Phải chọn cơ sở Homestay cho nhân viên',

@@ -6,14 +6,14 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class StaffCodeSeeder extends Seeder
+class CodeEmployeeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('staff_code_counter')->insert([
+        DB::table('code_employee_counter')->insert([
             [
                 'id' => 1,
                 'last_number' => 0,

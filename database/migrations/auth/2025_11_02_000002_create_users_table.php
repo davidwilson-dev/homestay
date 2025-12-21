@@ -10,17 +10,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->string('email')->unique();
+            $table->string('username', 50)->unique();
+            $table->string('email', 50)->unique();
             $table->string('password');
-            $table->foreignId('facility_id')->nullable()->constrained('facilities')->nullOnDelete();
             $table->enum('status', ['active','inactive'])->default('active');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index('facility_id');
             $table->index('status');
         });
     }

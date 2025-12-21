@@ -16,31 +16,14 @@ class Facility extends Model
 
     protected $fillable = [
         'name',
-        'slug',
         'address',
         'province',
         'phone',
-        'status',
     ];
 
     // Relationships
     public function users()
     {
         return $this->hasMany(User::class)->whereNotNull('facility_id');
-    }
-
-    public function staff()
-    {
-        return $this->hasMany(Staff::class)->whereNotNull('facility_id');
-    }
-
-    public function rooms()
-    {
-        return $this->hasMany(Room::class);
-    }
-
-    public function bookings()
-    {
-        return $this->hasMany(Booking::class);
     }
 }
