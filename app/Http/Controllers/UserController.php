@@ -147,8 +147,15 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = User::findOrFail($id);
-        $roles = Role::orderBy('id', 'ASC')->get();
-        return view('/admin/user/detail', ['user' => $user, 'roles' => $roles]);
+        $roles = Role::whereNotIn('name', ['admin', 'owner'])->get();
+        $rolesUser = $user->roles->pluck('id')->toArray();
+        $facilities = Facility::get();
+        return view('/admin/user/detail', [
+            'user' => $user, 
+            'roles' => $roles,
+            'facilities' => $facilities,
+            'rolesUser' => $rolesUser
+        ]);
     }
 
     /**

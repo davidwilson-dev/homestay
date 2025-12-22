@@ -26,13 +26,15 @@ class Employee extends Model
         'end_date',
         'note'
     ];
+    protected $casts = [
+        'user_id' => 'integer',
+    ];
 
     // Data type format for Date of Birth
     // protected function dateOfBirth(): Attribute
     // {
     //     return Attribute::make(
-    //         set: fn($value) =>
-    //             Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d'),
+    //         set: fn($value) => Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d'),
     //     );
     // }
 

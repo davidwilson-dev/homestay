@@ -54,7 +54,7 @@ class StoreUserRequest extends FormRequest
             'citizen' => 'required|string|size:12',
             'dateOfBirth' => ['required','date','before_or_equal:' . now()->subYears(18)->format('Y-m-d'),],
             'phone' => 'required',
-            'facility_id' => 'required|integer',
+            'facility_id' => 'nullable|integer|exists:facilities,id',
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }

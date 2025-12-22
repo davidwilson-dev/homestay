@@ -72,6 +72,7 @@
                                                                 <option value="manager">Quản lý</option>
                                                                 <option value="accountant">Kế toán</option>
                                                                 <option value="receptionist">Lễ tân</option>
+                                                                <option value="chef">Đầu bếp</option>
                                                                 <option value="cleaner">Tạp vụ</option>
                                                                 <option value="security">Bảo vệ</option>
                                                         </select>

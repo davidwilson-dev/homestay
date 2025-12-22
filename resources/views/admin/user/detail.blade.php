@@ -2,79 +2,249 @@
 @section('content')
 <div class="row">
     <div class="col-sm-12">
-        <div class="card-box table-responsive">
-            <h4 class="header-title pb-2 border-bottom"><b>Thông tin tài khoản</b></h4>
-
-            <div action="#" method="POST" class="form-horizontal mt-4">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="form-group row">
-                            <label class="col-md-2 control-label">Họ tên</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" value="{{$user->Staff->name}}" readonly>
+        <div class="card-box">
+            <h4 class="mb-4">Cập nhật thông tin người dùng</h4>
+            <div class="row">
+                <!-- Avatar Input -->
+                <div class="col-xl-3 col-md-4">
+                    <div class="text-center card-box shadow-none border border-secoundary">
+                        <div class="member-card">
+                            <div class="mb-3 mx-auto d-block">
+                                <img 
+                                    src="{{asset('storage/' . $user->employee->avatar)}}" 
+                                    data-default-avatar="{{ asset('assets/admin/images/employee/avatar-default.png') }}"
+                                    id="image-avatar" 
+                                    class="rounded-circle" 
+                                    alt="profile-image"
+                                    width="200px" height="200px"
+                                >
                             </div>
-
-                            <label class="col-md-2 control-label">Quyền hạn tài khoản</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" value="{{$user->Role->name}}" readonly>
-                            </div>
+                            <input type="file" id="input-avatar" class="d-none" name="avatar">
+                            <label for="input-avatar" class="btn btn-success btn-sm width-sm waves-effect mt-2 waves-light m-0">Upload</label>
+                            <button type="button" id="btn-clear-avatar" class="btn btn-danger btn-sm width-sm waves-effect mt-2 waves-light m-0">Clear</button>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-md-2 control-label">Số điện thoại</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control"  value="{{$user->Staff->phone_number}}" readonly>
-                            </div>
 
-                            <label class="col-md-1 control-label">Email</label>
-                            <div class="col-md-5">
-                                <input type="email" class="form-control"  value="{{$user->Staff->email}}" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2 control-label">Ngày sinh</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control"  value="{{$user->Staff->birthday}}" readonly>
-                            </div>
-
-                            <label class="col-md-1 control-label">CCCD/CMND</label>
-                            <div class="col-md-5">
-                                <input type="text" class="form-control"  value="{{$user->Staff->id_card}}" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2 control-label">Địa chỉ</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control"  value="{{$user->Staff->address}}" readonly>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="d-flex flex-column align-items-center justify-content-center">
-                            @if($user->Staff->avatar != null)
-                                <img src="{{asset('storage/' . $user->Staff->avatar)}}" alt="avatar" width="200px" height="200px">
-                            @else
-                                <img src="{{asset('assets/admin/images/staffs/avatar-default.png')}}" alt="avatar" width="200px" height="200px">
-                            @endif
-                            <label class="mt-2" style="cursor: default;">Ảnh đại diện</label>
-                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group row mb-3">
-                            <label class="col-md-12 control-label">Thông tin bổ sung</label>
-                            <div class="col-md-12">
-                                <textarea name="additional_information" class="form-control" rows="10" readonly>{{$user->Staff->additional_information}}</textarea>
+
+                <!-- Text Input -->
+                <div class="col-xl-9 col-md-8">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <ul class="nav nav-pills mb-2" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">Tài khoản</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="profile-tab" data-toggle="pill" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="salary-tab" data-toggle="pill" href="#salary" role="tab" aria-controls="salary" aria-selected="false">Lương</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="homestay-tab" data-toggle="pill" href="#homestay" role="tab" aria-controls="homestay" aria-selected="false">Homestay</a>
+                                        </li>
+                                    </ul>
+                                    <hr />
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label " for="userName">
+                                                        Email
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input class="form-control required" type="text" value="{{$user->email}}" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label " for="userName">
+                                                        Chức vụ 
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <select name="position" class="form-control" style="width: 100%" disabled>
+                                                            <option value="manager" {{ $user->employee->position == 'manager' ? 'selected' : '' }}>Quản lý</option>
+                                                            <option value="accountant" {{ $user->employee->position == 'accountant' ? 'selected' : '' }}>Kế toán</option>
+                                                            <option value="receptionist" {{ $user->employee->position == 'receptionist' ? 'selected' : '' }}>Lễ tân</option>
+                                                            <option value="chef" {{ $user->employee->position == 'chef' ? 'selected' : '' }}>Đầu bếp</option>
+                                                            <option value="cleaner" {{ $user->employee->position == 'cleaner' ? 'selected' : '' }}>Tạp vụ</option>
+                                                            <option value="security" {{ $user->employee->position == 'security' ? 'selected' : '' }}>Bảo vệ</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label" for="name"> 
+                                                        Họ tên
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="required form-control" value="{{$user->employee->name}}" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label " for="surname"> 
+                                                        CCCD
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="required form-control" value="{{$user->employee->citizen}}" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label">
+                                                        Ngày sinh
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-md-9 input-group">
+                                                        <input 
+                                                            type="text" 
+                                                            class="form-control input-date" 
+                                                            value="{{\Carbon\Carbon::createFromFormat('Y-m-d', $user->employee->dateOfBirth)->format('d/m/Y')}}"
+                                                            readonly
+                                                        >                             
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text bg-primary text-white b-0"><i class="mdi mdi-calendar"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label" > 
+                                                        Điện thoại
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="required form-control" value="{{$user->employee->phone}}" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-md-1 control-label" for="address">
+                                                    Địa chỉ 
+                                                </label>
+                                                <div class="col-md-11">
+                                                    <input type="text" class="form-control" value="{{$user->employee->address}}" readonly>
+                                                </div>
+                                            </div>    
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-md-1 control-label" for="note">
+                                                    Ghi chú 
+                                                </label>
+                                                <div class="col-md-11">
+                                                    <input type="text" class="form-control" value="{{$user->employee->note}}" readonly>
+                                                </div>
+                                            </div>                                              
+                                        </div>
+
+                                        <div class="tab-pane" id="salary" role="tabpanel" aria-labelledby="salary-tab">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label" for=""> 
+                                                        Lương cơ bản
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="required form-control" oninput="formatCurrency(this)" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label " for=""> 
+                                                        Phụ cấp
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="required form-control" oninput="formatCurrency(this)" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label" for=""> 
+                                                        Xăng xe
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="required form-control" oninput="formatCurrency(this)" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label " for=""> 
+                                                        Điện thoại
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="required form-control" oninput="formatCurrency(this)" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane" id="homestay" role="tabpanel" aria-labelledby="homestay-tab">
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="form-group col-md-8">
+                                                    <div>
+                                                        <label class="control-label " for=""> 
+                                                            Cơ sở
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input class="form-control required" type="text" value="{{$user->employee->facility->name}}" readonly>
+                                                    </div>
+                                                    <div>
+                                                        <label class="control-label " for=""> 
+                                                            Địa chỉ
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        <div class="">
+                                                            <input type="text" class="required form-control" value="{{$user->employee->facility->address}}" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <img 
+                                                        src="{{asset('assets/admin/images/facilities/avatar-default-homestay.png')}}" 
+                                                        default-avatar="{{asset('assets/admin/images/facilities/avatar-default-homestay.png')}}"
+                                                        alt="homestay" 
+                                                        class="img-thumbnail"
+                                                        id="facility-avatar"
+                                                        style="width: 100%; height: 250px;"
+                                                    >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <a 
+                                    class="btn btn-secondary width-sm waves-effect waves-light text-white" 
+                                    style="margin-right: 4px;"
+                                    href="{{route('admin.user.index')}}"
+                                >
+                                    Hủy
+                                </a>
+                                <button type="submit" id="submit-btn" class="btn btn-primary width-sm waves-effect waves-light">
+                                    Cập nhật
+                                </button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="d-flex justify-content-end">
-                    <a class="btn btn-primary waves-effect width-md waves-light" href="{{route('admin.user.index')}}">Quay lại</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection
