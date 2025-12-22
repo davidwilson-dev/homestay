@@ -69,10 +69,10 @@
                                                     </label>
                                                     <div class="col-md-9">
                                                         <select name="position" class="form-control" style="width: 100%">
-                                                            <option>Chọn chức vụ</option>
                                                             <option value="manager" {{ $user->employee->position == 'manager' ? 'selected' : '' }}>Quản lý</option>
                                                             <option value="accountant" {{ $user->employee->position == 'accountant' ? 'selected' : '' }}>Kế toán</option>
                                                             <option value="receptionist" {{ $user->employee->position == 'receptionist' ? 'selected' : '' }}>Lễ tân</option>
+                                                            <option value="chef" {{ $user->employee->position == 'chef' ? 'selected' : '' }}>Đầu bếp</option>
                                                             <option value="cleaner" {{ $user->employee->position == 'cleaner' ? 'selected' : '' }}>Tạp vụ</option>
                                                             <option value="security" {{ $user->employee->position == 'security' ? 'selected' : '' }}>Bảo vệ</option>
                                                         </select>
