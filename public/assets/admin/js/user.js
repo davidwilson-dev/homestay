@@ -44,3 +44,40 @@ if(submitForm){
         btn.innerText = 'Processing...';
     });
 }
+
+// Handle delete User
+$('#confirm-small-modal').on('show.bs.modal', function (event) {
+    // Button open modal
+    const button = $(event.relatedTarget);
+
+    // Get data from button data attributes
+    const action = button.data('action') || null;
+    const method = button.data('method') || 'POST';
+    const userName = button.data('name') || null;
+    const userEmail = button.data('email') || null;
+    const title = button.data('title') || 'Xác nhận hành động';
+    const message = button.data('message') || '';
+    const btnText = button.data('btntext') || 'Đồng ý';
+
+    // Update content in modal
+    $(this).find('#confirm-small-modal__title').text(title);
+    $(this).find('#confirm-small-modal__message').text(message);
+    $(this).find('#confirm-small-modal__line-1').text(`Họ tên: ${userName}`);
+    $(this).find('#confirm-small-modal__line-2').text(`Email: ${userEmail}`);
+    $(this).find('#confirm-small-modal__btn-submit').text(btnText);
+
+    // Assign action and method to form
+    const form = document.getElementById('form-delete-restore');
+    if(action && form){
+        $('#form-delete-restore').attr('action', action);
+    }
+    if(method && form){
+        $('#form-delete-restore__input-method').val(method);
+    }
+    console.log(action);
+});
+
+$('#confirm-small-modal__btn-submit').on('click', function() {
+    $('#form-delete-restore').submit();
+});
+

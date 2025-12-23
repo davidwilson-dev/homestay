@@ -232,14 +232,34 @@ class UserController extends Controller
     }
 
     /**
-     * Soft delete the specified resource from  storage
+     * Soft delete, trash, restore User
      */
 
-    public function delete(Request $request)
+    public function delete($id)
     {
-        $user = User::findOrFail($request->id);
+
+        $user = User::findOrFail($id);
         $user->delete();
         return redirect('admin/user')->with('status', 'Xóa người dùng thành công');
+    }
+
+    public function trash()
+    {
+        $users = User::onlyTrashed()->orderBy('id', 'ASC')->get();
+        return view('admin.user.trash', compact(['users']));
+    }
+
+    public function restore($id)
+    {
+        User::withTrashed()->findOrFail($id)->restore();
+        return redirect('admin/user/trash')->with('status', 'Khôi phục tài khoản thành công');
+    }
+
+    public function force($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->forceDelete();
+        return redirect('admin/user/trash')->with('status', 'Xóa vĩnh viễn tài khoản thành công');
     }
 
     /**
@@ -247,32 +267,6 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::findOrFail($id);
-
-        //Do not delete User Admin
-        if($user->Role->name == 'admin')
-        {
-            return redirect('/admin/user')->with('error', 'Không được phép xóa tài khoản Admin');
-        }
-
-        //Delete avatar
-        $path_unlink = 'frontend/admin/images/users/'.$user->avatar;
-
-        if(file_exists($path_unlink) && $path_unlink !== 'frontend/admin/images/users/')
-        {
-            unlink($path_unlink);
-        }
-
-        $user->delete();
-        return redirect('/admin/user')->with('status', 'Xóa tài khoản thành công');
-    }
-
-    /* Custom function */
-    public function trash()
-    {
-        $users = User::onlyTrashed()->orderBy('id', 'ASC')->get();
-        $list_name = 'đã xóa';
-        return view('admin.user.index', compact(['users', 'list_name']));
     }
 
     public function locked()

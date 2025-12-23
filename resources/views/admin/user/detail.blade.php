@@ -112,7 +112,7 @@
                                                             type="text" 
                                                             class="form-control input-date" 
                                                             value="{{\Carbon\Carbon::createFromFormat('Y-m-d', $user->employee->dateOfBirth)->format('d/m/Y')}}"
-                                                            readonly
+                                                            disabled
                                                         >                             
                                                         <div class="input-group-append">
                                                             <span class="input-group-text bg-primary text-white b-0"><i class="mdi mdi-calendar"></i></span>
@@ -200,7 +200,12 @@
                                                             Cơ sở
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <input class="form-control required" type="text" value="{{$user->employee->facility->name}}" readonly>
+                                                        <input 
+                                                            class="form-control required" 
+                                                            type="text" 
+                                                            value="{{$user->employee->facility_id ? $user->employee->facility->name : ''}}" 
+                                                            readonly
+                                                        >
                                                     </div>
                                                     <div>
                                                         <label class="control-label " for=""> 
@@ -208,7 +213,12 @@
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <div class="">
-                                                            <input type="text" class="required form-control" value="{{$user->employee->facility->address}}" readonly>
+                                                            <input 
+                                                                type="text" 
+                                                                class="required form-control" 
+                                                                value="{{$user->employee->facility_id ? $user->employee->facility->address : ''}}" 
+                                                                readonly
+                                                            >
                                                         </div>
                                                     </div>
                                                 </div>

@@ -14,7 +14,7 @@
                             <div class="mb-3 mx-auto d-block">
                                 <img 
                                     src="{{asset('storage/' . $user->employee->avatar)}}" 
-                                    data-default-avatar="{{ asset('assets/admin/images/employee/avatar-default.png') }}"
+                                    data-default-avatar="{{ asset('assets/admin/images/employees/avatar-default.png') }}"
                                     id="image-avatar" 
                                     class="rounded-circle" 
                                     alt="profile-image"
@@ -224,7 +224,13 @@
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <div class="">
-                                                            <input type="text" id="facility-address" class="required form-control" value="{{$user->employee->facility->address}}" readonly>
+                                                            <input 
+                                                                class="form-control required" 
+                                                                type="text" 
+                                                                id="facility-address" 
+                                                                value="{{$user->employee->facility_id ? $user->employee->facility->address : ''}}" 
+                                                                readonly
+                                                            >
                                                         </div>
                                                     </div>
                                                 </div>

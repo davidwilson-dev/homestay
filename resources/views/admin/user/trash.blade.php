@@ -4,14 +4,7 @@
     <div class="col-sm-12">
         <div class="card-box table-responsive">          
             <div class="d-flex justify-content-between mb-4">
-                <h4 class="header-title"><b>Danh sách tài khoản {{isset($list_name )? $list_name : ''}}</b></h4>
-                <a 
-                    type="button" 
-                    class="btn btn-primary waves-effect width-md waves-light"
-                    href="{{route('admin.user.create')}}"
-                >
-                    Tạo tài khoản
-                </a>
+                <h4 class="header-title"><b>Danh sách tài khoản đã xóa</b></h4>
             </div>
 
             <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -45,11 +38,20 @@
                         <td>{{$user->employee ? $user->employee->phone : ''}}</td>
                         <td>{{$user->employee->facility ? $user->employee->facility->name : ''}}</td>
                         <td>
-                            <a class="mx-1 text-primary" href="{{route('admin.user.show', $user->id)}}">
-                                <i class="mdi mdi-eye" style="font-size: 22px"></i>
-                            </a>
-                            <a class="mx-1 text-warning" href="{{route('admin.user.edit', $user->id)}}">
-                                <i class="mdi mdi-pencil" style="font-size: 22px"></i>
+                            <a 
+                                class="mx-1 text-success" 
+                                data-toggle="modal"
+                                data-target="#confirm-small-modal"
+                                href="javascript:void()"
+                                data-name="{{$user->employee ? $user->employee->name : ''}}"
+                                data-email="{{$user->email}}"
+                                data-title="Phục hồi tài khoản"
+                                data-message="Bạn có chắc chắn muốn phục hồi tài khoản này không?"
+                                data-btntext="Phục hồi"
+                                data-action="{{route('admin.user.restore', $user->id)}}"
+                                data-method="PATCH"
+                            >
+                                <i class="mdi mdi-refresh" style="font-size: 22px"></i>
                             </a>
                             <a 
                                 class="mx-1 text-danger" 
@@ -58,13 +60,13 @@
                                 href="javascript:void()"
                                 data-name="{{$user->employee ? $user->employee->name : ''}}"
                                 data-email="{{$user->email}}"
-                                data-title="Xóa tài khoản"
-                                data-message="Bạn có chắc chắn muốn xóa tài khoản này không?"
+                                data-title="Xóa vĩnh viễn tài khoản"
+                                data-message="Bạn có chắc chắn muốn xóa vĩnh viễn tài khoản này không?"
                                 data-btntext="Xóa"
-                                data-action="{{route('admin.user.delete', $user->id)}}"
+                                data-action="{{route('admin.user.force', $user->id)}}"
                                 data-method="DELETE"
                             >
-                                <i class="mdi mdi-delete" style="font-size: 22px"></i>
+                                <i class="mdi mdi-delete-forever" style="font-size: 22px"></i>
                             </a>
                         </td>
                     </tr>
