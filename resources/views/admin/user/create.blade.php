@@ -12,8 +12,8 @@
                         <div class="member-card">
                             <div class="mb-3 mx-auto d-block">
                                 <img 
-                                    src="{{asset('assets/admin/images/staffs/avatar-default.png')}}" 
-                                    data-default-avatar="{{ asset('assets/admin/images/staffs/avatar-default.png') }}"
+                                    src="{{asset('assets/admin/images/employees/avatar-default.png')}}" 
+                                    data-default-avatar="{{ asset('assets/admin/images/employees/avatar-default.png') }}"
                                     id="image-avatar" 
                                     class="rounded-circle" 
                                     alt="profile-image"
@@ -67,7 +67,7 @@
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-md-9">
-                                                        <select name="position" class="form-control" style="width: 100%">
+                                                        <select name="position" class="form-control required" style="width: 100%">
                                                                 <option>Chọn chức vụ</option>
                                                                 <option value="manager">Quản lý</option>
                                                                 <option value="accountant">Kế toán</option>
@@ -198,7 +198,7 @@
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <select name="facility_id" class="form-control" id="selected-facility">
-                                                                <option value="0">Chọn cơ sở</option>
+                                                                <option>Chọn cơ sở</option>
                                                             @foreach($facilities as $facility)
                                                                 <option 
                                                                     value="{{$facility->id}}" 

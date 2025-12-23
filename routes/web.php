@@ -4,9 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
-// use App\Http\Controllers\StaffController;
-// use App\Http\Controllers\RoomController;
-// use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +15,6 @@ use App\Http\Controllers\UserController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-//Client
 
 //Admin
 Auth::routes();
@@ -33,18 +28,11 @@ Route::prefix('admin')
         // Users page
         Route::get('user/locked', [UserController::class, 'locked'])->middleware('role:admin');
         Route::get('user/trash', [UserController::class, 'trash'])->middleware('role:admin');
-        Route::delete('user/delete', [UserController::class, 'delete'])->middleware('role:admin,owner');
-        Route::resource('user', UserController::class)->names('user')->middleware('role:admin,owner'); 
-
-        // Staffs page
-        Route::resource('staff', StaffController::class)->names('staff');
-
-        // Rooms page
-        Route::resource('room', RoomController::class)->names('room');
-        Route::resource('order', OrderController::class)->names('order');
-        Route::get('order-booked', [OrderController::class, 'index_booked']);
-        Route::get('order-checkin', [OrderController::class, 'index_checkin']);
-        Route::get('order-checkout', [OrderController::class, 'index_checkout']);
+        Route::delete('user/{id}/delete', [UserController::class, 'delete'])->middleware('role:admin,owner')->name('user.delete');
+        Route::patch('user/{id}/restore', [UserController::class, 'restore'])->middleware('role:admin')->name('user.restore');
+        Route::delete('user/{id}/force', [UserController::class, 'force'])->middleware('role:admin')->name('user.force');
+        Route::resource('user', UserController::class)->middleware('role:admin,owner')->names('user'); 
     }
 );
 
+//Client

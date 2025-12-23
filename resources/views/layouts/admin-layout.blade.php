@@ -78,17 +78,17 @@
                         @if(
                             Auth::user()->username !== 'admin' && 
                             Auth::user()->username !== 'owner' && 
-                            Auth::user()->staff !== null &&
-                            Auth::user()->staff->avatar !== null
+                            Auth::user()->employee !== null &&
+                            Auth::user()->employee->avatar !== null
                         )
                             <img 
-                                src="{{asset('storage/' . Auth::user()->staff->avatar)}}" 
+                                src="{{asset('storage/' . Auth::user()->employee->avatar)}}" 
                                 alt="user-image" 
                                 class="rounded-circle" 
                                 style="width: 40px; height: 40px;"
                             />
                         @else
-                            <img src="{{asset('assets/admin/images/staffs/avatar-default.png')}}" alt="user-image" class="rounded-circle" />
+                            <img src="{{asset('assets/admin/images/employees/avatar-default.png')}}" alt="user-image" class="rounded-circle" />
                         @endif
                         <span class="d-none d-sm-inline-block ml-1">{{Auth::user()->username}}</span>
                     </a>
@@ -239,8 +239,8 @@
                                 <span class="menu-arrow"></span>
                             </a>
                             <ul class="nav-second-level" aria-expanded="false">
-                                <li><a href="{{route('admin.staff.index')}}">Danh sách</a></li>
-                                <li><a href="{{route('admin.staff.create')}}">Tạo nhân viên</a></li>
+                                <li><a href="#">Danh sách</a></li>
+                                <li><a href="#">Tạo nhân viên</a></li>
                                 <li>
                                     <a
                                         href="#custom-modal"                                 
@@ -269,8 +269,8 @@
                                 <span class="menu-arrow"></span>
                             </a>
                             <ul class="nav-second-level" aria-expanded="false">
-                                <li><a href="{{route('admin.room.index')}}">Danh sách</a></li>
-                                <li><a href="{{route('admin.room.create')}}">Tạo phòng</a></li>
+                                <li><a href="#">Danh sách</a></li>
+                                <li><a href="#">Tạo phòng</a></li>
                             </ul>
                         </li>
 
@@ -281,11 +281,11 @@
                                 <span class="menu-arrow"></span>
                             </a>
                             <ul class="nav-second-level" aria-expanded="false">
-                                <li><a href="{{route('admin.order.index')}}">Tổng hợp</a></li>
-                                <li><a href="{{url('admin/order-booked')}}">Đã đặt phòng</a></li>
-                                <li><a href="{{url('admin/order-checkin')}}">Đang thuê phòng</a></li>   
-                                <li><a href="{{url('admin/order-checkout')}}">Đã trả phòng</a></li>                                
-                                <li><a href="{{route('admin.order.create')}}">Tạo đơn hàng</a></li>
+                                <li><a href="#">Tổng hợp</a></li>
+                                <li><a href="#">Đã đặt phòng</a></li>
+                                <li><a href="#">Đang thuê phòng</a></li>   
+                                <li><a href="#">Đã trả phòng</a></li>                                
+                                <li><a href="#">Tạo đơn hàng</a></li>
                             </ul>
                         </li>
                         <li>
@@ -406,6 +406,12 @@
                     <!-- end page title -->
                         
                     @yield('content')
+                    @include('admin.ui.confirm-small-modal')
+                    <!-- Form delete restore-->
+                    <form method="POST" id="form-delete-restore" class="d-none">
+                        @csrf
+                        <input type="hidden" name="_method" id="form-delete-restore__input-method">
+                    </form>
                 </div>
                 <!-- end container-fluid -->
             </div>
@@ -562,7 +568,6 @@
 
     <!-- ============ CUSTOM =========== -->
     <script src="{{asset('assets/admin/js/helper.js')}}"></script>
-    <script src="{{asset('assets/admin/js/user-staff.js')}}"></script>
-    @stack('script-delete-user')
+    <script src="{{asset('assets/admin/js/user.js')}}"></script>
 </body>
 </html>
