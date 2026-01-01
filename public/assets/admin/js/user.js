@@ -14,6 +14,42 @@ if(inputAvatar){
     })
 }
 
+// Handle selected Employee
+const selectedEmployee = document.getElementById('selected-employee');
+
+if(selectedEmployee){
+    selectedEmployee.addEventListener('change', function () {
+        // Get selected option
+        const selectedOptionEmployee = this.options[this.selectedIndex];
+        
+        // Get data from data attributes
+        const name = selectedOptionEmployee.getAttribute('data-name') || '';
+        const citizen = selectedOptionEmployee.getAttribute('data-citizen') || '';
+        const dateOfBirth = selectedOptionEmployee.getAttribute('data-dateOfBirth') || null;
+        const phone = selectedOptionEmployee.getAttribute('data-phone') || '';
+        const gender = selectedOptionEmployee.getAttribute('data-gender') || 1;
+        const startDate = selectedOptionEmployee.getAttribute('data-startDate') || null;
+        const endDate = selectedOptionEmployee.getAttribute('data-endDate') || null;
+        const address = selectedOptionEmployee.getAttribute('data-address') || '';
+        const note = selectedOptionEmployee.getAttribute('data-note') || '';
+    
+        // Assign data to input fields
+        document.querySelector('input[name="name"]').value = name || '';
+        document.querySelector('input[name="citizen"]').value = citizen || '';
+        if (dateOfBirth) document.querySelector('input[name="dateOfBirth"]').value = dateOfBirth;
+        document.querySelector('input[name="phone"]').value = phone || '';
+        document.querySelector('input[name="gender"]').value = gender || 1;
+        if (startDate) document.querySelector('input[name="startDate"]').value = startDate;
+        if (endDate) document.querySelector('input[name="endDate"]').value = endDate;
+        document.querySelector('input[name="address"]').value = address || '';
+        document.querySelector('input[name="note"]').value = note || '';
+        if (gender) {
+            document.querySelectorAll('input[name="gender"]').forEach(radio => {
+                radio.checked = radio.value === String(gender);
+            });
+        }
+    });
+}
 
 // Handle avatar Facility
 const seletedFacility = document.getElementById('selected-facility');
@@ -21,12 +57,12 @@ const seletedFacility = document.getElementById('selected-facility');
 if(seletedFacility){
     seletedFacility.addEventListener('change', function () {
         // Get selected option
-        const selectedOption = this.options[this.selectedIndex];
+        const selectedOptionFacility = this.options[this.selectedIndex];
         
         // Get data from data attributes
-        const address = selectedOption.getAttribute('data-address') || '';
-        const avatar = selectedOption.getAttribute('data-avatar') || null;
-        const avatarDefault = selectedOption.getAttribute('data-avatar-default') || '';
+        const address = selectedOptionFacility.getAttribute('data-address') || '';
+        const avatar = selectedOptionFacility.getAttribute('data-avatar') || null;
+        const avatarDefault = selectedOptionFacility.getAttribute('data-avatar-default') || '';
     
         // Assign data to input fields
         document.getElementById('facility-address').value = address || '';
@@ -74,7 +110,6 @@ $('#confirm-small-modal').on('show.bs.modal', function (event) {
     if(method && form){
         $('#form-delete-restore__input-method').val(method);
     }
-    console.log(action);
 });
 
 $('#confirm-small-modal__btn-submit').on('click', function() {

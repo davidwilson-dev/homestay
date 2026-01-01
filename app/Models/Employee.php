@@ -21,9 +21,11 @@ class Employee extends Model
         'citizen',
         'position',
         'phone',
+        'gender',
         'address',
         'start_date',
         'end_date',
+        'salary_base',
         'note'
     ];
     protected $casts = [

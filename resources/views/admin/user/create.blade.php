@@ -93,6 +93,36 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label" for="name"> 
+                                                        Nhân viên
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <select name="employee_id" class="form-control" id="selected-employee">
+                                                                <option>Chọn nhân viên</option>
+                                                            @foreach($employees as $employee)
+                                                                <option 
+                                                                    value="{{$employee->id}}" 
+                                                                    data-name="{{$employee->name}}"
+                                                                    data-avatar="{{$employee->avatar ? asset('storage/' . $employee->avatar) : null}}"
+                                                                    data-citizen="{{$employee->citizen}}"
+                                                                    data-dateOfBirth="{{\Carbon\Carbon::createFromFormat('Y-m-d', $employee->dateOfBirth)->format('d/m/Y')}}"
+                                                                    data-phone="{{$employee->phone}}"
+                                                                    data-gender="{{$employee->gender}}"
+                                                                    data-startDate="{{$employee->start_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $employee->start_date)->format('d/m/Y') : null}}"
+                                                                    data-endDate="{{$employee->end_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $employee->end_date)->format('d/m/Y') : null}}"
+                                                                    data-address="{{$employee->address}}"
+                                                                    data-note="{{$employee->note}}"
+                                                                >
+                                                                    {{$employee->name}}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>                                               
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="form-group col-md-6 row">
                                                     <label class="col-md-3 control-label " for="surname"> 
                                                         CCCD
                                                         <span class="text-danger">*</span>
@@ -101,9 +131,6 @@
                                                         <input name="citizen" type="text" class="required form-control">
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="row d-flex justify-content-between">
                                                 <div class="form-group col-md-6 row">
                                                     <label class="col-md-3 control-label">
                                                         Ngày sinh
@@ -115,7 +142,10 @@
                                                             <span class="input-group-text bg-primary text-white b-0"><i class="mdi mdi-calendar"></i></span>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>                                             
+                                            </div>
+
+                                            <div class="row d-flex justify-content-between">
                                                 <div class="form-group col-md-6 row">
                                                     <label class="col-md-3 control-label" > 
                                                         Điện thoại
@@ -123,6 +153,47 @@
                                                     </label>
                                                     <div class="col-md-9">
                                                         <input name="phone" type="text" class="required form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label" > 
+                                                        Giới tính
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <span class="radio radio-primary mr-3">
+                                                            <input name="gender" type="radio" id="male" value="1">
+                                                            <label for="male">Nam</label>
+                                                        </span>
+                                                        <span class="radio radio-primary">
+                                                            <input name="gender" type="radio" id="female" value="0">
+                                                            <label for="female">Nữ</label>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label">
+                                                        Nhận việc
+                                                    </label>
+                                                    <div class="col-md-9 input-group">
+                                                        <input type="text" class="form-control input-date" placeholder="ngày/tháng/năm" name="start_date">                             
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text bg-primary text-white b-0"><i class="mdi mdi-calendar"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label" > 
+                                                        Nghỉ việc
+                                                    </label>
+                                                    <div class="col-md-9 input-group">
+                                                        <input type="text" class="form-control input-date" placeholder="ngày/tháng/năm" name="end_date">                             
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text bg-primary text-white b-0"><i class="mdi mdi-calendar"></i></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -154,7 +225,7 @@
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-md-9">
-                                                        <input name="salary_basic" type="text" class="required form-control" oninput="formatCurrency(this)">
+                                                        <input name="" type="text" class="required form-control" oninput="formatCurrency(this)">
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-6 row">
