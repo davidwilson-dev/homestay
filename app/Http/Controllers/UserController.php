@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 use App\Models\User;
 use App\Models\Role;
@@ -50,8 +51,9 @@ class UserController extends Controller
     public function create()
     {
         $facilities = Facility::get();
+        $employees = Employee::get();
 
-        return view('admin.user.create', compact(['facilities']));
+        return view('admin.user.create', compact(['facilities', 'employees']));
     }
 
     /**
@@ -62,78 +64,127 @@ class UserController extends Controller
         DB::beginTransaction();
 
         try {
-            // ========== Handle User ========== //
+            // ========== Handle existing Employee ========== //
+            if($request->employee_id){
+                // Check existing employee
+                $existingEmployee = Employee::findOrFail($request->employee_id);
+                if ($existingEmployee->user_id) {
+                    throw new Exception('Nhân viên đã được liên kết với tài khoản người dùng khác.');
+                }
 
-            // Create new User
-            $user = new User;   
+                // Create new User
+                $user = new User;   
 
-            // Create password
-            $password = Str::random(8);
-            $user->password = Hash::make($password);
+                // Create password
+                $password = Str::random(8);
+                $user->password = Hash::make($password);
 
-            // Get data User from request
-            $user->email = $request->email;
+                // Get data User from request
+                $user->email = $request->email;
 
-            // Handle username
-            $user->username = Str::slug(Str::before($user->email, '@'));
+                // Handle username
+                $user->username = Str::slug(Str::before($user->email, '@'));
 
-            // Save User
-            $user->save();
+                // Save User
+                $user->save();
 
-            // ========== Handle Employee ========== //
+                // Get data Employee from request
+                $existingEmployee->fill($request->all());
 
-            // Create new Employee
-            $employee = new Employee;
+                // Handle avatar
+                if ($request->hasFile('avatar')) {
+                    $avatarPath = $this->imageService->saveImageAvatar($request->file('avatar'), 'employees', $existingEmployee->name);
+                    $existingEmployee->avatar = $avatarPath;
+                }
 
-            // Get data Employee from request
-            $employee->fill($request->all());
+                // Link existing employee to new user
+                $existingEmployee->user_id = $user->id;
 
-            // Handle user_id
-            $employee->user_id = $user->id;
-            
-            // Handle code employee
-            $counter = DB::table('code_employee_counter')->lockForUpdate()->first();
-            $number;
-            if(! $counter)
-            {
-                $number = 1;
-                DB::table('code_employee_counter')->insert([
-                    'last_number' => $number,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
+                // Save Employee
+                $existingEmployee->save();
+
+                // Handle Role 
+                $position = $request->input('position');
+                $employeeRoleService->syncUserRolesByPosition($user, $position);
+
+                // Send mail verify
+                CreateUserJob::dispatch($user->id, $password);
+
+                DB::commit();
+                return redirect('/admin/user')->with('status', 'Tạo tài khoản thành công');
             }
-            else
-            {
-                $number = $counter->last_number + 1;
-                DB::table('code_employee_counter')
-                    ->where('id', $counter->id)
-                    ->update([
+
+            // ========== Handle New Employee ========== //
+            if(!$request->employee_id){
+
+                // Create new User
+                $user = new User;   
+    
+                // Create password
+                $password = Str::random(8);
+                $user->password = Hash::make($password);
+    
+                // Get data User from request
+                $user->email = $request->email;
+    
+                // Handle username
+                $user->username = Str::slug(Str::before($user->email, '@'));
+    
+                // Save User
+                $user->save();
+    
+                // Create new Employee
+                $employee = new Employee;
+    
+                // Get data Employee from request
+                $employee->fill($request->all());
+    
+                // Handle user_id
+                $employee->user_id = $user->id;
+                
+                // Handle code employee
+                $counter = DB::table('code_employee_counter')->lockForUpdate()->first();
+                $number;
+                if(! $counter)
+                {
+                    $number = 1;
+                    DB::table('code_employee_counter')->insert([
                         'last_number' => $number,
+                        'created_at' => now(),
                         'updated_at' => now(),
-                ]);
-            }           
-            $employee->code = str_pad($number, 4, '0', STR_PAD_LEFT);
-
-            // Handle avatar
-            if ($request->hasFile('avatar')) {
-                $avatarPath = $this->imageService->saveImageAvatar($request->file('avatar'), 'employees', $employee->name);
-                $employee->avatar = $avatarPath;
+                    ]);
+                }
+                else
+                {
+                    $number = $counter->last_number + 1;
+                    DB::table('code_employee_counter')
+                        ->where('id', $counter->id)
+                        ->update([
+                            'last_number' => $number,
+                            'updated_at' => now(),
+                    ]);
+                }           
+                $employee->code = str_pad($number, 4, '0', STR_PAD_LEFT);
+    
+                // Handle avatar
+                if ($request->hasFile('avatar')) {
+                    $avatarPath = $this->imageService->saveImageAvatar($request->file('avatar'), 'employees', $employee->name);
+                    $employee->avatar = $avatarPath;
+                }
+    
+                // Save Employee
+                $employee->save();
+    
+                // Handle Role
+                $position = $request->input('position');
+                $employeeRoleService->syncUserRolesByPosition($user, $position);
+    
+                // Send mail verify
+                CreateUserJob::dispatch($user->id, $password);
+    
+                DB::commit();
+                return redirect('/admin/user')->with('status', 'Tạo tài khoản thành công');
             }
-
-            // Save Employee
-            $employee->save();
-
-            // ========== Handle Role ========== //
-            $position = $request->input('position');
-            $employeeRoleService->syncUserRolesByPosition($user, $position);
-
-
-            // ========== Send mail verify ========== // 
-            CreateUserJob::dispatch($user->id, $password);
-
-            DB::commit();
-            return redirect('/admin/user')->with('status', 'Tạo tài khoản thành công');
         }
         catch (Exception $e) {
             DB::rollBack();
@@ -257,8 +308,23 @@ class UserController extends Controller
 
     public function force($id)
     {
+        // Find user including soft-deleted ones
         $user = User::withTrashed()->findOrFail($id);
+
+        // Delete avatar image
+        if ($user->employee && $user->employee->avatar) {
+            $this->imageService->deleteImage($user->employee->avatar);
+        }
+
+        // Permanently delete the user
         $user->forceDelete();
+
+        // Also delete associated employee record if exists
+        if ($user->employee) {
+            $user->employee->forceDelete();
+        }
+
+        // Redirect back with success message
         return redirect('admin/user/trash')->with('status', 'Xóa vĩnh viễn tài khoản thành công');
     }
 

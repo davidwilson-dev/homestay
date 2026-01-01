@@ -15,8 +15,9 @@ class EmployeeRoleService
         // Map position to roles
         $positionRoleMap = [
             'manager'      => ['manager'],
-            'accountant'   => ['staff'],
+            'accountant'   => ['accountant'],
             'receptionist' => ['staff'],
+            'chef'         => ['staff'],
             'cleaner'      => ['staff'],
             'security'     => ['staff'],
         ];
