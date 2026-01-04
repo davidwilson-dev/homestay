@@ -69,7 +69,7 @@ class UserController extends Controller
                 // Check existing employee
                 $existingEmployee = Employee::findOrFail($request->employee_id);
                 if ($existingEmployee->user_id) {
-                    throw new Exception('Nhân viên đã được liên kết với tài khoản người dùng khác.');
+                    return redirect('admin/user')->with('error', 'Nhân viên đã được liên kết với tài khoản người dùng khác.');
                 }
 
                 // Create new User
@@ -116,7 +116,6 @@ class UserController extends Controller
 
             // ========== Handle New Employee ========== //
             if(!$request->employee_id){
-
                 // Create new User
                 $user = new User;   
     

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('citizen')->nullable();
             $table->string('avatar')->nullable();
             $table->string('phone')->nullable();
+            $table->boolean('gender')->default(true);
             $table->string('address')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
