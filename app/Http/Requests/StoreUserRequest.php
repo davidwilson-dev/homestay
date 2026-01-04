@@ -38,6 +38,24 @@ class StoreUserRequest extends FormRequest
                     ->format('Y-m-d'),
             ]);
         }
+
+        // Format start date from d/m/Y to Y-m-d
+        if ($this->filled('start_date')) 
+        {
+            $this->merge([
+                'start_date' => Carbon::createFromFormat('d/m/Y', $this->start_date)
+                    ->format('Y-m-d'),
+            ]);
+        }
+
+        // Format end date from d/m/Y to Y-m-d
+        if ($this->filled('end_date')) 
+        {
+            $this->merge([
+                'end_date' => Carbon::createFromFormat('d/m/Y', $this->end_date)
+                    ->format('Y-m-d'),
+            ]);
+        }
     }
 
     /**
@@ -53,6 +71,8 @@ class StoreUserRequest extends FormRequest
             'name' => 'required|string|min:5|max:50',
             'citizen' => 'required|string|size:12',
             'dateOfBirth' => ['required','date','before_or_equal:' . now()->subYears(18)->format('Y-m-d'),],
+            'start_date' => ['nullable','date'],
+            'end_date' => ['nullable','date'],
             'phone' => 'required',
             'facility_id' => 'nullable|integer',
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
@@ -72,7 +92,8 @@ class StoreUserRequest extends FormRequest
             'dateOfBirth.required' => 'Ngày sinh là thông tin bắt buộc',
             'phone.required' => 'Số điện thoại là thông tin bắt buộc',
             'facility_id.required' => 'Phải chọn cơ sở Homestay cho nhân viên',
-            'avatar.required' => 'Ảnh đại diện là bắt buộc'
+            'avatar.required' => 'Ảnh đại diện là bắt buộc',
+            'avatar.max' => 'Ảnh đại diện không được lớn hơn 2MB',
         ];
     }
 }

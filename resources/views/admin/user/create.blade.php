@@ -98,7 +98,7 @@
                                                     </label>
                                                     <div class="col-md-9">
                                                         <select name="employee_id" class="form-control" id="selected-employee">
-                                                                <option>Chọn nhân viên</option>
+                                                                <option value="{{null}}">Chọn nhân viên</option>
                                                             @foreach($employees as $employee)
                                                                 <option 
                                                                     value="{{$employee->id}}" 
@@ -269,7 +269,7 @@
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         <select name="facility_id" class="form-control" id="selected-facility">
-                                                                <option>Chọn cơ sở</option>
+                                                                <option value="{{null}}">Chọn cơ sở</option>
                                                             @foreach($facilities as $facility)
                                                                 <option 
                                                                     value="{{$facility->id}}" 
