@@ -32,14 +32,14 @@ if(selectedEmployee){
         const endDate = selectedOptionEmployee.getAttribute('data-endDate') || null;
         const address = selectedOptionEmployee.getAttribute('data-address') || '';
         const note = selectedOptionEmployee.getAttribute('data-note') || '';
-        console.log(gender);
+
         // Assign data to input fields
         document.querySelector('input[name="name"]').value = name || '';
         document.querySelector('input[name="citizen"]').value = citizen || '';
         if (dateOfBirth) document.querySelector('input[name="dateOfBirth"]').value = dateOfBirth;
         document.querySelector('input[name="phone"]').value = phone || '';
-        if (startDate) document.querySelector('input[name="startDate"]').value = startDate;
-        if (endDate) document.querySelector('input[name="endDate"]').value = endDate;
+        if (startDate) document.querySelector('input[name="start_date"]').value = startDate;
+        if (endDate) document.querySelector('input[name="end_date"]').value = endDate;
         document.querySelector('input[name="address"]').value = address || '';
         document.querySelector('input[name="note"]').value = note || '';
         if (gender) {

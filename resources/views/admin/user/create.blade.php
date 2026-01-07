@@ -311,7 +311,7 @@
                                 <a 
                                     class="btn btn-secondary width-sm waves-effect waves-light text-white" 
                                     style="margin-right: 4px;"
-                                    href="javascript:history.back()"
+                                    href="{{route('admin.user.index')}}"
                                 >
                                     Hủy
                                 </a>
