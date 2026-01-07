@@ -27,18 +27,17 @@ if(selectedEmployee){
         const citizen = selectedOptionEmployee.getAttribute('data-citizen') || '';
         const dateOfBirth = selectedOptionEmployee.getAttribute('data-dateOfBirth') || null;
         const phone = selectedOptionEmployee.getAttribute('data-phone') || '';
-        const gender = selectedOptionEmployee.getAttribute('data-gender') || 1;
+        const gender = selectedOptionEmployee.getAttribute('data-gender') || null;
         const startDate = selectedOptionEmployee.getAttribute('data-startDate') || null;
         const endDate = selectedOptionEmployee.getAttribute('data-endDate') || null;
         const address = selectedOptionEmployee.getAttribute('data-address') || '';
         const note = selectedOptionEmployee.getAttribute('data-note') || '';
-    
+        console.log(gender);
         // Assign data to input fields
         document.querySelector('input[name="name"]').value = name || '';
         document.querySelector('input[name="citizen"]').value = citizen || '';
         if (dateOfBirth) document.querySelector('input[name="dateOfBirth"]').value = dateOfBirth;
         document.querySelector('input[name="phone"]').value = phone || '';
-        document.querySelector('input[name="gender"]').value = gender || 1;
         if (startDate) document.querySelector('input[name="startDate"]').value = startDate;
         if (endDate) document.querySelector('input[name="endDate"]').value = endDate;
         document.querySelector('input[name="address"]').value = address || '';

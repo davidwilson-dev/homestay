@@ -103,6 +103,25 @@
 
                                             <div class="row d-flex justify-content-between">
                                                 <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label" > 
+                                                        Giới tính
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <span class="radio radio-primary mr-3">
+                                                            <input name="gender" type="radio" id="male" value="1" {{ $user->employee->gender === 1 ? 'checked' : '' }}>
+                                                            <label for="male">Nam</label>
+                                                        </span>
+                                                        <span class="radio radio-primary">
+                                                            <input name="gender" type="radio" id="female" value="0" {{ $user->employee->gender === 0 ? 'checked' : '' }}>
+                                                            <label for="female">Nữ</label>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="form-group col-md-6 row">
                                                     <label class="col-md-3 control-label">
                                                         Ngày sinh
                                                         <span class="text-danger">*</span>
@@ -126,6 +145,41 @@
                                                     </label>
                                                     <div class="col-md-9">
                                                         <input type="text" class="required form-control" value="{{$user->employee->phone}}" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row d-flex justify-content-between">
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label">
+                                                        Nhận việc
+                                                    </label>
+                                                    <div class="col-md-9 input-group">
+                                                        <input 
+                                                            type="text" 
+                                                            class="form-control input-date" 
+                                                            name="start_date"
+                                                            value="{{\Carbon\Carbon::createFromFormat('Y-m-d', $user->employee->start_date)->format('d/m/Y')}}"
+                                                        >                             
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text bg-primary text-white b-0"><i class="mdi mdi-calendar"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-6 row">
+                                                    <label class="col-md-3 control-label" > 
+                                                        Nghỉ việc
+                                                    </label>
+                                                    <div class="col-md-9 input-group">
+                                                        <input 
+                                                            type="text" 
+                                                            class="form-control input-date" 
+                                                            name="end_date"
+                                                            value="{{ $user->employee->end_date ? \Carbon\Carbon::createFromFormat('Y-m-d', $user->employee->end_date)->format('d/m/Y') : ''}}"
+                                                        >                        
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text bg-primary text-white b-0"><i class="mdi mdi-calendar"></i></span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -240,14 +294,10 @@
                             <div class="d-flex justify-content-end">
                                 <a 
                                     class="btn btn-secondary width-sm waves-effect waves-light text-white" 
-                                    style="margin-right: 4px;"
-                                    href="{{route('admin.user.index')}}"
+                                    href="javascript:history.back()"
                                 >
-                                    Hủy
+                                    Quay lại
                                 </a>
-                                <button type="submit" id="submit-btn" class="btn btn-primary width-sm waves-effect waves-light">
-                                    Cập nhật
-                                </button>
                             </div>
                         </div>
                     </div>
